@@ -29,6 +29,7 @@ namespace YourTest.REST.Data
                         new Question
                         {
                             Id = 1,
+                            Type = QuestionType.MixedReality,
                             Description = "What sky color is?",
                             Answare = "blue",
                             PossibleAnswares = new []
@@ -42,6 +43,7 @@ namespace YourTest.REST.Data
                         new Question
                         {
                             Id = 2,
+                            Type = QuestionType.MixedReality,
                             Description = "2 + 2 = ?",
                             Answare = "4",
                             PossibleAnswares = new []
@@ -51,6 +53,13 @@ namespace YourTest.REST.Data
                                 "6",
                                 "4"
                             }
+                        },
+                        new Question
+                        {
+                            Id = 3,
+                            Description = "Find Red Box.",
+                            Type = QuestionType.MixedReality,
+                            Answare = "Box-Top-Right"
                         },
                     }
             };
