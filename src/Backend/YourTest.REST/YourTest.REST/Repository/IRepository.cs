@@ -7,5 +7,6 @@ namespace YourTest.REST.Repository
         where TModel : ModelBase
     {
         IQueryable<TModel> Query();
+        void Insert(TModel model);
     }
 }
