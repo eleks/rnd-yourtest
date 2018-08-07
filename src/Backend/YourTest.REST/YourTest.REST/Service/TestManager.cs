@@ -11,9 +11,24 @@ namespace YourTest.REST.Service
     {
         public TestManager(IRepository<Test> repository) => _repo = repository;
 
-        public async Task<IEnumerable<Test>> GetAllAsync() => await Task.Run<IEnumerable<Test>>(() => _repo.Query().ToArray());
+        public async Task<IEnumerable<Test>> GetAllAsync() => await Task.Run<IEnumerable<Test>>(() => _repo.Query().Select(PreperItem).ToArray());
 
-        public async Task<Test> GetByIdAync(int id) => await Task.Run(() => _repo.Query().FirstOrDefault(t => t.Id == id));
+        public async Task<Test> GetByIdAync(int id) => await Task.Run(() => PreperItem(_repo.Query().FirstOrDefault(t => t.Id == id)));
+
+        private static Test PreperItem(Test item)
+        {
+            if (item == null)
+            {
+                return null;
+            }
+
+            var res = item;
+            foreach (var q in res.Questions)
+            {
+                q.Answare = null;
+            }
+            return res;
+        }
 
         private readonly IRepository<Test> _repo;
     }
