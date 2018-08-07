@@ -12,12 +12,13 @@ using YourTest.REST.Repository;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using YourTest.REST.Models;
+using YourTest.REST.Data;
 
 namespace YourTest.REST.Triggers
 {
     public static class TestHttpTrigger
     {
-        public static ITestManager TestManager { get; set; } = new TestManager(new Repository<Models.Test>());
+        public static ITestManager TestManager { get; set; } = CreateTestManager();
 
 
         [FunctionName(nameof(GetAllTests))]
@@ -53,5 +54,13 @@ namespace YourTest.REST.Triggers
             throw new NotImplementedException();
         }
 
+
+        private static ITestManager CreateTestManager()
+        {
+            IRepository<Test> repo = new InMemoryRepository<Test>();
+            IDataProvider<Test> dataProvider = new DemoDataProvider();
+            dataProvider.Seed(repo);
+            return new TestManager(repo);
+        }
     }
 }
