@@ -11,9 +11,9 @@ namespace YourTest.REST.Service
     {
         public TestManager(IRepository<Test> repository) => _repo = repository;
 
-        public async Task<IEnumerable<Test>> GetAll() => await Task.Run<IEnumerable<Test>>(() => _repo.Query().ToArray());
+        public async Task<IEnumerable<Test>> GetAllAsync() => await Task.Run<IEnumerable<Test>>(() => _repo.Query().ToArray());
 
-        public async Task<Test> GetById(int id) => await Task.Run(() => _repo.Query().FirstOrDefault(t => t.Id == id));
+        public async Task<Test> GetByIdAync(int id) => await Task.Run(() => _repo.Query().FirstOrDefault(t => t.Id == id));
 
         private readonly IRepository<Test> _repo;
     }

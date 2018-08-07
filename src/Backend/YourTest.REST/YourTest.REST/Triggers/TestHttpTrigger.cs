@@ -7,34 +7,38 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.WebJobs.Host;
 using Newtonsoft.Json;
 using System;
+using YourTest.REST.Service;
+using YourTest.REST.Repository;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using YourTest.REST.Models;
 
 namespace YourTest.REST.Triggers
 {
     public static class TestHttpTrigger
     {
+        public static ITestManager TestManager { get; set; } = new TestManager(new Repository<Models.Test>());
+
+
         [FunctionName(nameof(GetAllTests))]
-        public static IActionResult GetAllTests(
+        public static async Task<IEnumerable<Test>> GetAllTests(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = "test")]
             HttpRequest req
             , TraceWriter log
             )
         {
-            log.Info("C# HTTP trigger function processed a request.");
-
-            throw new NotImplementedException();
+            return await TestManager.GetAllAsync();
         }
 
         [FunctionName(nameof(GetTestById))]
-        public static IActionResult GetTestById(
+        public static async Task<Test> GetTestById(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = "test/{id}")]
             HttpRequest req
             , TraceWriter log
-            , string id
+            , int id
             )
         {
-            log.Info("C# HTTP trigger function processed a request.");
-
-            throw new NotImplementedException();
+            return await TestManager.GetByIdAync(id);
         }
 
         [FunctionName(nameof(ProcessTest))]
@@ -45,7 +49,6 @@ namespace YourTest.REST.Triggers
             , string id
             )
         {
-            log.Info("C# HTTP trigger function processed a request.");
 
             throw new NotImplementedException();
         }
