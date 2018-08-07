@@ -5,6 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.13" />
+    <PackageReference Include="DeepCloner" Version="0.10.2" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">
@@ -20,5 +21,6 @@
     <Folder Include="Repository\" />
     <Folder Include="Service\" />
     <Folder Include="Triggers\" />
+    <Folder Include="Data\" />
   </ItemGroup>
 </Project>
