@@ -8,7 +8,7 @@ using Microsoft.Azure.WebJobs.Host;
 using Newtonsoft.Json;
 using System;
 
-namespace YourTest.REST
+namespace YourTest.REST.Triggers
 {
     public static class TestHttpTrigger
     {
@@ -50,30 +50,5 @@ namespace YourTest.REST
             throw new NotImplementedException();
         }
 
-        [FunctionName(nameof(SetTestStatus))]
-        public static IActionResult SetTestStatus(
-            [HttpTrigger(AuthorizationLevel.Function, "put", Route = "test/{id}/status")]
-            HttpRequest req
-            , TraceWriter log
-            , string id
-            )
-        {
-            log.Info("C# HTTP trigger function processed a request.");
-
-            throw new NotImplementedException();
-        }
-
-        [FunctionName(nameof(TestSummery))]
-        public static IActionResult TestSummery(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "test/{id}/summery")]
-            HttpRequest req
-            , TraceWriter log
-            , string id
-            )
-        {
-            log.Info("C# HTTP trigger function processed a request.");
-
-            throw new NotImplementedException();
-        }
     }
 }
