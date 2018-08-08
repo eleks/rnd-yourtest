@@ -1,32 +1,36 @@
 using System;
+using Prism;
+using Prism.Autofac;
+using Prism.Ioc;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+
+using YourTest.Views;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace YourTest
 {
-    public partial class App : Application
+    public partial class App : PrismApplication
     {
-        public App()
+        public App(IPlatformInitializer platformInitializer = default(IPlatformInitializer))
+            : base(platformInitializer)
         {
             InitializeComponent();
-
-            MainPage = new MainPage();
         }
 
-        protected override void OnStart()
+        protected override async void OnInitialized()
         {
-            // Handle when your app starts
+            await NavigationService.NavigateAsync(nameof(MainPage));
         }
 
-        protected override void OnSleep()
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            // Handle when your app sleeps
+            RegisterViews(containerRegistry);
         }
 
-        protected override void OnResume()
+        private void RegisterViews(IContainerRegistry containerRegistry)
         {
-            // Handle when your app resumes
+            containerRegistry.RegisterForNavigation<MainPage>();
         }
     }
 }
