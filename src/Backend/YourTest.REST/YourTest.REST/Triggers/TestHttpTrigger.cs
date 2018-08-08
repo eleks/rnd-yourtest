@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using YourTest.REST.Models;
 using YourTest.REST.Data;
+using System.Net.Http;
 
 namespace YourTest.REST.Triggers
 {
@@ -23,7 +24,7 @@ namespace YourTest.REST.Triggers
 
         [FunctionName(nameof(GetAllTests))]
         public static async Task<IEnumerable<Test>> GetAllTests(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "test")]
+            [HttpTrigger(AuthorizationLevel.System, "get", Route = "test")]
             HttpRequest req
             , TraceWriter log
             )
@@ -33,7 +34,7 @@ namespace YourTest.REST.Triggers
 
         [FunctionName(nameof(GetTestById))]
         public static async Task<Test> GetTestById(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "test/{id}")]
+            [HttpTrigger(AuthorizationLevel.System, "get", Route = "test/{id:int}")]
             HttpRequest req
             , TraceWriter log
             , int id
@@ -43,15 +44,19 @@ namespace YourTest.REST.Triggers
         }
 
         [FunctionName(nameof(ProcessTest))]
-        public static IActionResult ProcessTest(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "test/{id}")]
-            HttpRequest req
+        public static async Task<IActionResult> ProcessTest(
+            [HttpTrigger(AuthorizationLevel.System, "post", Route = "test/{id:int}")]
+            HttpRequestMessage req
             , TraceWriter log
-            , string id
+            , Int32 id
             )
         {
 
-            throw new NotImplementedException();
+            var testToProcess = await req.Content.ReadAsAsync<Test>().ConfigureAwait(false);
+
+            var testSummery = TestManager.Verify(id, testToProcess);
+
+            return new OkObjectResult(testSummery);
         }
 
 
