@@ -6,13 +6,13 @@ namespace YourTest.REST.Models
     public class Question : ModelBase
     {
         public String Description { get; set; }
-        public IList<String> PossibleAnswares { get; set; }
-        public String Answare { get; set; }
+        public IList<String> PossibleAnswers { get; set; }
+        public String Answer { get; set; }
         public QuestionType Type { get; set; }
 
         public Question()
         {
-            PossibleAnswares = new List<String>();
+            PossibleAnswers = new List<String>();
         }
     }
 }

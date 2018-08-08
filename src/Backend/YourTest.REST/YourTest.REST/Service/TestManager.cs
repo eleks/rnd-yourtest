@@ -37,7 +37,7 @@ namespace YourTest.REST.Service
                     continue;
                 }
 
-                var isAnswerCorrect = origenQuestion.Answare == aq.Answare;
+                var isAnswerCorrect = origenQuestion.Answer == aq.Answer;
                 if (!isAnswerCorrect)
                 {
                     continue;
@@ -61,7 +61,7 @@ namespace YourTest.REST.Service
             var res = item;
             foreach (var q in res.Questions)
             {
-                q.Answare = null;
+                q.Answer = null;
             }
             return res;
         }

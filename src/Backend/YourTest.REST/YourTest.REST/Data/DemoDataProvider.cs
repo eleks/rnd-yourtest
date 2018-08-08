@@ -29,10 +29,10 @@ namespace YourTest.REST.Data
                         new Question
                         {
                             Id = 1,
-                            Type = QuestionType.MixedReality,
+                            Type = QuestionType.Text,
                             Description = "What sky color is?",
-                            Answare = "blue",
-                            PossibleAnswares = new []
+                            Answer = "blue",
+                            PossibleAnswers = new []
                             {
                                 "grean",
                                 "red",
@@ -43,10 +43,10 @@ namespace YourTest.REST.Data
                         new Question
                         {
                             Id = 2,
-                            Type = QuestionType.MixedReality,
+                            Type = QuestionType.Text,
                             Description = "2 + 2 = ?",
-                            Answare = "4",
-                            PossibleAnswares = new []
+                            Answer = "4",
+                            PossibleAnswers = new []
                             {
                                 "3",
                                 "8",
@@ -59,7 +59,7 @@ namespace YourTest.REST.Data
                             Id = 3,
                             Description = "Find Red Box.",
                             Type = QuestionType.MixedReality,
-                            Answare = "Box-Top-Right"
+                            Answer = "Box-Top-Right"
                         },
                     }
             };
