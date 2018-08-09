@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace YourTest.REST.Models
 {
@@ -7,8 +8,10 @@ namespace YourTest.REST.Models
     {
         public String Description { get; set; }
         public IList<String> PossibleAnswers { get; set; }
-        public String Answer { get; set; }
         public QuestionType Type { get; set; }
+
+        [JsonIgnore]
+        public String Answer { get; set; }
 
         public Question()
         {

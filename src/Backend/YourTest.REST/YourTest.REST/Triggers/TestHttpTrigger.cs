@@ -52,7 +52,7 @@ namespace YourTest.REST.Triggers
             )
         {
 
-            var testToProcess = await req.Content.ReadAsAsync<Test>().ConfigureAwait(false);
+            var testToProcess = await req.Content.ReadAsAsync<QuestionAnswer[]>().ConfigureAwait(false);
 
             var testSummery = TestManager.Verify(id, testToProcess);
 
