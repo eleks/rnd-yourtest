@@ -10,7 +10,7 @@ This is REST api for for YourTest project. It build using Azure Functions.
 
 ## Build
 
-Run on local machine
+Run on local machine in terminal for consumption purposes.
 
 ```bash
 
