@@ -25,7 +25,7 @@ namespace YourTest.REST.Triggers
         [FunctionName(nameof(GetAllTests))]
         public static async Task<IEnumerable<Test>> GetAllTests(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = "test")]
-            HttpRequest req
+            HttpRequestMessage req
             )
         {
             return await TestManager.GetAllAsync();
@@ -34,7 +34,7 @@ namespace YourTest.REST.Triggers
         [FunctionName(nameof(GetTestById))]
         public static async Task<Test> GetTestById(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = "test/{id:int}")]
-            HttpRequest req
+            HttpRequestMessage req
             , int id
             )
         {
@@ -49,9 +49,9 @@ namespace YourTest.REST.Triggers
             )
         {
 
-            var testToProcess = await req.Content.ReadAsAsync<QuestionAnswer[]>().ConfigureAwait(false);
+            var answers = await req.Content.ReadAsAsync<QuestionAnswer[]>().ConfigureAwait(false);
 
-            var testSummery = TestManager.Verify(id, testToProcess);
+            var testSummery = TestManager.Verify(id, answers);
 
             return new OkObjectResult(testSummery);
         }
