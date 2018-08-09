@@ -24,9 +24,8 @@ namespace YourTest.REST.Triggers
 
         [FunctionName(nameof(GetAllTests))]
         public static async Task<IEnumerable<Test>> GetAllTests(
-            [HttpTrigger(AuthorizationLevel.System, "get", Route = "test")]
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "test")]
             HttpRequest req
-            , TraceWriter log
             )
         {
             return await TestManager.GetAllAsync();
@@ -34,9 +33,8 @@ namespace YourTest.REST.Triggers
 
         [FunctionName(nameof(GetTestById))]
         public static async Task<Test> GetTestById(
-            [HttpTrigger(AuthorizationLevel.System, "get", Route = "test/{id:int}")]
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "test/{id:int}")]
             HttpRequest req
-            , TraceWriter log
             , int id
             )
         {
@@ -45,9 +43,8 @@ namespace YourTest.REST.Triggers
 
         [FunctionName(nameof(ProcessTest))]
         public static async Task<IActionResult> ProcessTest(
-            [HttpTrigger(AuthorizationLevel.System, "post", Route = "test/{id:int}")]
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "test/{id:int}")]
             HttpRequestMessage req
-            , TraceWriter log
             , Int32 id
             )
         {
