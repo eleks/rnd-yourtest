@@ -26,6 +26,9 @@ namespace YourTest.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.Id.agentWebView = global::YourTest.Droid.Resource.Id.agentWebView;
+			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.Layout.WebAuthenticationBroker = global::YourTest.Droid.Resource.Layout.WebAuthenticationBroker;
+			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.String.ApplicationName = global::YourTest.Droid.Resource.String.ApplicationName;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::YourTest.Droid.Resource.Attribute.actionBarSize;
 		}
 		
@@ -3111,6 +3114,9 @@ namespace YourTest.Droid
 			// aapt resource value: 0x7f090027
 			public const int add = 2131296295;
 			
+			// aapt resource value: 0x7f0900c9
+			public const int agentWebView = 2131296457;
+			
 			// aapt resource value: 0x7f090070
 			public const int alertTitle = 2131296368;
 			
@@ -3291,8 +3297,8 @@ namespace YourTest.Droid
 			// aapt resource value: 0x7f090061
 			public const int list_item = 2131296353;
 			
-			// aapt resource value: 0x7f0900ca
-			public const int masked = 2131296458;
+			// aapt resource value: 0x7f0900cb
+			public const int masked = 2131296459;
 			
 			// aapt resource value: 0x7f0900b9
 			public const int media_actions = 2131296441;
@@ -3627,8 +3633,8 @@ namespace YourTest.Droid
 			// aapt resource value: 0x7f090016
 			public const int view_offset_helper = 2131296278;
 			
-			// aapt resource value: 0x7f0900c9
-			public const int visible = 2131296457;
+			// aapt resource value: 0x7f0900ca
+			public const int visible = 2131296458;
 			
 			// aapt resource value: 0x7f0900ab
 			public const int volume_item_container = 2131296427;
@@ -3927,6 +3933,9 @@ namespace YourTest.Droid
 			// aapt resource value: 0x7f040043
 			public const int tooltip = 2130968643;
 			
+			// aapt resource value: 0x7f040044
+			public const int WebAuthenticationBroker = 2130968644;
+			
 			static Layout()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -3961,6 +3970,9 @@ namespace YourTest.Droid
 		
 		public partial class String
 		{
+			
+			// aapt resource value: 0x7f0a003c
+			public const int ApplicationName = 2131361852;
 			
 			// aapt resource value: 0x7f0a0015
 			public const int abc_action_bar_home_description = 2131361813;

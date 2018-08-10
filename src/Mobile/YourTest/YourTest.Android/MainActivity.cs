@@ -8,12 +8,20 @@ using Android.Widget;
 using Android.OS;
 using Android.Content;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Prism;
+using Prism.Ioc;
+using YourTest.Azure;
 
 namespace YourTest.Droid
 {
     [Activity(Label = "YourTest", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity, IPlatformInitializer
     {
+        public void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            containerRegistry.Register(typeof(IAuthenticator), typeof(Azure.Authenticator));
+        }
+
         protected override void OnCreate(Bundle bundle)
         {
             TabLayoutResource = Resource.Layout.Tabbar;
@@ -22,7 +30,7 @@ namespace YourTest.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            LoadApplication(new App());
+            LoadApplication(new App(this));
         }
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
@@ -30,6 +38,7 @@ namespace YourTest.Droid
             base.OnActivityResult(requestCode, resultCode, data);
             AuthenticationAgentContinuationHelper.SetAuthenticationAgentContinuationEventArgs(requestCode, resultCode, data);
         }
+
     }
 }
 
