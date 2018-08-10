@@ -24,7 +24,7 @@ namespace YourTest.REST.Triggers
 
         [FunctionName(nameof(GetAllTests))]
         public static async Task<IEnumerable<Test>> GetAllTests(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "test")]
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "test")]
             HttpRequestMessage req
             )
         {
@@ -33,7 +33,7 @@ namespace YourTest.REST.Triggers
 
         [FunctionName(nameof(GetTestById))]
         public static async Task<Test> GetTestById(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "test/{id:int}")]
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "test/{id:int}")]
             HttpRequestMessage req
             , int id
             )
@@ -43,7 +43,7 @@ namespace YourTest.REST.Triggers
 
         [FunctionName(nameof(ProcessTest))]
         public static async Task<IActionResult> ProcessTest(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "test/{id:int}")]
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "test/{id:int}")]
             HttpRequestMessage req
             , Int32 id
             )
