@@ -11,5 +11,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
+    <Folder Include="Azure\" />
   </ItemGroup>
 </Project>
