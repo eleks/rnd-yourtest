@@ -7,6 +7,9 @@ using UIKit;
 using Prism;
 using Prism.Ioc;
 using YourTest.Azure;
+using Prism.Autofac;
+using Autofac;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 namespace YourTest.iOS
 {
@@ -18,7 +21,14 @@ namespace YourTest.iOS
     {
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.Register(typeof(IAuthenticator), typeof(Azure.Authenticator));
+            var cb = containerRegistry.GetBuilder();
+
+            cb.Register(c =>
+            {
+                var controller = UIApplication.SharedApplication.KeyWindow.RootViewController;
+                return new Authenticator(new PlatformParameters(controller));
+            })
+            .As<IAuthenticator>();
         }
 
         //

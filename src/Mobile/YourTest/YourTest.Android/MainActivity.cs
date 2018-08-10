@@ -11,6 +11,9 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Prism;
 using Prism.Ioc;
 using YourTest.Azure;
+using Plugin.CurrentActivity;
+using Prism.Autofac;
+using Autofac;
 
 namespace YourTest.Droid
 {
@@ -19,7 +22,10 @@ namespace YourTest.Droid
     {
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.Register(typeof(IAuthenticator), typeof(Azure.Authenticator));
+            var cb = containerRegistry.GetBuilder();
+
+            cb.Register(c => new Authenticator(new PlatformParameters(this)))
+                .As<IAuthenticator>();
         }
 
         protected override void OnCreate(Bundle bundle)
