@@ -10,7 +10,7 @@ namespace YourTest
     {
         public static String AADClientId => Secrets.AzureClientId;
         public static String AADRedirectUri => Secrets.AzureRedirectUri;
-        public static String AADAuthority { get; } = "https://login.windows.net/common";
+        public static String AADAuthority { get; } = "https://login.microsoftonline.com/common";
         public static String AADResource => Secrets.AzureResource;
     }
 }
