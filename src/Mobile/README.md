@@ -17,7 +17,7 @@ cd src/Mobile/YourTest/YourTest/
 echo "{
     \"AzureClientId\" : \"[Azure Application ID]\",
     \"AzureRedirectUri\" : \"[Azure Application Redirect Uri]\",
-    \"AzureResource\": \"[Azure App service uri (Our Backend)]\"
+    \"RestEndpoint\": \"[Azure App service uri (Our Backend)]\"
 }" > secrets.json
 
 ```
@@ -31,4 +31,4 @@ Add next Environment Variables:
 |---|---|
 |Secret_AzureClientId|[Azure Application ID]|
 |Secret_AzureRedirectUri|[Azure Application Redirect Uri]|
-|Secret_AzureResource|[Azure App service uri (Our Backend)]|
+|Secret_RestEndpoint|[Azure App service uri (Our Backend)]|

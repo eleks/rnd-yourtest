@@ -11,6 +11,9 @@ namespace YourTest
         public static String AADClientId => Secrets.AzureClientId;
         public static String AADRedirectUri => Secrets.AzureRedirectUri;
         public static String AADAuthority { get; } = "https://login.microsoftonline.com/common";
-        public static String AADResource => Secrets.AzureResource;
+        // Note: pass client id as resource parameter from answer https://stackoverflow.com/a/38374002/2198007 
+        public static String AADResource => AADClientId;
+
+        public static String RestEndpoint => Secrets.RestEndpoint;
     }
 }
