@@ -28,8 +28,14 @@ namespace YourTest.Azure
 
             var platformParams = _platformParameters;
 
-            var uri = new Uri(returnUri);
-            var authResult = await authContext.AcquireTokenAsync(resource, clientId, uri, platformParams);
+            // Note: pass client id as resource parameter from answer https://stackoverflow.com/a/38374002/2198007
+            var authResult = await authContext.AcquireTokenAsync(
+                resource
+                , clientId
+                , new Uri(returnUri)
+                , platformParams
+                );
+
             return authResult;
         }
     }
