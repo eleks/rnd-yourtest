@@ -20,7 +20,7 @@ namespace YourTest
 
         protected override async void OnInitialized()
         {
-            await NavigationService.NavigateAsync(nameof(MainPage));
+            await NavigationService.NavigateAsync(nameof(LoginPage));
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -30,6 +30,7 @@ namespace YourTest
 
         private void RegisterViews(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterForNavigation<LoginPage>();
             containerRegistry.RegisterForNavigation<MainPage>();
         }
     }
