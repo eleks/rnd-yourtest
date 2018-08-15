@@ -8,7 +8,7 @@
             
             <Image Source="logo_big.png"
                 Aspect="AspectFit"
-                VerticalOptions="Center"/>
+                VerticalOptions="EndAndExpand"/>
                 
             <Label Text="YourTest" 
                 VerticalOptions="StartAndExpand"
