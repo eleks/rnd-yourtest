@@ -17,7 +17,10 @@ using Autofac;
 
 namespace YourTest.Droid
 {
-    [Activity(Label = "YourTest", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(
+        MainLauncher = true
+        , ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation
+        )]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity, IPlatformInitializer
     {
         public void RegisterTypes(IContainerRegistry containerRegistry)
