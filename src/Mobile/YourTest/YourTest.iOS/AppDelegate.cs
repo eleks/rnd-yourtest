@@ -23,12 +23,10 @@ namespace YourTest.iOS
         {
             var cb = containerRegistry.GetBuilder();
 
-            cb.Register(c =>
-            {
-                var controller = UIApplication.SharedApplication.KeyWindow.RootViewController;
-                return new Authenticator(new PlatformParameters(controller));
-            })
-            .As<IAuthenticator>();
+            cb.Register(c => new Authenticator(
+                c.Resolve<AzureADAuthConfig>(),
+                () => new PlatformParameters(UIApplication.SharedApplication.KeyWindow.RootViewController/*, true, PromptBehavior.RefreshSession*/))
+                ).As<IAuthenticator>();
         }
 
         //
@@ -41,10 +39,11 @@ namespace YourTest.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+            LoadApplication(new App(this));
 
             return base.FinishedLaunching(app, options);
         }
+
 
     }
 }

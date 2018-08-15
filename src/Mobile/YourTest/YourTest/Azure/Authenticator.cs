@@ -7,14 +7,20 @@ namespace YourTest.Azure
 {
     public class Authenticator : IAuthenticator
     {
-        private readonly IPlatformParameters _platformParameters;
+        private readonly AzureADAuthConfig _config;
+        private readonly Func<IPlatformParameters> _platformParameters;
 
-        public Authenticator() : this(null) { }
-        public Authenticator(IPlatformParameters platformParameters) => _platformParameters = platformParameters;
-
-
-        public async Task<AuthenticationResult> Authenticate(AzureADAuthConfig config)
+        public Authenticator(AzureADAuthConfig config) : this(config, null) { }
+        public Authenticator(AzureADAuthConfig config, Func<IPlatformParameters> platformParametersProvider)
         {
+            _config = config;
+            _platformParameters = platformParametersProvider;
+        }
+
+        public async Task<AuthenticationResult> AuthenticateAsync()
+        {
+            var config = _config;
+
             string authority = config.Authority;
             string resource = config.Resource;
             string clientId = config.ClientId;
@@ -26,7 +32,7 @@ namespace YourTest.Azure
                 authContext = new AuthenticationContext(authContext.TokenCache.ReadItems().First().Authority);
             }
 
-            var platformParams = _platformParameters;
+            var platformParams = _platformParameters?.Invoke();
 
             // Note: pass client id as resource parameter from answer https://stackoverflow.com/a/38374002/2198007
             var authResult = await authContext.AcquireTokenAsync(

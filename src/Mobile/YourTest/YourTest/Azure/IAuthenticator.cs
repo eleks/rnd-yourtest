@@ -6,6 +6,6 @@ namespace YourTest.Azure
 {
     public interface IAuthenticator
     {
-        Task<AuthenticationResult> Authenticate(AzureADAuthConfig config);
+        Task<AuthenticationResult> AuthenticateAsync();
     }
 }

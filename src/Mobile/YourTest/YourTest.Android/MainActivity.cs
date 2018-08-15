@@ -27,7 +27,7 @@ namespace YourTest.Droid
         {
             var cb = containerRegistry.GetBuilder();
 
-            cb.Register(c => new Authenticator(new PlatformParameters(this)))
+            cb.Register(c => new Authenticator(c.Resolve<AzureADAuthConfig>(), () => new PlatformParameters(this)))
                 .As<IAuthenticator>();
         }
 
