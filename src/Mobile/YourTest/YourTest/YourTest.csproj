@@ -15,5 +15,6 @@
     <Folder Include="Azure\" />
     <Folder Include="Http\" />
     <Folder Include="ViewModels\" />
+    <Folder Include="Auth\" />
   </ItemGroup>
 </Project>

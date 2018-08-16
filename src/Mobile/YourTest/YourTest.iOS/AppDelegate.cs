@@ -10,6 +10,7 @@ using YourTest.Azure;
 using Prism.Autofac;
 using Autofac;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using YourTest.Auth;
 
 namespace YourTest.iOS
 {

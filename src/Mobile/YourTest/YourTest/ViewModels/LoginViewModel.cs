@@ -5,6 +5,7 @@ using Prism.Commands;
 using System.Threading.Tasks;
 using Prism.Navigation;
 using System.Diagnostics;
+using YourTest.Auth;
 
 namespace YourTest.ViewModels
 {

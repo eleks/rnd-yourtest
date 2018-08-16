@@ -2,10 +2,11 @@
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
-namespace YourTest.Azure
+namespace YourTest.Auth
 {
     public interface IAuthenticator
     {
-        Task<AuthenticationResult> AuthenticateAsync();
+        Task<String> AuthenticateAsync();
+        Task<String> AuthenticateSilentAsync();
     }
 }

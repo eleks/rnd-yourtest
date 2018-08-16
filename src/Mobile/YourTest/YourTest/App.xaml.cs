@@ -31,7 +31,7 @@ namespace YourTest
             RegisterConfigs(builder);
         }
 
-        private void RegisterConfigs(ContainerBuilder containerBuilder)
+        private static void RegisterConfigs(ContainerBuilder containerBuilder)
         {
             containerBuilder.Register(c =>
             {
@@ -45,7 +45,7 @@ namespace YourTest
             }).AsSelf();
         }
 
-        private void RegisterViews(IContainerRegistry containerRegistry)
+        private static void RegisterViews(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<LoginPage, LoginViewModel>(nameof(LoginViewModel));
             containerRegistry.RegisterForNavigation<MainPage>();

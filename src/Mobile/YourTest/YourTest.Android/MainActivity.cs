@@ -14,6 +14,7 @@ using YourTest.Azure;
 using Plugin.CurrentActivity;
 using Prism.Autofac;
 using Autofac;
+using YourTest.Auth;
 
 namespace YourTest.Droid
 {
