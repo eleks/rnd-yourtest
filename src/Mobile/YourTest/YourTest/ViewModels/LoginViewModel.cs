@@ -14,11 +14,11 @@ namespace YourTest.ViewModels
         public ICommand LoginCommand { get; }
 
         public LoginViewModel(
-            IAuthenticator authenticator,
+            AuthSession authSession,
             INavigationService navigationService
             )
         {
-            _authenticator = authenticator;
+            _authSession = authSession;
             _navigationService = navigationService;
             LoginCommand = new DelegateCommand(async () => await LoginAsync());
         }
@@ -28,7 +28,7 @@ namespace YourTest.ViewModels
             IsBusy = true;
             try
             {
-                var res = await _authenticator.AuthenticateAsync();
+                await _authSession.AuthenticateAsync();
                 // todo await _navigationService.NavigateAsync(nameof(MainViewModel));
             }
             catch (Exception ex)
@@ -41,7 +41,7 @@ namespace YourTest.ViewModels
             }
         }
 
-        private readonly IAuthenticator _authenticator;
+        private readonly AuthSession _authSession;
         private readonly INavigationService _navigationService;
     }
 }
