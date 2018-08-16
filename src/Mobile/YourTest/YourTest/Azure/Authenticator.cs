@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.Identity.Client;
 using YourTest.Auth;
 
 namespace YourTest.Azure
@@ -9,81 +9,55 @@ namespace YourTest.Azure
     public class Authenticator : IAuthenticator
     {
         private readonly AzureADAuthConfig _config;
-        private readonly Func<IPlatformParameters> _platformParameters;
+        private readonly UIParent _uIParent;
+        private readonly PublicClientApplication _publicApp;
 
         public Authenticator(AzureADAuthConfig config) : this(config, null) { }
-        public Authenticator(AzureADAuthConfig config, Func<IPlatformParameters> platformParametersProvider)
+        public Authenticator(AzureADAuthConfig config, UIParent uIParent)
         {
             _config = config;
-            _platformParameters = platformParametersProvider;
+            _uIParent = uIParent;
+            _publicApp = new PublicClientApplication(config.ClientId);
+            _publicApp.RedirectUri = config.ReturnUri;
         }
 
-        public Task<String> AuthenticateAsync()
+        public async Task<String> AuthenticateAsync()
         {
             var config = _config;
-            IPlatformParameters platformParams = GetPlatformParameters();
-            var tcs = new TaskCompletionSource<String>();
+            UIParent uiparant = GetPlatformParameters();
 
-            AuthenticationContext authContext = GetAuthContextForAuthority(config.Authority);
-            Task.Run(async () =>
+            // Note: pass client id as resource parameter from answer https://stackoverflow.com/a/38374002/2198007
+            var authResult = await _publicApp.AcquireTokenAsync(
+            new string[]
             {
-                try
-                {
-                    // Note: pass client id as resource parameter from answer https://stackoverflow.com/a/38374002/2198007
-                    var authResult = await authContext.AcquireTokenAsync(
-                        config.Resource
-                        , config.ClientId
-                        , new Uri(config.ReturnUri)
-                        , platformParams
-                        );
+                "User.Read"
+                //"https://roru-test-dev.azurewebsites.net/user_impersonation"
+            },
+            uiparant);
 
-                    tcs.SetResult(authResult.AccessToken);
-                }
-                catch (AdalServiceException ex) when (ex.ErrorCode == AdalError.AuthenticationCanceled)
-                {
-                    tcs.SetCanceled();
-                }
-                catch (AdalException ex)
-                {
-                    tcs.SetException(ex);
-                }
 
-            });
 
-            return tcs.Task;
+            return authResult.AccessToken;
         }
+
 
         public async Task<String> AuthenticateSilentAsync()
         {
             var config = _config;
-            AuthenticationContext authContext = GetAuthContextForAuthority(config.Authority);
+            UIParent uiparant = GetPlatformParameters();
 
-            try
+            // Note: pass client id as resource parameter from answer https://stackoverflow.com/a/38374002/2198007
+            var authResult = await _publicApp.AcquireTokenSilentAsync(
+            new string[]
             {
-                var authResult = await authContext.AcquireTokenSilentAsync(
-                    config.Resource
-                    , config.ClientId
-                );
+                "User.Read"
+            },
+            _publicApp.Users.FirstOrDefault());
 
-                return authResult.AccessToken;
-            }
-            catch (AdalSilentTokenAcquisitionException)
-            {
-                return null;
-            }
+            return authResult.AccessToken;
         }
 
-        protected virtual IPlatformParameters GetPlatformParameters() => _platformParameters?.Invoke();
 
-        private static AuthenticationContext GetAuthContextForAuthority(String authority)
-        {
-            var authContext = new AuthenticationContext(authority);
-            if (authContext.TokenCache.ReadItems().Any())
-            {
-                authContext = new AuthenticationContext(authContext.TokenCache.ReadItems().First().Authority);
-            }
-
-            return authContext;
-        }
+        protected virtual UIParent GetPlatformParameters() => _uIParent;
     }
 }

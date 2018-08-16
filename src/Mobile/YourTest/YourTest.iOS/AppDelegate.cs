@@ -9,9 +9,9 @@ using Prism.Ioc;
 using YourTest.Azure;
 using Prism.Autofac;
 using Autofac;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using YourTest.Auth;
 using System.Net.Http;
+using Microsoft.Identity.Client;
 
 namespace YourTest.iOS
 {
@@ -25,10 +25,8 @@ namespace YourTest.iOS
         {
             var cb = containerRegistry.GetBuilder();
 
-            cb.Register(c => new Authenticator(
-                c.Resolve<AzureADAuthConfig>(),
-                () => new PlatformParameters(UIApplication.SharedApplication.KeyWindow.RootViewController))
-            ).As<IAuthenticator>();
+            cb.Register(c => new Authenticator(c.Resolve<AzureADAuthConfig>()))
+                .As<IAuthenticator>();
 
             cb.Register(c => new NSUrlSessionHandler())
                 .Named<HttpMessageHandler>(App.IoCNameNativeHttpHandler);
@@ -49,6 +47,11 @@ namespace YourTest.iOS
             return base.FinishedLaunching(app, options);
         }
 
+        public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+        {
+            AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(url);
+            return true;
+        }
 
     }
 }

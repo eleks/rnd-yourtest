@@ -138,6 +138,9 @@
         <PackageReference Include="Mobile.BuildTools">
             <Version>1.4.0.638</Version>
         </PackageReference>
+        <PackageReference Include="Microsoft.Identity.Client">
+          <Version>1.1.4-preview0002</Version>
+        </PackageReference>
     </ItemGroup>
     <ItemGroup>
         <BundleResource Include="Resources\logo_big.png" />
