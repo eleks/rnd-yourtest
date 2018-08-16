@@ -135,9 +135,6 @@
         <PackageReference Include="Prism.Autofac.Forms">
             <Version>7.0.0.396</Version>
         </PackageReference>
-        <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory">
-            <Version>3.19.8</Version>
-        </PackageReference>
         <PackageReference Include="Mobile.BuildTools">
             <Version>1.4.0.638</Version>
         </PackageReference>
