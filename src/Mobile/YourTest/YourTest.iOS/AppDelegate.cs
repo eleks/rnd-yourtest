@@ -11,6 +11,7 @@ using Prism.Autofac;
 using Autofac;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using YourTest.Auth;
+using System.Net.Http;
 
 namespace YourTest.iOS
 {
@@ -26,8 +27,11 @@ namespace YourTest.iOS
 
             cb.Register(c => new Authenticator(
                 c.Resolve<AzureADAuthConfig>(),
-                () => new PlatformParameters(UIApplication.SharedApplication.KeyWindow.RootViewController/*, true, PromptBehavior.RefreshSession*/))
-                ).As<IAuthenticator>();
+                () => new PlatformParameters(UIApplication.SharedApplication.KeyWindow.RootViewController))
+            ).As<IAuthenticator>();
+
+            cb.Register(c => new NSUrlSessionHandler())
+                .Named<HttpMessageHandler>(App.IoCNameNativeHttpHandler);
         }
 
         //

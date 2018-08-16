@@ -15,6 +15,8 @@ using Plugin.CurrentActivity;
 using Prism.Autofac;
 using Autofac;
 using YourTest.Auth;
+using Xamarin.Android.Net;
+using System.Net.Http;
 
 namespace YourTest.Droid
 {
@@ -30,6 +32,9 @@ namespace YourTest.Droid
 
             cb.Register(c => new Authenticator(c.Resolve<AzureADAuthConfig>(), () => new PlatformParameters(this)))
                 .As<IAuthenticator>();
+
+            cb.Register(c => new AndroidClientHandler())
+                .Named<HttpMessageHandler>(App.IoCNameNativeHttpHandler);
         }
 
         protected override void OnCreate(Bundle bundle)

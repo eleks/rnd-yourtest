@@ -13,6 +13,8 @@ namespace YourTest
 {
     public partial class App : PrismApplication
     {
+        public static String IoCNameNativeHttpHandler { get; } = "NativeHandler";
+
         public App(IPlatformInitializer platformInitializer = default(IPlatformInitializer))
             : base(platformInitializer)
         {
