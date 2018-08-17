@@ -30,10 +30,20 @@ namespace YourTest.Azure
             var authResult = await _publicApp.AcquireTokenAsync(
             new string[]
             {
-                "User.Read"
-                //"https://roru-test-dev.azurewebsites.net/user_impersonation"
+                //"User.Read",
+                "api://b7788e97-174c-4276-9b07-09f49091bdec/access_as_user"
             },
             uiparant);
+
+            var user = authResult.User;
+
+
+            //authResult = await _publicApp.AcquireTokenSilentAsync(
+            //new string[]
+            //{
+            //    "api://b7788e97-174c-4276-9b07-09f49091bdec5/access_as_user"
+            //},
+            //user);
 
 
 
