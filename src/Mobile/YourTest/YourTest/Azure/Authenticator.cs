@@ -17,8 +17,12 @@ namespace YourTest.Azure
         {
             _config = config;
             _uIParent = uIParent;
-            _publicApp = new PublicClientApplication(config.ClientId);
-            _publicApp.RedirectUri = config.ReturnUri;
+            _publicApp = new PublicClientApplication(
+                config.ClientId,
+                config.Authority)
+            {
+                RedirectUri = config.RedirectUri
+            };
         }
 
         public async Task<String> AuthenticateAsync()
@@ -26,26 +30,7 @@ namespace YourTest.Azure
             var config = _config;
             UIParent uiparant = GetPlatformParameters();
 
-            // Note: pass client id as resource parameter from answer https://stackoverflow.com/a/38374002/2198007
-            var authResult = await _publicApp.AcquireTokenAsync(
-            new string[]
-            {
-                //"User.Read",
-                "api://b7788e97-174c-4276-9b07-09f49091bdec/access_as_user"
-            },
-            uiparant);
-
-            var user = authResult.User;
-
-
-            //authResult = await _publicApp.AcquireTokenSilentAsync(
-            //new string[]
-            //{
-            //    "api://b7788e97-174c-4276-9b07-09f49091bdec5/access_as_user"
-            //},
-            //user);
-
-
+            var authResult = await _publicApp.AcquireTokenAsync(config.Scopes, uiparant);
 
             return authResult.AccessToken;
         }
@@ -54,14 +39,9 @@ namespace YourTest.Azure
         public async Task<String> AuthenticateSilentAsync()
         {
             var config = _config;
-            UIParent uiparant = GetPlatformParameters();
 
-            // Note: pass client id as resource parameter from answer https://stackoverflow.com/a/38374002/2198007
             var authResult = await _publicApp.AcquireTokenSilentAsync(
-            new string[]
-            {
-                "User.Read"
-            },
+            config.Scopes,
             _publicApp.Users.FirstOrDefault());
 
             return authResult.AccessToken;
