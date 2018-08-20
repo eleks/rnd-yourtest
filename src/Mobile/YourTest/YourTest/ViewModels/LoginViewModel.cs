@@ -35,7 +35,7 @@ namespace YourTest.ViewModels
                 // todo await _navigationService.NavigateAsync(nameof(MainViewModel));
                 // todo remove client request code
                 // used for testing
-                var res = await client.GetAsync(Configuration.RestEndpoint);
+                var res = await client.GetAsync(Configuration.YourTest.RestEndpoint);
                 res.EnsureSuccessStatusCode();
             }
             catch (Exception ex)

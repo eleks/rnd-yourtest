@@ -16,5 +16,6 @@
     <Folder Include="Http\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Auth\" />
+    <Folder Include="Configuration\" />
   </ItemGroup>
 </Project>

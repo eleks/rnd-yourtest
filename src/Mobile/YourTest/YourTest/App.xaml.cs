@@ -72,10 +72,10 @@ namespace YourTest
             {
                 return new Azure.AzureADAuthConfig
                 {
-                    ClientId = Configuration.AADClientId,
-                    Authority = Configuration.AADAuthority,
-                    Scopes = new[] { Configuration.AADScopes },
-                    RedirectUri = Configuration.AADRedirectUri
+                    ClientId = Configuration.B2c.ClientId,
+                    Authority = Configuration.B2c.Authority,
+                    Scopes = new[] { Configuration.B2c.ApiScopes },
+                    RedirectUri = Configuration.B2c.RedirectUri
                 };
             }).AsSelf();
         }
