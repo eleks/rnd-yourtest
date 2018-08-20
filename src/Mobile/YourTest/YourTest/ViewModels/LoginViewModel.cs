@@ -33,7 +33,9 @@ namespace YourTest.ViewModels
             {
                 await _authSession.AuthenticateAsync();
                 // todo await _navigationService.NavigateAsync(nameof(MainViewModel));
-                var res = await client.GetAsync("https://roru-test-dev.azurewebsites.net/api/test");
+                // todo remove client request code
+                // used for testing
+                var res = await client.GetAsync(Configuration.RestEndpoint);
                 res.EnsureSuccessStatusCode();
             }
             catch (Exception ex)
