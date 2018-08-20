@@ -9,7 +9,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="msald65c8c6c-95ff-491c-ba4d-4859ee8b4456" android:host="auth" />
+                <data android:scheme="rorub2c" android:host="com.eleks.YourTest" />
             </intent-filter>
         </activity>
     </application>
