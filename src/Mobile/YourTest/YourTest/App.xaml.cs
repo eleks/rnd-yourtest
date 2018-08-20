@@ -74,8 +74,8 @@ namespace YourTest
                 {
                     ClientId = Configuration.AADClientId,
                     Authority = Configuration.AADAuthority,
-                    Resource = Configuration.AADResource,
-                    ReturnUri = Configuration.AADRedirectUri
+                    Scopes = new[] { Configuration.AADScopes },
+                    RedirectUri = Configuration.AADRedirectUri
                 };
             }).AsSelf();
         }
