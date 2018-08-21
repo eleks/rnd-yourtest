@@ -10,6 +10,7 @@ using YourTest.ViewModels;
 using System.Net.Http;
 using YourTest.Http;
 using YourTest.Auth;
+using YourTest.Navigation;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace YourTest
@@ -82,8 +83,8 @@ namespace YourTest
 
         private static void RegisterViews(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<LoginPage, LoginViewModel>(nameof(LoginViewModel));
-            containerRegistry.RegisterForNavigation<MainPage>();
+            containerRegistry.RegisterForViewModelNavigation<LoginPage, LoginViewModel>();
+            containerRegistry.RegisterForViewModelNavigation<TestsListPage, TestsListViewModel>();
         }
     }
 }
