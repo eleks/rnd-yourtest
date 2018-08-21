@@ -30,6 +30,15 @@ namespace YourTest
         {
             MainPage = new NavigationPage();
             await NavigationService.NavigateAsync<LoginViewModel>();
+
+            try
+            {
+                await Container.Resolve<AuthSession>().AuthenticateSilentAsync();
+                await NavigationService.NavigateAsync<TestsListViewModel>();
+            }
+            catch (Exception)
+            {
+            }
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
