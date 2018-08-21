@@ -7,9 +7,9 @@ using Xamarin.Forms;
 
 namespace YourTest.Views
 {
-    public partial class MainPage : ContentPage
+    public partial class TestsListPage : ContentPage
     {
-        public MainPage()
+        public TestsListPage()
         {
             InitializeComponent();
         }
