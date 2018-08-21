@@ -7,6 +7,9 @@ TODO small description ...
 - For Security and quick configuration used `Mobile.BuildTools` _[github](https://github.com/dansiegel/Mobile.BuildTools)_. Perform `configuration` before __`first build`__
 - Configured Azure Active Directory B2C
 - Deployed and configured REST api on Azure with AAD B2C
+- Use `rorub2c://com.eleks.YourTest` as custom Redirect URI
+
+## Build
 
 ### Local Configuration
 

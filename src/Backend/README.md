@@ -32,4 +32,5 @@ cd src/Backend/YourTest.Rest
 func azure functionapp publish <ExistingAzureFunctionAppName>
 
 ```
+
 [Azure Docs](https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local)
