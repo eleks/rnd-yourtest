@@ -17,6 +17,12 @@ namespace YourTest.Auth
             _tokenStore.Token = res;
         }
 
+        public async Task AuthenticateSilentAsync()
+        {
+            var res = await _authenticator.AuthenticateSilentAsync().ConfigureAwait(false);
+            _tokenStore.Token = res;
+        }
+
 
         private readonly IAuthenticator _authenticator;
         private readonly ITokenStore _tokenStore;
