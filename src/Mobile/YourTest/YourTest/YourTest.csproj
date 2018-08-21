@@ -17,5 +17,6 @@
     <Folder Include="ViewModels\" />
     <Folder Include="Auth\" />
     <Folder Include="Configuration\" />
+    <Folder Include="Navigation\" />
   </ItemGroup>
 </Project>
