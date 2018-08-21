@@ -5,11 +5,15 @@ namespace YourTest.Navigation
 {
     public static class INavigationServiceExtension
     {
-        public static async Task NavigateAsync<TViewModel>(this INavigationService navigationService)
+        public static async Task NavigateAsync<TViewModel>(this INavigationService navigationService, Boolean closeCurrent = false)
             where TViewModel : class
         {
             var viewModelType = typeof(TViewModel);
-            await navigationService.NavigateAsync(viewModelType.Name).ConfigureAwait(false);
+            var path = closeCurrent
+                ? $"../{viewModelType.Name}"
+                : viewModelType.Name;
+
+            await navigationService.NavigateAsync(path).ConfigureAwait(false);
         }
     }
 }
