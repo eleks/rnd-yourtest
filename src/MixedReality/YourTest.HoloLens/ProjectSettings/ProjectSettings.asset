@@ -586,11 +586,11 @@ PlayerSettings:
   m_MobileRenderingPath: 1
   metroPackageName: Template_3D
   metroPackageVersion: 
-  metroCertificatePath: C:\Projects\xamarin_demo\src\MixedReality\YourTest.HoloLens\Assets\WSATestCertificate.pfx
+  metroCertificatePath: Assets/WSATestCertificate.pfx
   metroCertificatePassword: 
   metroCertificateSubject: DefaultCompany
   metroCertificateIssuer: DefaultCompany
-  metroCertificateNotAfter: 80bb66383758d501
+  metroCertificateNotAfter: 809a222a4b58d501
   metroApplicationDescription: Template_3D
   wsaImages: {}
   metroTileShortName: 
