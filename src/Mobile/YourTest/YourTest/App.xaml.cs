@@ -10,6 +10,8 @@ using YourTest.ViewModels;
 using System.Net.Http;
 using YourTest.Http;
 using YourTest.Auth;
+using YourTest.Navigation;
+using Xamarin.Forms;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace YourTest
@@ -26,7 +28,17 @@ namespace YourTest
 
         protected override async void OnInitialized()
         {
-            await NavigationService.NavigateAsync(nameof(LoginViewModel));
+            MainPage = new NavigationPage();
+            await NavigationService.NavigateAsync<LoginViewModel>();
+
+            try
+            {
+                await Container.Resolve<AuthSession>().AuthenticateSilentAsync();
+                await NavigationService.NavigateAsync<TestsListViewModel>();
+            }
+            catch (Exception)
+            {
+            }
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -82,8 +94,8 @@ namespace YourTest
 
         private static void RegisterViews(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<LoginPage, LoginViewModel>(nameof(LoginViewModel));
-            containerRegistry.RegisterForNavigation<MainPage>();
+            containerRegistry.RegisterForViewModelNavigation<LoginPage, LoginViewModel>();
+            containerRegistry.RegisterForViewModelNavigation<TestsListPage, TestsListViewModel>();
         }
     }
 }

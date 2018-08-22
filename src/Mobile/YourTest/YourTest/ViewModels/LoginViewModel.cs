@@ -7,6 +7,7 @@ using Prism.Navigation;
 using System.Diagnostics;
 using YourTest.Auth;
 using System.Net.Http;
+using YourTest.Navigation;
 
 namespace YourTest.ViewModels
 {
@@ -16,13 +17,11 @@ namespace YourTest.ViewModels
 
         public LoginViewModel(
             AuthSession authSession,
-            INavigationService navigationService,
-            HttpClient client
+            INavigationService navigationService
             )
         {
             _authSession = authSession;
             _navigationService = navigationService;
-            this.client = client;
             LoginCommand = new DelegateCommand(async () => await LoginAsync());
         }
 
@@ -32,11 +31,8 @@ namespace YourTest.ViewModels
             try
             {
                 await _authSession.AuthenticateAsync();
-                // todo await _navigationService.NavigateAsync(nameof(MainViewModel));
-                // todo remove client request code
-                // used for testing
-                var res = await client.GetAsync(Configuration.YourTest.RestEndpoint);
-                res.EnsureSuccessStatusCode();
+                await _navigationService.NavigateAsync<TestsListViewModel>(closeCurrent: true);
+
             }
             catch (Exception ex)
             {
@@ -50,7 +46,6 @@ namespace YourTest.ViewModels
 
         private readonly AuthSession _authSession;
         private readonly INavigationService _navigationService;
-        private readonly HttpClient client;
     }
 }
 
