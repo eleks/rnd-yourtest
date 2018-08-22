@@ -7,13 +7,17 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Android.Content;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.Identity.Client;
 using Prism;
 using Prism.Ioc;
 using YourTest.Azure;
 using Plugin.CurrentActivity;
 using Prism.Autofac;
 using Autofac;
+using YourTest.Auth;
+using Xamarin.Android.Net;
+using System.Net.Http;
+using Microsoft.Identity.Client;
 
 namespace YourTest.Droid
 {
@@ -27,8 +31,11 @@ namespace YourTest.Droid
         {
             var cb = containerRegistry.GetBuilder();
 
-            cb.Register(c => new Authenticator(new PlatformParameters(this)))
+            cb.Register(c => new Authenticator(c.Resolve<AzureADAuthConfig>(), new UIParent(this)))
                 .As<IAuthenticator>();
+
+            cb.Register(c => new AndroidClientHandler())
+                .Named<HttpMessageHandler>(App.IoCNameNativeHttpHandler);
         }
 
         protected override void OnCreate(Bundle bundle)
@@ -45,7 +52,7 @@ namespace YourTest.Droid
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
-            AuthenticationAgentContinuationHelper.SetAuthenticationAgentContinuationEventArgs(requestCode, resultCode, data);
+            AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(requestCode, resultCode, data);
         }
 
     }
