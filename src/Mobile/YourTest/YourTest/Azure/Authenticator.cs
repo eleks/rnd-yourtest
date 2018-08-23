@@ -1,42 +1,53 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.Identity.Client;
+using YourTest.Auth;
 
 namespace YourTest.Azure
 {
     public class Authenticator : IAuthenticator
     {
-        private readonly IPlatformParameters _platformParameters;
+        private readonly AzureADAuthConfig _config;
+        private readonly UIParent _uIParent;
+        private readonly PublicClientApplication _publicApp;
 
-        public Authenticator() : this(null) { }
-        public Authenticator(IPlatformParameters platformParameters) => _platformParameters = platformParameters;
-
-
-        public async Task<AuthenticationResult> Authenticate(AzureADAuthConfig config)
+        public Authenticator(AzureADAuthConfig config) : this(config, null) { }
+        public Authenticator(AzureADAuthConfig config, UIParent uIParent)
         {
-            string authority = config.Authority;
-            string resource = config.Resource;
-            string clientId = config.ClientId;
-            string returnUri = config.ReturnUri;
-
-            var authContext = new AuthenticationContext(authority);
-            if (authContext.TokenCache.ReadItems().Any())
+            _config = config;
+            _uIParent = uIParent;
+            _publicApp = new PublicClientApplication(
+                config.ClientId,
+                config.Authority)
             {
-                authContext = new AuthenticationContext(authContext.TokenCache.ReadItems().First().Authority);
-            }
-
-            var platformParams = _platformParameters;
-
-            // Note: pass client id as resource parameter from answer https://stackoverflow.com/a/38374002/2198007
-            var authResult = await authContext.AcquireTokenAsync(
-                resource
-                , clientId
-                , new Uri(returnUri)
-                , platformParams
-                );
-
-            return authResult;
+                RedirectUri = config.RedirectUri
+            };
         }
+
+        public async Task<String> AuthenticateAsync()
+        {
+            var config = _config;
+            UIParent uiparant = GetPlatformParameters();
+
+            var authResult = await _publicApp.AcquireTokenAsync(config.Scopes, uiparant);
+
+            return authResult.AccessToken;
+        }
+
+
+        public async Task<String> AuthenticateSilentAsync()
+        {
+            var config = _config;
+
+            var authResult = await _publicApp.AcquireTokenSilentAsync(
+            config.Scopes,
+            _publicApp.Users.FirstOrDefault());
+
+            return authResult.AccessToken;
+        }
+
+
+        protected virtual UIParent GetPlatformParameters() => _uIParent;
     }
 }
