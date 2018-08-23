@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Threading;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Placeholder : MonoBehaviour
 {
@@ -16,14 +20,14 @@ public class Placeholder : MonoBehaviour
     public void OnScan()
     {
         this.textMesh.text = "scanning for 30s";
-
 #if !UNITY_EDITOR
     MediaFrameQrProcessing.Wrappers.ZXingQrCodeScanner.ScanFirstCameraForQrCode(
         result =>
         {
-          UnityEngine.WSA.Application.InvokeOnAppThread(() =>
+          UnityEngine.WSA.Application.InvokeOnAppThread(async () =>
           {
-            this.textMesh.text = result ?? "not found";
+              await MobileCommunicator.Instance.ConnectAsync(result, "8888");
+              SceneManager.LoadScene("ModelExplorer", LoadSceneMode.Additive);
           }, 
           false);
         },

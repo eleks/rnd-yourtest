@@ -14,6 +14,7 @@ public class ObjectsCommands : MonoBehaviour
     void OnSelect()
     {
         var selectedObjectName = this.gameObject.name;
+        MobileCommunicator.Instance.SendMessage($"[Test] OnSelected object name: {selectedObjectName}");
         Debug.Log($"[Test] OnSelected object name: {selectedObjectName}");
     }
 
