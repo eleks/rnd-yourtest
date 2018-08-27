@@ -20,5 +20,6 @@
     <Folder Include="Auth\" />
     <Folder Include="Configuration\" />
     <Folder Include="Navigation\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 </Project>
