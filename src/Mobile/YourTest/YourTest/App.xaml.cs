@@ -12,6 +12,8 @@ using YourTest.Http;
 using YourTest.Auth;
 using YourTest.Navigation;
 using Xamarin.Forms;
+using Refit;
+using YourTest.REST;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace YourTest
@@ -47,6 +49,13 @@ namespace YourTest
             var builder = containerRegistry.GetBuilder();
             RegisterConfigs(builder);
             RegisterHttpHandlerStack(builder);
+            RegisterRestServices(builder);
+        }
+
+        private static void RegisterRestServices(ContainerBuilder builder)
+        {
+            builder.Register(c => RestService.For<ITestsRest>(c.Resolve<HttpClient>()))
+                .As<ITestsRest>();
         }
 
         private void RegisterHttpHandlerStack(ContainerBuilder containerBuilder)
@@ -73,7 +82,10 @@ namespace YourTest
             .AsSelf();
 
             containerBuilder
-                .Register(c => new HttpClient(c.Resolve<HttpMessageHandler>()))
+                .Register(c => new HttpClient(c.Resolve<HttpMessageHandler>())
+                {
+                    BaseAddress = new Uri(Configuration.YourTest.RestEndpoint)
+                })
                 .AsSelf()
                 .SingleInstance();
         }

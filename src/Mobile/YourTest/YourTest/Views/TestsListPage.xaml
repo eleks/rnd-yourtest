@@ -4,7 +4,8 @@
     xmlns:local="clr-namespace:YourTest" 
     x:Class="YourTest.Views.TestsListPage"
     Title="Awailable Test">
-    <ListView ItemsSource="{Binding Source}">
+    <ListView ItemsSource="{Binding Source}"
+        IsRefreshing="{Binding IsBusy}">
         <ListView.ItemTemplate>
             <DataTemplate>
                 <TextCell Text="{Binding Name}" />
