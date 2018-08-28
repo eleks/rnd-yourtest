@@ -64,6 +64,7 @@ _ReSharper*
 *.sln.docstates
 *.idb
 *.pidb
+*.pdb.meta
 *.pidb.meta
 *.opendb
 *.user
