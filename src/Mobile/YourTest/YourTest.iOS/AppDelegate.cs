@@ -12,6 +12,8 @@ using Autofac;
 using YourTest.Auth;
 using System.Net.Http;
 using Microsoft.Identity.Client;
+using YourTest.iOS.Manager;
+using YourTest.Manager;
 
 namespace YourTest.iOS
 {
@@ -30,6 +32,9 @@ namespace YourTest.iOS
 
             cb.Register(c => new NSUrlSessionHandler())
                 .Named<HttpMessageHandler>(App.IoCNameNativeHttpHandler);
+
+            cb.Register(c => new IPAddressManager())
+                .As<IIPAddressManager>();
         }
 
         //

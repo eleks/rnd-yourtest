@@ -36,7 +36,7 @@ namespace YourTest
             try
             {
                 await Container.Resolve<AuthSession>().AuthenticateSilentAsync();
-                await NavigationService.NavigateAsync<TestsListViewModel>();
+                await NavigationService.NavigateAsync<ConnectHoloLensPageViewModel>();
             }
             catch (Exception)
             {
@@ -108,6 +108,7 @@ namespace YourTest
         {
             containerRegistry.RegisterForViewModelNavigation<LoginPage, LoginViewModel>();
             containerRegistry.RegisterForViewModelNavigation<TestsListPage, TestsListViewModel>();
+            containerRegistry.RegisterForViewModelNavigation<ConnectHoloLensPage, ConnectHoloLensPageViewModel>();
         }
     }
 }
