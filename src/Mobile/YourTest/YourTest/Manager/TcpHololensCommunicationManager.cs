@@ -50,7 +50,7 @@ namespace YourTest.Manager
                             do
                             {
                                 bytes = stream.Read(data, 0, data.Length);
-                                builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
+                                builder.Append(Encoding.UTF8.GetString(data, 0, bytes));
                             }
                             while (stream.DataAvailable);
 
