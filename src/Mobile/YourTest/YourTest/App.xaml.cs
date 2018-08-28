@@ -14,6 +14,7 @@ using YourTest.Navigation;
 using Xamarin.Forms;
 using Refit;
 using YourTest.REST;
+using YourTest.Manager;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace YourTest
@@ -52,6 +53,7 @@ namespace YourTest
             RegisterConfigs(builder);
             RegisterHttpHandlerStack(builder);
             RegisterRestServices(builder);
+            RegisterManagers(builder);
         }
 
         private static void RegisterRestServices(ContainerBuilder builder)
@@ -104,6 +106,12 @@ namespace YourTest
                     RedirectUri = Configuration.B2c.RedirectUri
                 };
             }).AsSelf();
+        }
+
+        private static void RegisterManagers(ContainerBuilder builder)
+        {
+            builder.Register(c => new TcpHololensCommunicationManager())
+                .As<IHololensCommunicationManager>();
         }
 
         private static void RegisterViews(IContainerRegistry containerRegistry)
