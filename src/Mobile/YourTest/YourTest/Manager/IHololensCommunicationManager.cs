@@ -8,6 +8,8 @@ namespace YourTest.Manager
 
         void StopListening();
 
+        event EventHandler ClientConnected;
+
         event EventHandler<String> MessageReceived;
     }
 }

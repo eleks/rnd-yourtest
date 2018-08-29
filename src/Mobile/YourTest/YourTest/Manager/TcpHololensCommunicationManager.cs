@@ -10,6 +10,7 @@ namespace YourTest.Manager
     public class TcpHololensCommunicationManager : IHololensCommunicationManager
     {
         public event EventHandler<String> MessageReceived;
+        public event EventHandler ClientConnected;
 
         public void StartListening(String address, Int32 port)
         {
@@ -36,6 +37,8 @@ namespace YourTest.Manager
             while (true)
             {
                 TcpClient client = listener.AcceptTcpClient();
+                ClientConnected?.Invoke(this, EventArgs.Empty);
+
                 Thread clientThread = new Thread(new ThreadStart(() =>
                 {
                     NetworkStream stream = null;
