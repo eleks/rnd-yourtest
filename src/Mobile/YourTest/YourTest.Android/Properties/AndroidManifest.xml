@@ -4,7 +4,7 @@
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.CAMERA" />
-	<application android:label="YourTest.Android" android:icon="@drawable/ic_launcher" android:theme="@style/MainTheme">
+	<application android:label="YourTest.Android" android:icon="@mipmap/ic_logo" android:theme="@style/MainTheme">
 		<activity android:name="microsoft.identity.client.BrowserTabActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />

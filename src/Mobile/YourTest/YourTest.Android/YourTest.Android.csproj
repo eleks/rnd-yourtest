@@ -98,6 +98,24 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_launcher.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_launcher.png" />
     <AndroidResource Include="Resources\drawable\logo_big.png" />
+    <AndroidResource Include="Resources\mipmap-anydpi-v26\ic_logo_round.xml" />
+    <AndroidResource Include="Resources\mipmap-anydpi-v26\ic_logo.xml" />
+    <AndroidResource Include="Resources\mipmap-hdpi\ic_logo_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\ic_logo_round.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\ic_logo.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\ic_logo_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\ic_logo_round.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\ic_logo.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\ic_logo_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\ic_logo_round.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\ic_logo.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_logo_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_logo_round.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_logo.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_logo_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_logo_round.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_logo.png" />
+    <AndroidResource Include="Resources\values\ic_logo_background.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
