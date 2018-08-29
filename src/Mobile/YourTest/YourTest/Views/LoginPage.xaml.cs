@@ -21,7 +21,7 @@ namespace YourTest.Views
 
         private async Task AttractUser()
         {
-            await Task.Delay(1200);
+            await Task.Delay(800);
             await _buttonLogin.ScaleTo(1.3, 400, easing: Easing.SinInOut);
             await _buttonLogin.ScaleTo(1, 400, easing: Easing.SinInOut);
         }
