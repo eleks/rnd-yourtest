@@ -6,9 +6,11 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System;
-using Windows.Storage.Streams;
 using System.Net.Sockets;
+#if !UNITY_EDITOR
 using Windows.Networking.Sockets;
+using Windows.Storage.Streams;
+#endif
 
 public class MobileCommunicator
 {
@@ -29,12 +31,13 @@ public class MobileCommunicator
 
     public async void SendMessage(String message)
     {
-        DataWriter writer;
+#if !UNITY_EDITOR
+        Windows.Storage.Streams.DataWriter writer;
         
         using (writer = new DataWriter(_soket.OutputStream))
         {
             writer.UnicodeEncoding = Windows.Storage.Streams.UnicodeEncoding.Utf16BE;
-            writer.ByteOrder = ByteOrder.LittleEndian;
+            writer.ByteOrder = Windows.Storage.Streams.ByteOrder.LittleEndian;
             writer.MeasureString(message);
             writer.WriteString(message);
             await writer.StoreAsync();
@@ -42,9 +45,12 @@ public class MobileCommunicator
             await writer.FlushAsync();
             writer.DetachStream();
         }
+#endif
     }
 
+
+#if !UNITY_EDITOR
     private Windows.Networking.Sockets.StreamSocket _soket;
-    private StreamWriter _writer;
+#endif
     private static MobileCommunicator _instance;
 }
