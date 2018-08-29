@@ -149,7 +149,7 @@
         </PackageReference>
     </ItemGroup>
     <ItemGroup>
-        <BundleResource Include="Resources\logo_big.png" />
+        <BundleResource Include="Resources\ic_logo_big_round.png" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Manager\" />
