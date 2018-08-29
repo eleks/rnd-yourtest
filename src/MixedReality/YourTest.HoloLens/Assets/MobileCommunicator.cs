@@ -36,7 +36,7 @@ public class MobileCommunicator
         
         using (writer = new DataWriter(_soket.OutputStream))
         {
-            writer.UnicodeEncoding = Windows.Storage.Streams.UnicodeEncoding.Utf16BE;
+            writer.UnicodeEncoding = Windows.Storage.Streams.UnicodeEncoding.Utf8;
             writer.ByteOrder = Windows.Storage.Streams.ByteOrder.LittleEndian;
             writer.MeasureString(message);
             writer.WriteString(message);
