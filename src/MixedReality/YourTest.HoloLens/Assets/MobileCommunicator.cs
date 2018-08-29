@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System;
+using Windows.Storage.Streams;
+using System.Net.Sockets;
+using Windows.Networking.Sockets;
 
 public class MobileCommunicator
 {
@@ -18,20 +21,30 @@ public class MobileCommunicator
     public async Task ConnectAsync(String ipAddress, String port)
     {
 #if !UNITY_EDITOR
-        var socket = new Windows.Networking.Sockets.StreamSocket();
+        _soket = new Windows.Networking.Sockets.StreamSocket();
         Windows.Networking.HostName serverHost = new Windows.Networking.HostName(ipAddress);
-        await socket.ConnectAsync(serverHost, port);
-
-        Stream streamOut = socket.OutputStream.AsStreamForWrite();
-        _writer = new StreamWriter(streamOut, Encoding.Unicode) { AutoFlush = true };
+        await _soket.ConnectAsync(serverHost, port);
 #endif
     }
 
-    public void SendMessage(String message)
+    public async void SendMessage(String message)
     {
-        _writer.Write(message);
+        DataWriter writer;
+        
+        using (writer = new DataWriter(_soket.OutputStream))
+        {
+            writer.UnicodeEncoding = Windows.Storage.Streams.UnicodeEncoding.Utf16BE;
+            writer.ByteOrder = ByteOrder.LittleEndian;
+            writer.MeasureString(message);
+            writer.WriteString(message);
+            await writer.StoreAsync();
+
+            await writer.FlushAsync();
+            writer.DetachStream();
+        }
     }
 
+    private Windows.Networking.Sockets.StreamSocket _soket;
     private StreamWriter _writer;
     private static MobileCommunicator _instance;
 }

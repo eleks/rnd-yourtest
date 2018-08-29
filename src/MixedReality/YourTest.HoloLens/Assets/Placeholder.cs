@@ -27,7 +27,7 @@ public class Placeholder : MonoBehaviour
           await MobileCommunicator.Instance.ConnectAsync(result, "8888");
           UnityEngine.WSA.Application.InvokeOnAppThread(() =>
           {
-              SceneManager.LoadScene("ModelExplorer", LoadSceneMode.Additive);
+              SceneManager.LoadScene("ModelExplorer");
           }, 
           false);
         },
