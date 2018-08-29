@@ -25,11 +25,13 @@ namespace YourTest
         public App(IPlatformInitializer platformInitializer = default(IPlatformInitializer))
             : base(platformInitializer)
         {
-            InitializeComponent();
         }
 
         protected override async void OnInitialized()
         {
+            InitializeComponent();
+
+
             MainPage = new NavigationPage();
             await NavigationService.NavigateAsync<LoginViewModel>();
 
