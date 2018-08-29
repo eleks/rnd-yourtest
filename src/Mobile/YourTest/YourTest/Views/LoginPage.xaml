@@ -17,6 +17,8 @@
                 HorizontalTextAlignment="Center"/>
             
             <Button Text="Login"
+                x:Name="_buttonLogin"
+                Style="{StaticResource ButtonPrimery}"
                 Command="{Binding LoginCommand}"
                 HorizontalOptions="Center"
                 VerticalOptions="CenterAndExpand" />

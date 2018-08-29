@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Xamarin.Forms;
+using System.Threading.Tasks;
 
 namespace YourTest.Views
 {
@@ -10,6 +11,19 @@ namespace YourTest.Views
         public LoginPage()
         {
             InitializeComponent();
+        }
+
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+            await AttractUser();
+        }
+
+        private async Task AttractUser()
+        {
+            await Task.Delay(1200);
+            await _buttonLogin.ScaleTo(1.3, 400, easing: Easing.SinInOut);
+            await _buttonLogin.ScaleTo(1, 400, easing: Easing.SinInOut);
         }
     }
 }
