@@ -58,8 +58,7 @@ namespace YourTest.iOS
 
         public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
         {
-            AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(url);
-            return true;
+            return AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(url);
         }
 
 
