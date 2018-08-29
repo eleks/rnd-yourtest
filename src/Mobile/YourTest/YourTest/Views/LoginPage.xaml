@@ -18,6 +18,7 @@
             
             <Button Text="Login"
                 x:Name="_buttonLogin"
+                WidthRequest="100"
                 Style="{StaticResource ButtonPrimery}"
                 Command="{Binding LoginCommand}"
                 HorizontalOptions="Center"
