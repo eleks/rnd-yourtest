@@ -19,12 +19,17 @@ public class Placeholder : MonoBehaviour
 
     public void OnScan()
     {
-        this.textMesh.text = "scanning for 30s";
+        this.textMesh.text = "scanning...";
 #if !UNITY_EDITOR
     MediaFrameQrProcessing.Wrappers.ZXingQrCodeScanner.ScanFirstCameraForQrCode(
         async (result) =>
         {
-          await MobileCommunicator.Instance.ConnectAsync(result, "8888");
+            UnityEngine.WSA.Application.InvokeOnAppThread(() =>
+            {
+                this.textMesh.text = "connecting...";
+            },
+          false);
+            await MobileCommunicator.Instance.ConnectAsync(result, "8888");
           UnityEngine.WSA.Application.InvokeOnAppThread(() =>
           {
               SceneManager.LoadScene("ModelExplorer");
