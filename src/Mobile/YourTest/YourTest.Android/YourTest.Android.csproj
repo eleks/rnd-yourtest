@@ -92,7 +92,6 @@
     <AndroidResource Include="Resources\layout\Toolbar.axml" />
     <AndroidResource Include="Resources\values\styles.xml" />
     <AndroidResource Include="Resources\values\colors.xml" />
-    <AndroidResource Include="Resources\drawable\logo_big.png" />
     <AndroidResource Include="Resources\mipmap-anydpi-v26\ic_logo_round.xml" />
     <AndroidResource Include="Resources\mipmap-anydpi-v26\ic_logo.xml" />
     <AndroidResource Include="Resources\mipmap-hdpi\ic_logo_foreground.png" />
