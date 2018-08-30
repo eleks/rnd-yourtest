@@ -40,11 +40,13 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.eleks.YourTest</string>
+			<string>RORU Azure AD B2C</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>rorub2c://com.eleks.YourTest</string>
+				<string>rorub2c</string>
 			</array>
+			<key>CFBundleURLTypes</key>
+			<string>Editor</string>
 		</dict>
 	</array>
 </dict>
