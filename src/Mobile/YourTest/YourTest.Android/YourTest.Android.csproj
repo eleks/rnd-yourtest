@@ -111,6 +111,7 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_logo.png" />
     <AndroidResource Include="Resources\values\ic_logo_background.xml" />
     <AndroidResource Include="Resources\drawable\ic_logo_big_round.png" />
+    <AndroidResource Include="Resources\drawable\splashscreen.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
