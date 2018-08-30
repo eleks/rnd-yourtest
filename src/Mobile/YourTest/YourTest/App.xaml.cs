@@ -33,7 +33,10 @@ namespace YourTest
             InitializeComponent();
 
 
-            MainPage = new NavigationPage();
+            MainPage = new NavigationPage
+            {
+                BarTextColor = Color.White
+            };
             await NavigationService.NavigateAsync<LoginViewModel>();
 
             try
