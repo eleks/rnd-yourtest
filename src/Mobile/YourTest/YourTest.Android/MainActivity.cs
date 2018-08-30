@@ -23,8 +23,7 @@ using Prism.Autofac;
 namespace YourTest.Droid
 {
     [Activity(
-        MainLauncher = true
-        , ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation
         )]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity, IPlatformInitializer
     {

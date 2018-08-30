@@ -4,5 +4,15 @@
     xmlns:prism="clr-namespace:Prism.Autofac;assembly=Prism.Autofa.Forms"
     x:Class="YourTest.App">
     <Application.Resources>
+            
+            <Color x:Key="ColorPrimery">#448AFF</Color>
+        
+            <Style x:Key="ButtonPrimery" TargetType="Button">
+                <Style.Setters>
+                    <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimery}" />
+                    <Setter Property="TextColor" Value="White" />
+                </Style.Setters>
+            </Style>
+
     </Application.Resources>
 </prism:PrismApplication>

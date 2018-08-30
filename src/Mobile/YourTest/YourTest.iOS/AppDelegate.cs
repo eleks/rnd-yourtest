@@ -14,6 +14,8 @@ using System.Net.Http;
 using Microsoft.Identity.Client;
 using YourTest.iOS.Manager;
 using YourTest.Manager;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.iOS;
 
 namespace YourTest.iOS
 {
@@ -46,6 +48,8 @@ namespace YourTest.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            SetTheam();
+
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App(this));
 
@@ -54,8 +58,13 @@ namespace YourTest.iOS
 
         public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
         {
-            AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(url);
-            return true;
+            return AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(url);
+        }
+
+
+        private void SetTheam()
+        {
+            UINavigationBar.Appearance.BarTintColor = Color.FromHex("#2196F3").ToUIColor();
         }
 
     }

@@ -81,6 +81,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Manager\IPAddressManager.cs" />
+    <Compile Include="SplashScreenActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -92,12 +93,26 @@
     <AndroidResource Include="Resources\layout\Toolbar.axml" />
     <AndroidResource Include="Resources\values\styles.xml" />
     <AndroidResource Include="Resources\values\colors.xml" />
-    <AndroidResource Include="Resources\drawable-hdpi\ic_launcher.png" />
-    <AndroidResource Include="Resources\drawable\ic_launcher.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_launcher.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_launcher.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_launcher.png" />
-    <AndroidResource Include="Resources\drawable\logo_big.png" />
+    <AndroidResource Include="Resources\mipmap-anydpi-v26\ic_logo_round.xml" />
+    <AndroidResource Include="Resources\mipmap-anydpi-v26\ic_logo.xml" />
+    <AndroidResource Include="Resources\mipmap-hdpi\ic_logo_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\ic_logo_round.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\ic_logo.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\ic_logo_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\ic_logo_round.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\ic_logo.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\ic_logo_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\ic_logo_round.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\ic_logo.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_logo_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_logo_round.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_logo.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_logo_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_logo_round.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_logo.png" />
+    <AndroidResource Include="Resources\values\ic_logo_background.xml" />
+    <AndroidResource Include="Resources\drawable\ic_logo_big_round.png" />
+    <AndroidResource Include="Resources\drawable\splashscreen.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
