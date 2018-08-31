@@ -16,9 +16,10 @@ namespace YourTest.Manager
         {
             try
             {
-                listener = new TcpListener(IPAddress.Parse(address), port);
-                listener.Start();
-                Task.Run(() => Loop());
+                _listener = new TcpListener(IPAddress.Parse(address), port);
+                _listener.Start();
+                _listeningCts = new CancellationTokenSource();
+                var t = LoopAsync(_listeningCts.Token);
             }
             catch (Exception ex)
             {
@@ -28,56 +29,69 @@ namespace YourTest.Manager
 
         public void StopListening()
         {
-            if (listener != null)
-                listener.Stop();
+            _listeningCts?.Cancel();
+            _listener?.Stop();
+            _listener = null;
+            _listeningCts = null;
         }
 
-        private void Loop()
+        private async Task LoopAsync(CancellationToken cancellationToken)
         {
-            while (true)
+
+            TcpClient client = await _listener.AcceptTcpClientAsync().ConfigureAwait(false);
+            ClientConnected?.Invoke(this, EventArgs.Empty);
+
+            await ReadStreamAsync(client, cancellationToken);
+        }
+
+        private async Task ReadStreamAsync(TcpClient client, CancellationToken cancellationToken)
+        {
+            await Task.Yield();
+
+            NetworkStream stream = null;
+            try
             {
-                TcpClient client = listener.AcceptTcpClient();
-                ClientConnected?.Invoke(this, EventArgs.Empty);
-
-                Thread clientThread = new Thread(new ThreadStart(() =>
+                stream = client.GetStream();
+                byte[] data = new byte[64];
+                while (!cancellationToken.IsCancellationRequested)
                 {
-                    NetworkStream stream = null;
-                    try
+                    var builder = new StringBuilder();
+                    int bytes = 0;
+                    do
                     {
-                        stream = client.GetStream();
-                        byte[] data = new byte[64];
-                        while (true)
+                        if (cancellationToken.IsCancellationRequested)
                         {
-                            var builder = new StringBuilder();
-                            int bytes = 0;
-                            do
-                            {
-                                bytes = stream.Read(data, 0, data.Length);
-                                builder.Append(Encoding.UTF8.GetString(data, 0, bytes));
-                            }
-                            while (stream.DataAvailable);
-
-                            string message = builder.ToString();
-                            MessageReceived?.Invoke(this, message);
+                            break;
                         }
+                        bytes = stream.Read(data, 0, data.Length);
+                        builder.Append(Encoding.UTF8.GetString(data, 0, bytes));
                     }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
-                    finally
-                    {
-                        if (stream != null)
-                            stream.Close();
-                        if (client != null)
-                            client.Close();
-                    }
-                }));
+                    while (stream.DataAvailable);
 
-                clientThread.Start();
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        break;
+                    }
+
+                    string message = builder.ToString();
+                    MessageReceived?.Invoke(this, message);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                stream?.Close();
+                stream = null;
+                client?.Close();
+                client = null;
+
             }
         }
 
-        private TcpListener listener;
+        private TcpListener _listener;
+        private CancellationTokenSource _listeningCts;
     }
 }
