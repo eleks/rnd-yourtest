@@ -63,6 +63,7 @@ namespace YourTest.ViewModels
 
         private void OnHololensMessageReceived(Object sender, String message)
         {
+            // todo for this case create decorator with call dialog on main thread
             Device.BeginInvokeOnMainThread(() => _pageDialogService.DisplayAlertAsync("From HoloLens", message, "OK"));
         }
 
