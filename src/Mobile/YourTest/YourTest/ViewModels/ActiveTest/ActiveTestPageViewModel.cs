@@ -2,29 +2,14 @@
 using Xamarin.Forms;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using Prism.Navigation;
+using YourTest.Models;
+using YourTest.Extentions;
+
 namespace YourTest.ViewModels.ActiveTest
 {
-    public class ActiveTestPageViewModel : ViewModelBase
+    public class ActiveTestPageViewModel : ViewModelBase, INavigatedAware
     {
-        public ActiveTestPageViewModel()
-        {
-            Test = new TestViewModel()
-            {
-                Name = "Test Name",
-                Questions = new ObservableCollection<BaseQuestionViewModel>(){
-                    new TextQuestionViewModel()
-                    {
-                        Description = "Soem text question",
-                        PossibleAnswers = new List<String>(){"a", "b", "c"}},
-                    new MixedRealityQuestionViewModel()
-                    {
-                        Description = " MixedReality question",
-                        PossibleAnswers = new List<String>(){ "a", "b", "c"}
-                    }
-                }
-            };
-        }
-
         public TestViewModel Test
         {
             get => _test;
@@ -32,5 +17,18 @@ namespace YourTest.ViewModels.ActiveTest
         }
 
         private TestViewModel _test;
+
+        public void OnNavigatedFrom(NavigationParameters parameters)
+        {
+        }
+
+        public void OnNavigatedTo(NavigationParameters parameters)
+        {
+            var test = parameters["test"] as Test;
+            if (test != null)
+            {
+                Test = test.ToViewModel();
+            }
+        }
     }
 }

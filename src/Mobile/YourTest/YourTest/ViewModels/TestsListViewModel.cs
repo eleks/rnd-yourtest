@@ -32,7 +32,9 @@ namespace YourTest.ViewModels
 
         private async Task OnTestSelected(Test test)
         {
-            await _navigationService.NavigateAsync(nameof(ActiveTestPageViewModel));
+            var navParam = new NavigationParameters();
+            navParam.Add("test", test);
+            await _navigationService.NavigateAsync(nameof(ActiveTestPageViewModel), navParam);
         }
 
         protected override void OnAppearing()

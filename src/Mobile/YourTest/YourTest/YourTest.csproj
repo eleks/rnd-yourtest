@@ -28,6 +28,7 @@
     <Folder Include="Converters\" />
     <Folder Include="ViewModels\ActiveTest\" />
     <Folder Include="Controls\" />
+    <Folder Include="Extentions\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Views\ConnectHoloLensPage.xaml.cs">
