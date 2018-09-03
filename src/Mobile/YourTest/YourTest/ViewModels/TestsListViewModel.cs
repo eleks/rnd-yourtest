@@ -30,7 +30,6 @@ namespace YourTest.ViewModels
             LoadCommand.Execute(null);
         }
 
-
         private async Task LoadAsync()
         {
             IsBusy = true;
