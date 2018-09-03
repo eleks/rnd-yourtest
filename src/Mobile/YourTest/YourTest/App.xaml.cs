@@ -15,6 +15,7 @@ using Xamarin.Forms;
 using Refit;
 using YourTest.REST;
 using YourTest.Manager;
+using YourTest.ViewModels.ActiveTest;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace YourTest

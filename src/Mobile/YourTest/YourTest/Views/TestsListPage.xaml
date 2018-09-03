@@ -4,12 +4,22 @@
     xmlns:local="clr-namespace:YourTest" 
     x:Class="YourTest.Views.TestsListPage"
     Title="Awailable Test">
-    <ListView ItemsSource="{Binding Source}"
+    <ListView 
+        ItemsSource="{Binding Source}"
+        x:Name="TestListView"
         IsRefreshing="{Binding IsBusy}"
         IsPullToRefreshEnabled="true">
         <ListView.ItemTemplate>
             <DataTemplate>
-                <TextCell Text="{Binding Name}" />
+                <ViewCell >
+                    <StackLayout>
+                        <Label
+                            Text="{Binding Name}"/>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:Reference TestListView}, Path=BindingContext.SelectTestCommand}" CommandParameter="{Binding}" />
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
