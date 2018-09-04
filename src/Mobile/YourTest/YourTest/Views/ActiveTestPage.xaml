@@ -5,16 +5,24 @@
     xmlns:viewCell="clr-namespace:YourTest.Controls; assembly=YourTest"
     xmlns:controls="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
     x:Class="YourTest.Views.ActiveTestPage">
-     <controls:CarouselViewControl 
-        Orientation="Horizontal"
-        Position="{Binding Position}"
-        ItemsSource="{Binding Test.Questions}" 
-        VerticalOptions="FillAndExpand"
-        HorizontalOptions="FillAndExpand">
-        <controls:CarouselViewControl.ItemTemplate>
-            <DataTemplate>
-                <viewCell:QuestionPageView/>
-            </DataTemplate>
-        </controls:CarouselViewControl.ItemTemplate>
-    </controls:CarouselViewControl>
+    <StackLayout>
+        <Label Text="{Binding Name}"
+               HorizontalTextAlignment="Center"
+               FontSize="16"/>
+        <controls:CarouselViewControl
+            x:Name="QuestionsList"
+            Orientation="Horizontal"
+            Position="{Binding Position}"
+            ItemsSource="{Binding Test.Questions}" 
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand">
+            <controls:CarouselViewControl.ItemTemplate>
+                <DataTemplate>
+                    <viewCell:QuestionPageView
+                        AnswerSelectedCommand="{Binding Source={x:Reference QuestionsList}, Path=BindingContext.SelectQuestionCommand}">
+                    </viewCell:QuestionPageView>
+                </DataTemplate>
+            </controls:CarouselViewControl.ItemTemplate>
+        </controls:CarouselViewControl>
+    </StackLayout>
 </ContentPage>

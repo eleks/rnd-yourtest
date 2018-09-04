@@ -1,7 +1,4 @@
-﻿using System;
-
-using Xamarin.Forms;
-using YourTest.ViewModels.ActiveTest;
+﻿using YourTest.ViewModels.ActiveTest;
 using YourTest.Models;
 using System.Collections.Generic;
 
@@ -13,6 +10,7 @@ namespace YourTest.Extentions
         {
             var testVM = new TestViewModel()
             {
+                Id = test.Id,
                 Name = test.Name,
                 Questions = new List<BaseQuestionViewModel>()
             };

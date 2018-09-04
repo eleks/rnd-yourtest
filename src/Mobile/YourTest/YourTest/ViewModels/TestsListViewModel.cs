@@ -1,6 +1,4 @@
-﻿using System;
-using YourTest.REST;
-using System.Collections.ObjectModel;
+﻿using YourTest.REST;
 using YourTest.Models;
 using System.Windows.Input;
 using Prism.Commands;
