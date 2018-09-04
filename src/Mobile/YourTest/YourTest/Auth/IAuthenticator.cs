@@ -7,5 +7,6 @@ namespace YourTest.Auth
     {
         Task<String> AuthenticateAsync();
         Task<String> AuthenticateSilentAsync();
+        Task SignOut();
     }
 }

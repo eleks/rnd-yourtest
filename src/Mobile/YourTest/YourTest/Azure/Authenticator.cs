@@ -47,6 +47,16 @@ namespace YourTest.Azure
             return authResult.AccessToken;
         }
 
+        public Task SignOut()
+        {
+            foreach (var u in _publicApp.Users)
+            {
+                _publicApp.Remove(u);
+            }
+
+            return Task.FromResult(true);
+        }
+
 
         protected virtual UIParent GetPlatformParameters() => _uIParent;
     }
