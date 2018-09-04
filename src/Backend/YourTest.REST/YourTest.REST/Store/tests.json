@@ -1,0 +1,39 @@
+﻿[
+    {
+        "id": 2,
+        "name": "File Test",
+        "questions": [
+            {
+                "description": "What sky color is?",
+                "possibleAnswers": [
+                    "grean",
+                    "red",
+                    "blue",
+                    "pink"
+                ],
+                "answer": "blue",
+                "type": 0,
+                "id": 1
+            },
+            {
+                "description": "2 + 2 = ?",
+                "possibleAnswers": [
+                    "3",
+                    "8",
+                    "6",
+                    "4"
+                ],
+                "answer": "4",
+                "type": 0,
+                "id": 2
+            },
+            {
+                "description": "Find Red Box.",
+                "possibleAnswers": [],
+                "answer": "Box-Top-Righ",
+                "type": 1,
+                "id": 3
+            }
+        ]
+    }
+]
