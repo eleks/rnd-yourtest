@@ -18,9 +18,9 @@
             HorizontalOptions="FillAndExpand">
             <controls:CarouselViewControl.ItemTemplate>
                 <DataTemplate>
-                    <viewCell:QuestionPageView
+                    <viewCell:TextQuestionPageView
                         AnswerSelectedCommand="{Binding Source={x:Reference QuestionsList}, Path=BindingContext.SelectQuestionCommand}">
-                    </viewCell:QuestionPageView>
+                    </viewCell:TextQuestionPageView>
                 </DataTemplate>
             </controls:CarouselViewControl.ItemTemplate>
         </controls:CarouselViewControl>
