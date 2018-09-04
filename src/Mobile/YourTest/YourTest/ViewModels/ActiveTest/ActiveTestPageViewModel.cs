@@ -6,6 +6,7 @@ using Prism.Commands;
 using YourTest.REST;
 using System;
 using System.Collections.Generic;
+using YourTest.Manager;
 
 namespace YourTest.ViewModels.ActiveTest
 {
@@ -17,11 +18,15 @@ namespace YourTest.ViewModels.ActiveTest
             set => SetProperty(ref _test, value);
         }
 
+        public String LocalIPAddress => _ipAddressManager.GetIPAddress();
+
         public ICommand SelectQuestionCommand { get; set; }
 
-        public ActiveTestPageViewModel(ITestsRest testsRest)
+        public ActiveTestPageViewModel(ITestsRest testsRest,
+                                       IIPAddressManager addressManager)
         {
             _testsRest = testsRest;
+            _ipAddressManager = addressManager;
 
             SelectQuestionCommand = new DelegateCommand<String>(HandleAction);
         }
@@ -47,5 +52,6 @@ namespace YourTest.ViewModels.ActiveTest
         private List<QuestionAnswer> _answers = new List<QuestionAnswer>();
         private TestViewModel _test;
         private readonly ITestsRest _testsRest;
+        private readonly IIPAddressManager _ipAddressManager;
     }
 }

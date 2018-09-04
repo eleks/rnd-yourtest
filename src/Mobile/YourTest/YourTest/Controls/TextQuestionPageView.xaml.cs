@@ -7,17 +7,11 @@ using Xamarin.Forms.Xaml;
 namespace YourTest.Controls
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class TextQuestionPageView : StackLayout
+    public partial class TextQuestionPageView : ContentView
     {
         public TextQuestionPageView()
         {
             InitializeComponent();
-        }
-
-        void Handle_ItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
-        {
-            var answer = (String)e.SelectedItem;
-            AnswerSelectedCommand?.Execute(answer);
         }
 
         public static readonly BindableProperty AnswerSelectedCommandProperty =
@@ -32,5 +26,13 @@ namespace YourTest.Controls
             get => (ICommand)GetValue(AnswerSelectedCommandProperty);
             set => SetValue(AnswerSelectedCommandProperty, value);
         }
+
+        void Handle_Tapped(object sender, System.EventArgs e)
+        {
+            var frame = (Frame)sender;
+            var vm = frame.BindingContext as String;
+            AnswerSelectedCommand.Execute(vm);
+        }
+
     }
 }

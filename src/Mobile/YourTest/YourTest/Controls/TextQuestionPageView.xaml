@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:YourTest.Controls; assembly=YourTest"
     x:Class="YourTest.Controls.TextQuestionPageView">
     <Frame 
         HasShadow="true"
@@ -16,27 +17,25 @@
                 FontSize="16"
                 BackgroundColor="{StaticResource ColorPrimery}"
                 HorizontalTextAlignment="Center"/>
-            <ListView
+            <controls:BindableStackLayout
                 BackgroundColor="{StaticResource ColorPrimery}"
                 VerticalOptions="Start"
                 HorizontalOptions="FillAndExpand"
-                ItemsSource="{Binding PossibleAnswers}"
-                ItemSelected="Handle_ItemSelected"
-                SeparatorVisibility="None"
-                HasUnevenRows="true">
-                <ListView.ItemTemplate>
+                ItemsSource="{Binding PossibleAnswers}">
+                <controls:BindableStackLayout.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
                             <Frame CornerRadius="5"
                                    Margin="5"
                                    HasShadow="false">
                                 <Label 
                                     Text="{Binding .}"/>
+                             <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Handle_Tapped" />
+                            </Frame.GestureRecognizers>
                             </Frame>
-                        </ViewCell>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </controls:BindableStackLayout.ItemTemplate>
+            </controls:BindableStackLayout>
         </StackLayout>
     </Frame>
-</StackLayout>
+</ContentView>

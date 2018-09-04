@@ -3,9 +3,11 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewCell="clr-namespace:YourTest.Controls; assembly=YourTest"
+    xmlns:dts="clr-namespace:YourTest.DataTemplateSelectors; assembly=YourTest"
     xmlns:controls="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
     x:Class="YourTest.Views.ActiveTestPage">
-    <StackLayout>
+    <StackLayout
+        Spacing="0">
         <Label Text="{Binding Name}"
                HorizontalTextAlignment="Center"
                FontSize="16"/>
@@ -16,13 +18,32 @@
             ItemsSource="{Binding Test.Questions}" 
             VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand">
+            <controls:CarouselViewControl.Resources>
+                <ResourceDictionary>
+                    <DataTemplate x:Key="MixedRealityQuestionTemplate">
+                        <viewCell:MixedRealityQuestionPageView
+                            BarcodeValue="{Binding Source={x:Reference QuestionsList}, 
+                                                        Path=BindingContext.LocalIPAddress}"/>
+                    </DataTemplate>
+                    <DataTemplate x:Key="TextQuestionTemplate">
+                        <viewCell:TextQuestionPageView
+                            AnswerSelectedCommand="{Binding Source={x:Reference QuestionsList}, 
+                                                    Path=BindingContext.SelectQuestionCommand}"/>
+                    </DataTemplate>
+                </ResourceDictionary>
+            </controls:CarouselViewControl.Resources>
             <controls:CarouselViewControl.ItemTemplate>
-                <DataTemplate>
-                    <viewCell:TextQuestionPageView
-                        AnswerSelectedCommand="{Binding Source={x:Reference QuestionsList}, Path=BindingContext.SelectQuestionCommand}">
-                    </viewCell:TextQuestionPageView>
-                </DataTemplate>
+                <dts:QuestionsDataTemplateSelector
+                    MixedRealityQuestionTemplate="{StaticResource MixedRealityQuestionTemplate}"
+                    TextQuestionTemplate="{StaticResource TextQuestionTemplate}" />
             </controls:CarouselViewControl.ItemTemplate>
         </controls:CarouselViewControl>
+        <Button
+            Text="Confirm test"
+            HeightRequest="40"
+            HorizontalOptions="FillAndExpand"
+            Margin="20"
+            BackgroundColor="{StaticResource ColorPrimery}"
+            CornerRadius="15"/>
     </StackLayout>
 </ContentPage>

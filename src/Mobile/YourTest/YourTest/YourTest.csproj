@@ -29,6 +29,7 @@
     <Folder Include="ViewModels\ActiveTest\" />
     <Folder Include="Controls\" />
     <Folder Include="Extentions\" />
+    <Folder Include="DataTemplateSelectors\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Views\ConnectHoloLensPage.xaml.cs">
