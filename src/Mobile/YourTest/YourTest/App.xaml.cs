@@ -42,7 +42,7 @@ namespace YourTest
             try
             {
                 await Container.Resolve<AuthSession>().AuthenticateSilentAsync();
-                await NavigationService.NavigateAsync<ConnectHoloLensPageViewModel>();
+                await NavigationService.NavigateAsync<TestsListPage>();
             }
             catch (Exception)
             {
