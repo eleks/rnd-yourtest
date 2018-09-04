@@ -47,7 +47,7 @@ namespace YourTest.Azure
             return authResult.AccessToken;
         }
 
-        public Task SignOut()
+        public Task SignOutAsync()
         {
             foreach (var u in _publicApp.Users)
             {
