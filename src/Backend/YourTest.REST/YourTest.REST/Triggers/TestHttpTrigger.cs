@@ -64,17 +64,19 @@ namespace YourTest.REST.Triggers
             HttpRequestMessage req
             )
         {
-            var bytes = await req.Content.ReadAsByteArrayAsync();
+            var bytes = await req.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
 
-            var testdataFile = File.Open("Store/tests.json", FileMode.OpenOrCreate);
+            var filePath = $"{Constants.FileDir}\\{Constants.DataFile}";
 
-            testdataFile.Write(bytes, 0, bytes.Length);
+            using (var testdataFile = File.Open(filePath, FileMode.OpenOrCreate))
+            {
+                testdataFile.Write(bytes, 0, bytes.Length);
 
-            testdataFile.Flush();
+                testdataFile.Flush();
 
-            testdataFile.Close();
+                testdataFile.Close();
 
-            testdataFile.Dispose();
+            }
 
             // todo add more aligant way to seed test data with
             TestManager = CreateTestManager();
@@ -89,7 +91,7 @@ namespace YourTest.REST.Triggers
             IRepository<Test> repo = new InMemoryRepository<Test>();
             IDataProvider<Test> dataProvider = new ComposedDataProvider<Test>(
                  new StubDataProvider()
-                 , new FileDataProvider("Store")
+                 , new FileDataProvider(Constants.FileDir)
                  );
             dataProvider.Seed(repo);
             return new TestManager(repo);
