@@ -23,6 +23,12 @@ namespace YourTest.Auth
             _tokenStore.Token = res;
         }
 
+        public async Task SignOutAsync()
+        {
+            await _authenticator.SignOutAsync().ConfigureAwait(false);
+            _tokenStore.Token = null;
+        }
+
 
         private readonly IAuthenticator _authenticator;
         private readonly ITokenStore _tokenStore;

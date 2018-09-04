@@ -6,6 +6,9 @@ using System.Windows.Input;
 using Prism.Commands;
 using System.Threading.Tasks;
 using MvvmHelpers;
+using YourTest.Auth;
+using Prism.Navigation;
+using YourTest.Navigation;
 
 namespace YourTest.ViewModels
 {
@@ -14,14 +17,20 @@ namespace YourTest.ViewModels
         public ObservableRangeCollection<Test> Source { get; } = new ObservableRangeCollection<Test>();
 
         public ICommand LoadCommand { get; }
+        public ICommand LogoutCommand { get; }
 
-
-        public TestsListViewModel(ITestsRest testsRest)
+        public TestsListViewModel(
+            ITestsRest testsRest
+            , AuthSession authSession
+            , INavigationService navigationService
+            )
         {
             _testsRest = testsRest;
+            _authSession = authSession;
+            _navigationService = navigationService;
 
             LoadCommand = new DelegateCommand(async () => await LoadAsync());
-
+            LogoutCommand = new DelegateCommand(async () => await LogOutAsync());
         }
 
         protected override void OnAppearing()
@@ -40,6 +49,20 @@ namespace YourTest.ViewModels
         }
 
 
+        private async Task LogOutAsync()
+        {
+            try
+            {
+                await _authSession.SignOutAsync();
+                await _navigationService.NavigateAsync<LoginViewModel>(true);
+            }
+            catch (Exception)
+            { }
+        }
+
+
         private readonly ITestsRest _testsRest;
+        private readonly AuthSession _authSession;
+        private readonly INavigationService _navigationService;
     }
 }

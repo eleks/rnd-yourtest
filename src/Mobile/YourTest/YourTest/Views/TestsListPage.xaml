@@ -4,6 +4,11 @@
     xmlns:local="clr-namespace:YourTest" 
     x:Class="YourTest.Views.TestsListPage"
     Title="Awailable Test">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="Sign Out"
+            Command="{Binding LogoutCommand}"/>
+    </ContentPage.ToolbarItems>
     <ListView ItemsSource="{Binding Source}"
         IsRefreshing="{Binding IsBusy}"
         IsPullToRefreshEnabled="true">
