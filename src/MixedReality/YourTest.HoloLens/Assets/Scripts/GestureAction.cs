@@ -16,11 +16,19 @@ namespace Academy
         [SerializeField]
         private float RotationSensitivity = 10.0f;
 
+        public Transform textMeshObject;
+        TextMesh textMesh;
+
         private bool isNavigationEnabled = true;
         public bool IsNavigationEnabled
         {
             get { return isNavigationEnabled; }
             set { isNavigationEnabled = value; }
+        }
+
+        private void Start()
+        {
+            this.textMesh = this.textMeshObject.GetComponent<TextMesh>();
         }
 
         private Vector3 manipulationOriginalPosition = Vector3.zero;
@@ -73,6 +81,7 @@ namespace Academy
 
                 // 4.a: Make this transform's position be the manipulationOriginalPosition + eventData.CumulativeDelta
                 transform.position = manipulationOriginalPosition + eventData.CumulativeDelta;
+                textMesh.text = $"x: {transform.position.x}, y: {transform.position.y}, z: {transform.position.z}";
             }
         }
 
