@@ -14,7 +14,7 @@ namespace YourTest.REST.Data
         public FileDataProvider(String rootDir)
         {
             _rootDir = rootDir;
-            _filePath = $"{_rootDir}\\{Constants.DataFile}";
+            _filePath = Path.Combine(_rootDir, Constants.DataFile);
         }
 
         public void Seed(IRepository<Test> repository)
