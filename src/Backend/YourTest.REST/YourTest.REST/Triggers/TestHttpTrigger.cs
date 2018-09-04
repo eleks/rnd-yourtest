@@ -84,6 +84,22 @@ namespace YourTest.REST.Triggers
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
+        [FunctionName(nameof(GetDataFile))]
+        public static HttpResponseMessage GetDataFile(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "test/datafile")]
+            HttpRequestMessage req
+            )
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+
+            var filePath = Path.Combine(Constants.FileDir, Constants.DataFile);
+            response.Content = new ByteArrayContent(File.ReadAllBytes(filePath));
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+
+            return response;
+        }
+
 
 
         private static ITestManager CreateTestManager()
