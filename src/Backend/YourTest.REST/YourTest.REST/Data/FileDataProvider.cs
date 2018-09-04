@@ -14,7 +14,7 @@ namespace YourTest.REST.Data
         public FileDataProvider(String rootDir)
         {
             _rootDir = rootDir;
-            _filePath = $"{_rootDir}\tests.json";
+            _filePath = $"{_rootDir}\\{Constants.DataFile}";
         }
 
         public void Seed(IRepository<Test> repository)
@@ -27,8 +27,8 @@ namespace YourTest.REST.Data
             }
         }
 
-        private static string GetScriptPath() => Path.Combine(GetEnvironmentVariable("HOME"), @"site\wwwroot");
+        //private static string GetScriptPath() => Path.Combine(GetEnvironmentVariable("HOME"), @"site\wwwroot");
 
-        private static string GetEnvironmentVariable(string name) => System.Environment.GetEnvironmentVariable(name, EnvironmentVariableTarget.Process);
+        //private static string GetEnvironmentVariable(string name) => System.Environment.GetEnvironmentVariable(name, EnvironmentVariableTarget.Process);
     }
 }
