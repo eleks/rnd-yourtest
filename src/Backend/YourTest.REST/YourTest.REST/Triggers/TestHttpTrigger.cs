@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using YourTest.REST.Models;
 using YourTest.REST.Data;
 using System.Net.Http;
+using System.Net;
+using System.Net.Http.Headers;
 
 namespace YourTest.REST.Triggers
 {
@@ -56,11 +58,39 @@ namespace YourTest.REST.Triggers
             return new OkObjectResult(testSummery);
         }
 
+        [FunctionName(nameof(SetDataFile))]
+        public static async Task<HttpResponseMessage> SetDataFile(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "test/datafile")]
+            HttpRequestMessage req
+            )
+        {
+            var bytes = await req.Content.ReadAsByteArrayAsync();
+
+            var testdataFile = File.Open("Store/tests.json", FileMode.OpenOrCreate);
+
+            testdataFile.Write(bytes, 0, bytes.Length);
+
+            testdataFile.Flush();
+
+            testdataFile.Close();
+
+            testdataFile.Dispose();
+
+            // todo add more aligant way to seed test data with
+            TestManager = CreateTestManager();
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+
 
         private static ITestManager CreateTestManager()
         {
             IRepository<Test> repo = new InMemoryRepository<Test>();
-            IDataProvider<Test> dataProvider = new DemoDataProvider();
+            IDataProvider<Test> dataProvider = new ComposedDataProvider<Test>(
+                 new StubDataProvider()
+                 , new FileDataProvider("Store")
+                 );
             dataProvider.Seed(repo);
             return new TestManager(repo);
         }
