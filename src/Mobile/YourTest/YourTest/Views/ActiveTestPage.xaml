@@ -40,6 +40,7 @@
         </controls:CarouselViewControl>
         <Button
             Text="Confirm test"
+            TextColor="White"
             HeightRequest="40"
             HorizontalOptions="FillAndExpand"
             Margin="20"
