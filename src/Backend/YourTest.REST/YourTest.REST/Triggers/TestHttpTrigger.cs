@@ -27,26 +27,26 @@ namespace YourTest.REST.Triggers
 
 
         [FunctionName(nameof(GetAllTests))]
-        public static async Task<IActionResult> GetAllTests(
+        public static async Task<IEnumerable<Test>> GetAllTests(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "test")]
             HttpRequestMessage req
             )
         {
-            return new JsonResult(await TestManager.GetAllAsync());
+            return await TestManager.GetAllAsync();
         }
 
         [FunctionName(nameof(GetTestById))]
-        public static async Task<IActionResult> GetTestById(
+        public static async Task<Test> GetTestById(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "test/{id:int}")]
             HttpRequestMessage req
             , int id
             )
         {
-            return new JsonResult(await TestManager.GetByIdAync(id));
+            return await TestManager.GetByIdAync(id);
         }
 
         [FunctionName(nameof(ProcessTest))]
-        public static async Task<IActionResult> ProcessTest(
+        public static async Task<TestSummery> ProcessTest(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "test/{id:int}")]
             HttpRequestMessage req
             , Int32 id
@@ -57,7 +57,7 @@ namespace YourTest.REST.Triggers
 
             var testSummery = TestManager.Verify(id, answers);
 
-            return new JsonResult(testSummery);
+            return testSummery;
         }
 
         [FunctionName(nameof(SetDataFile))]
