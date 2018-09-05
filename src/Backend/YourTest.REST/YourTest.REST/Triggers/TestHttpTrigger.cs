@@ -16,6 +16,8 @@ using YourTest.REST.Data;
 using System.Net.Http;
 using System.Net;
 using System.Net.Http.Headers;
+using YourTest.REST.FileSystem;
+
 
 namespace YourTest.REST.Triggers
 {
@@ -68,7 +70,7 @@ namespace YourTest.REST.Triggers
 
             var filePath = $"{Constants.FileDir}\\{Constants.DataFile}";
 
-            using (var testdataFile = File.Open(filePath, FileMode.OpenOrCreate))
+            using (var testdataFile = FunctionsFile.Open(filePath, FileMode.OpenOrCreate))
             {
                 testdataFile.Write(bytes, 0, bytes.Length);
 
@@ -93,7 +95,7 @@ namespace YourTest.REST.Triggers
             var response = new HttpResponseMessage(HttpStatusCode.OK);
 
             var filePath = Path.Combine(Constants.FileDir, Constants.DataFile);
-            response.Content = new ByteArrayContent(File.ReadAllBytes(filePath));
+            response.Content = new ByteArrayContent(FunctionsFile.ReadAllBytes(filePath));
             response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
 

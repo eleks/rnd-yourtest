@@ -29,5 +29,6 @@
     <Folder Include="Triggers\" />
     <Folder Include="Data\" />
     <Folder Include="Store\" />
+    <Folder Include="FileSystem\" />
   </ItemGroup>
 </Project>
