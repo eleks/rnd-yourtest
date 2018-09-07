@@ -5,7 +5,8 @@
     xmlns:viewCell="clr-namespace:YourTest.Controls; assembly=YourTest"
     xmlns:dts="clr-namespace:YourTest.DataTemplateSelectors; assembly=YourTest"
     xmlns:controls="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
-    x:Class="YourTest.Views.ActiveTestPage">
+    x:Class="YourTest.Views.ActiveTestPage"
+    Title="{Binding Test.Name}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="ConfirmButton" TargetType="Button" BasedOn="{StaticResource ButtonRoundedPrimery}">
