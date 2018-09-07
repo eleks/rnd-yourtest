@@ -20,13 +20,14 @@
             <controls:BindableStackLayout
                 BackgroundColor="{StaticResource ColorPrimery}"
                 VerticalOptions="Start"
+                Spacing="8"
                 HorizontalOptions="FillAndExpand"
                 ItemsSource="{Binding PossibleAnswers}">
                 <controls:BindableStackLayout.ItemTemplate>
                     <DataTemplate>
                             <Frame CornerRadius="5"
-                                   Margin="5"
-                                   HasShadow="false">
+                                   HasShadow="false"
+                                   Padding="10">
                                 <Label 
                                     Text="{Binding .}"/>
                              <Frame.GestureRecognizers>
