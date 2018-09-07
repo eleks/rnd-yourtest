@@ -8,6 +8,7 @@ using YourTest.ViewModels.ActiveTest;
 using YourTest.Auth;
 using Prism.Navigation;
 using YourTest.Navigation;
+using System;
 
 namespace YourTest.ViewModels
 {
@@ -70,7 +71,7 @@ namespace YourTest.ViewModels
 
         private readonly ITestsRest _testsRest;
         private readonly AuthSession _authSession;
-        
+
         private readonly INavigationService _navigationService;
     }
 }
