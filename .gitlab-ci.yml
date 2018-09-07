@@ -1,0 +1,21 @@
+stages:
+  - build
+
+
+before_script:
+    - cd src/Mobile/YourTest
+    - nuget restore
+
+build:mobile:droid:
+  stage: build
+  tags:
+    - xamarin
+  script:
+    - "msbuild YourTest.Android/YourTest.Android.csproj /p:Configuration=Release /t:Rebuild"
+
+build:mobile:ios:
+  stage: build
+  tags:
+    - xamarin
+  script:
+    - "msbuild YourTest.iOS/YourTest.iOS.csproj /p:Configuration=Release /t:Rebuild"
