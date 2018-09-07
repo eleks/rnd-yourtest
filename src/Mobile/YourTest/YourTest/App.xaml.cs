@@ -45,8 +45,9 @@ namespace YourTest
                 await Container.Resolve<AuthSession>().AuthenticateSilentAsync();
                 await NavigationService.NavigateAsync<TestsListViewModel>();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine(ex);
             }
         }
 

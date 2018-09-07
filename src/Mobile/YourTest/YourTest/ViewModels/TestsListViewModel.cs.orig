@@ -4,10 +4,14 @@ using System.Windows.Input;
 using Prism.Commands;
 using System.Threading.Tasks;
 using MvvmHelpers;
+<<<<<<< HEAD
+using Prism.Navigation;
 using YourTest.ViewModels.ActiveTest;
+=======
 using YourTest.Auth;
 using Prism.Navigation;
 using YourTest.Navigation;
+>>>>>>> master
 
 namespace YourTest.ViewModels
 {
@@ -16,7 +20,20 @@ namespace YourTest.ViewModels
         public ObservableRangeCollection<Test> Source { get; } = new ObservableRangeCollection<Test>();
 
         public ICommand LoadCommand { get; }
+<<<<<<< HEAD
         public ICommand SelectTestCommand { get; }
+
+
+        public TestsListViewModel(ITestsRest testsRest,
+                                  INavigationService navigationService)
+        {
+            _testsRest = testsRest;
+            _navigationService = navigationService;
+
+            LoadCommand = new DelegateCommand(async () => await LoadAsync());
+            SelectTestCommand = new DelegateCommand<Test>(async (test) => await OnTestSelected(test));
+
+=======
         public ICommand LogoutCommand { get; }
 
         public TestsListViewModel(
@@ -30,8 +47,8 @@ namespace YourTest.ViewModels
             _navigationService = navigationService;
 
             LoadCommand = new DelegateCommand(async () => await LoadAsync());
-            SelectTestCommand = new DelegateCommand<Test>(async (test) => await OnTestSelected(test));
             LogoutCommand = new DelegateCommand(async () => await LogOutAsync());
+>>>>>>> master
         }
 
         private async Task OnTestSelected(Test test)
@@ -69,7 +86,10 @@ namespace YourTest.ViewModels
 
 
         private readonly ITestsRest _testsRest;
-        private readonly INavigationService _navigationService;
+<<<<<<< HEAD
+=======
+        private readonly AuthSession _authSession;
+>>>>>>> master
         private readonly INavigationService _navigationService;
     }
 }

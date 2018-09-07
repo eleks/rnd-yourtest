@@ -8,12 +8,18 @@
     <PackageReference Include="DeepCloner" Version="0.10.2" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Data\FileDataProvider.css" />
+  </ItemGroup>
+  <ItemGroup>
     <None Update="host.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="local.settings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+    <None Update="Store\tests.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -22,5 +28,7 @@
     <Folder Include="Service\" />
     <Folder Include="Triggers\" />
     <Folder Include="Data\" />
+    <Folder Include="Store\" />
+    <Folder Include="FileSystem\" />
   </ItemGroup>
 </Project>
