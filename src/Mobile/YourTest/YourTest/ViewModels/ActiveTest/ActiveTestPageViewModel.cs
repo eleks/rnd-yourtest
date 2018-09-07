@@ -7,6 +7,9 @@ using YourTest.REST;
 using System;
 using System.Collections.Generic;
 using YourTest.Manager;
+using Autofac;
+using Prism.Ioc;
+using Prism.Autofac;
 
 namespace YourTest.ViewModels.ActiveTest
 {
@@ -23,8 +26,10 @@ namespace YourTest.ViewModels.ActiveTest
         public ICommand SelectQuestionCommand { get; set; }
 
         public ActiveTestPageViewModel(ITestsRest testsRest,
+                                       IContainerRegistry containerRegistry,
                                        IIPAddressManager addressManager)
         {
+            _container = containerRegistry.GetContainer();
             _testsRest = testsRest;
             _ipAddressManager = addressManager;
 
@@ -40,7 +45,7 @@ namespace YourTest.ViewModels.ActiveTest
             var test = parameters["test"] as Test;
             if (test != null)
             {
-                Test = test.ToViewModel();
+                Test = test.ToViewModel(_container);
             }
         }
 
@@ -51,6 +56,7 @@ namespace YourTest.ViewModels.ActiveTest
 
         private List<QuestionAnswer> _answers = new List<QuestionAnswer>();
         private TestViewModel _test;
+        private readonly IContainer _container;
         private readonly ITestsRest _testsRest;
         private readonly IIPAddressManager _ipAddressManager;
     }

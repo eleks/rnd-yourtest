@@ -1,12 +1,13 @@
 ﻿using YourTest.ViewModels.ActiveTest;
 using YourTest.Models;
 using System.Collections.Generic;
+using Autofac;
 
 namespace YourTest.Extentions
 {
     public static class TestModelConverterExtention
     {
-        public static TestViewModel ToViewModel(this Test test)
+        public static TestViewModel ToViewModel(this Test test, IContainer container)
         {
             var testVM = new TestViewModel()
             {
@@ -28,11 +29,9 @@ namespace YourTest.Extentions
                 }
                 else if (question.Type == QuestionType.MixedReality)
                 {
-                    var questionVM = new MixedRealityQuestionViewModel()
-                    {
-                        Description = question.Description,
-                        PossibleAnswers = question.PossibleAnswers
-                    };
+                    var questionVM = container.Resolve<MixedRealityQuestionViewModel>();
+                    questionVM.Description = question.Description;
+                    questionVM.PossibleAnswers = question.PossibleAnswers;
                     testVM.Questions.Add(questionVM);
                 }
             }

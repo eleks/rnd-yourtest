@@ -58,6 +58,8 @@ namespace YourTest
             RegisterHttpHandlerStack(builder);
             RegisterRestServices(builder);
             RegisterManagers(builder);
+
+            builder.Register(c => containerRegistry);
         }
 
         private static void RegisterRestServices(ContainerBuilder builder)
