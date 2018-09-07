@@ -19,6 +19,7 @@ using Xamarin.Android.Net;
 using System.Net.Http;
 using Microsoft.Identity.Client;
 using Prism.Autofac;
+using CarouselView.FormsPlugin.Android;
 
 namespace YourTest.Droid
 {
@@ -50,6 +51,8 @@ namespace YourTest.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             global::ZXing.Net.Mobile.Forms.Android.Platform.Init();
+            CarouselViewRenderer.Init();
+
             LoadApplication(new App(this));
         }
 

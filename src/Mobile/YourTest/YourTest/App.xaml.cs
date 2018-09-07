@@ -15,6 +15,7 @@ using Xamarin.Forms;
 using Refit;
 using YourTest.REST;
 using YourTest.Manager;
+using YourTest.ViewModels.ActiveTest;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace YourTest
@@ -58,6 +59,8 @@ namespace YourTest
             RegisterHttpHandlerStack(builder);
             RegisterRestServices(builder);
             RegisterManagers(builder);
+
+            builder.Register(c => containerRegistry);
         }
 
         private static void RegisterRestServices(ContainerBuilder builder)
@@ -123,6 +126,7 @@ namespace YourTest
             containerRegistry.RegisterForViewModelNavigation<LoginPage, LoginViewModel>();
             containerRegistry.RegisterForViewModelNavigation<TestsListPage, TestsListViewModel>();
             containerRegistry.RegisterForViewModelNavigation<ConnectHoloLensPage, ConnectHoloLensPageViewModel>();
+            containerRegistry.RegisterForViewModelNavigation<ActiveTestPage, ActiveTestPageViewModel>();
         }
     }
 }

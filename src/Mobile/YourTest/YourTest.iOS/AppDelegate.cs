@@ -16,6 +16,7 @@ using YourTest.iOS.Manager;
 using YourTest.Manager;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
+using CarouselView.FormsPlugin.iOS;
 
 namespace YourTest.iOS
 {
@@ -52,6 +53,8 @@ namespace YourTest.iOS
 
             global::Xamarin.Forms.Forms.Init();
             global::ZXing.Net.Mobile.Forms.iOS.Platform.Init();
+            CarouselViewRenderer.Init();
+
             LoadApplication(new App(this));
 
             return base.FinishedLaunching(app, options);

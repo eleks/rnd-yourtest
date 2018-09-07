@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewCell="clr-namespace:YourTest.Controls; assembly=YourTest"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:dts="clr-namespace:YourTest.DataTemplateSelectors; assembly=YourTest"
+    xmlns:controls="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
+    x:Class="YourTest.Views.ActiveTestPage"
+    ios:Page.UseSafeArea="true"
+    Title="{Binding Test.Name}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ConfirmButton" TargetType="Button" BasedOn="{StaticResource ButtonRoundedPrimery}">
+                <Style.Setters>
+                    <Setter Property="Margin" Value="{StaticResource PageMargin}"/>
+                </Style.Setters>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <controls:CarouselViewControl
+            x:Name="QuestionsList"
+            Orientation="Horizontal"
+            Position="{Binding Position}"
+            ItemsSource="{Binding Test.Questions}" 
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand">
+            <controls:CarouselViewControl.Resources>
+                <ResourceDictionary>
+                    <DataTemplate x:Key="MixedRealityQuestionTemplate">
+                        <viewCell:MixedRealityQuestionPageView
+                            BarcodeValue="{Binding Source={x:Reference QuestionsList}, 
+                                                        Path=BindingContext.LocalIPAddress}"/>
+                    </DataTemplate>
+                    <DataTemplate x:Key="TextQuestionTemplate">
+                        <viewCell:TextQuestionPageView
+                            AnswerSelectedCommand="{Binding Source={x:Reference QuestionsList}, 
+                                                    Path=BindingContext.SelectQuestionCommand}"/>
+                    </DataTemplate>
+                </ResourceDictionary>
+            </controls:CarouselViewControl.Resources>
+            <controls:CarouselViewControl.ItemTemplate>
+                <dts:QuestionsDataTemplateSelector
+                    MixedRealityQuestionTemplate="{StaticResource MixedRealityQuestionTemplate}"
+                    TextQuestionTemplate="{StaticResource TextQuestionTemplate}" />
+            </controls:CarouselViewControl.ItemTemplate>
+        </controls:CarouselViewControl>
+        <Button
+            Grid.Row="1"
+            Text="Confirm test"
+            Style="{StaticResource ConfirmButton}"
+            HeightRequest="40"
+            HorizontalOptions="FillAndExpand"
+            />
+    </Grid>
+</ContentPage>

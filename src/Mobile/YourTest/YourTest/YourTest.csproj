@@ -12,6 +12,7 @@
     <PackageReference Include="Refit" Version="4.6.30" />
     <PackageReference Include="Refractored.MvvmHelpers" Version="1.3.0" />
     <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1" />
+    <PackageReference Include="CarouselView.FormsPlugin" Version="5.2.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
@@ -25,6 +26,10 @@
     <Folder Include="Models\" />
     <Folder Include="Manager\" />
     <Folder Include="Converters\" />
+    <Folder Include="ViewModels\ActiveTest\" />
+    <Folder Include="Controls\" />
+    <Folder Include="Extentions\" />
+    <Folder Include="DataTemplateSelectors\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Views\ConnectHoloLensPage.xaml.cs">

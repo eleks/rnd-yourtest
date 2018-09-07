@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="YourTest.Controls.MixedRealityQuestionPageView"
+    xmlns:converters="clr-namespace:YourTest.Converters;assembly=YourTest"
+    xmlns:zx="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+    xmlns:zxcm="clr-namespace:ZXing.Common;assembly=zxing.portable">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:HololensConnectionStatusToQrVisibilityConverter x:Key="HololensConnectionStatusToQrVisibilityConverter" />
+            <converters:HololensConnectionStatusToTextConverter x:Key="HololensConnectionStatusToTextConverter" />
+            
+            <Style x:Key="Card" TargetType="Frame" BasedOn="{StaticResource QuestionCardFrame}">
+                <Style.Setters>
+                    <Setter Property="Margin" Value="{StaticResource TopElementMargin}"/>
+                </Style.Setters>
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+     <Frame 
+        Style="{StaticResource Card}"
+        VerticalOptions="FillAndExpand"
+        HorizontalOptions="FillAndExpand">
+        <StackLayout VerticalOptions="FillAndExpand"
+                     HorizontalOptions="FillAndExpand">
+            <Label
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="Start"
+                Margin="20,40,20,0"
+                Style="{StaticResource QuerstionCardLabel}"
+                Text="{Binding Status, Converter={StaticResource HololensConnectionStatusToTextConverter}}"/>
+            
+            <zx:ZXingBarcodeImageView
+                x:Name="barcodeImageView"
+                BarcodeFormat="QR_CODE"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                    <zx:ZXingBarcodeImageView.BarcodeOptions>
+                        <zxcm:EncodingOptions Width="300" Height="300" />
+                    </zx:ZXingBarcodeImageView.BarcodeOptions>
+            </zx:ZXingBarcodeImageView>
+            
+            <Label
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="End"
+                Margin="20,0,20,20"
+                Style="{StaticResource QuerstionCardLabel}"
+                IsVisible="{Binding Status, Converter={StaticResource HololensConnectionStatusToQrVisibilityConverter}}"
+                Text="{Binding LocalIPAddress}"/>
+        </StackLayout>
+    </Frame>
+</ContentView>

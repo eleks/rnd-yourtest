@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:YourTest.Controls; assembly=YourTest"
+    x:Class="YourTest.Controls.TextQuestionPageView">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Card" TargetType="Frame" BasedOn="{StaticResource QuestionCardFrame}">
+                <Style.Setters>
+                    <Setter Property="Margin" Value="{StaticResource PageMargin}"/>
+                </Style.Setters>
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <Frame 
+        VerticalOptions="Start"
+        Style="{StaticResource Card}">
+        <StackLayout VerticalOptions="Start">
+            <Label
+                VerticalOptions="Start"
+                Text="{Binding Description}"
+                Style="{StaticResource QuerstionCardLabel}"/>
+            <controls:BindableStackLayout
+                BackgroundColor="{StaticResource ColorPrimery}"
+                VerticalOptions="Start"
+                Spacing="8"
+                HorizontalOptions="FillAndExpand"
+                ItemsSource="{Binding PossibleAnswers}">
+                <controls:BindableStackLayout.ItemTemplate>
+                    <DataTemplate>
+                            <Frame CornerRadius="5"
+                                   HasShadow="false"
+                                   Padding="10">
+                                <Label 
+                                    Text="{Binding .}"/>
+                             <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Handle_Tapped" />
+                            </Frame.GestureRecognizers>
+                            </Frame>
+                    </DataTemplate>
+                </controls:BindableStackLayout.ItemTemplate>
+            </controls:BindableStackLayout>
+        </StackLayout>
+    </Frame>
+</ContentView>
