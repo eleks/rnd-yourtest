@@ -13,7 +13,7 @@
             
             <Color x:Key="ColorPrimery">#448AFF</Color>
             
-            
+            <!-- Buttons -->
         
             <Style x:Key="ButtonPrimery" TargetType="Button">
                 <Style.Setters>
@@ -34,6 +34,8 @@
                 </Style.Setters>
             </Style>
             
+            <!-- Frames -->
+            
             <Style x:Key="CardFrame" TargetType="Frame" BasedOn="{StaticResource FrameRounded}">
                 <Style.Setters>
                     <Setter Property="HasShadow" Value="False" />
@@ -43,6 +45,21 @@
             <Style x:Key="QuestionCardFrame" TargetType="Frame" BasedOn="{StaticResource CardFrame}">
                 <Style.Setters>
                     <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimery}" />
+                </Style.Setters>
+            </Style>
+            
+            <!-- Labels -->
+            
+            <Style x:Key="LabelDefault" TargetType="Label">
+                <Style.Setters>
+                    <Setter Property="FontSize" Value="16" />
+                </Style.Setters>
+            </Style>
+            
+            <Style x:Key="QuerstionCardLabel" TargetType="Label" BasedOn="{StaticResource LabelDefault}">
+                <Style.Setters>
+                    <Setter Property="HorizontalTextAlignment" Value="Center" />
+                    <Setter Property="TextColor" Value="White" />
                 </Style.Setters>
             </Style>
 

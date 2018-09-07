@@ -18,8 +18,7 @@
     <StackLayout
         Spacing="0">
         <Label Text="{Binding Name}"
-               HorizontalTextAlignment="Center"
-               FontSize="16"/>
+               Style="{StaticResource LabelDefault}"/>
         <controls:CarouselViewControl
             x:Name="QuestionsList"
             Orientation="Horizontal"

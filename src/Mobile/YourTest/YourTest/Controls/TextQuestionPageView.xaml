@@ -19,10 +19,7 @@
             <Label
                 VerticalOptions="Start"
                 Text="{Binding Description}"
-                TextColor="White"
-                FontSize="16"
-                BackgroundColor="{StaticResource ColorPrimery}"
-                HorizontalTextAlignment="Center"/>
+                Style="{StaticResource QuerstionCardLabel}"/>
             <controls:BindableStackLayout
                 BackgroundColor="{StaticResource ColorPrimery}"
                 VerticalOptions="Start"

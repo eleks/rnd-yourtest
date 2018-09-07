@@ -28,7 +28,7 @@
                 HorizontalOptions="CenterAndExpand"
                 VerticalOptions="Start"
                 Margin="20,40,20,0"
-                HorizontalTextAlignment="Center"
+                Style="{StaticResource QuerstionCardLabel}"
                 Text="{Binding Status, Converter={StaticResource HololensConnectionStatusToTextConverter}}"/>
             
             <zx:ZXingBarcodeImageView
@@ -45,7 +45,7 @@
                 HorizontalOptions="CenterAndExpand"
                 VerticalOptions="End"
                 Margin="20,0,20,20"
-                HorizontalTextAlignment="Center"
+                Style="{StaticResource QuerstionCardLabel}"
                 IsVisible="{Binding Status, Converter={StaticResource HololensConnectionStatusToQrVisibilityConverter}}"
                 Text="{Binding LocalIPAddress}"/>
         </StackLayout>
