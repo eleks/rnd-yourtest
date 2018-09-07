@@ -32,7 +32,7 @@ public class MobileCommunicator
     public async void SendMessage(String message)
     {
 #if !UNITY_EDITOR
-        /*Windows.Storage.Streams.DataWriter writer;
+        Windows.Storage.Streams.DataWriter writer;
         
         using (writer = new DataWriter(_soket.OutputStream))
         {
@@ -44,7 +44,7 @@ public class MobileCommunicator
 
             await writer.FlushAsync();
             writer.DetachStream();
-        }*/
+        }
 #endif
     }
 

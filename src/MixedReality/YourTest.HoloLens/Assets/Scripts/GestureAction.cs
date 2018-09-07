@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using HoloToolkit.Unity.InputModule;
+using HoloToolkit.UX.Dialog;
 using UnityEngine;
 
 namespace Academy
@@ -10,103 +11,31 @@ namespace Academy
     /// GestureAction performs custom actions based on 
     /// which gesture is being performed.
     /// </summary>
-    public class GestureAction : MonoBehaviour, INavigationHandler, IManipulationHandler, ISpeechHandler
+    public class GestureAction : MonoBehaviour, IManipulationHandler, ISpeechHandler
     {
-        [Tooltip("Rotation max speed controls amount of rotation.")]
-        [SerializeField]
-        private float RotationSensitivity = 10.0f;
-
-        public Transform textMeshObject;
-        TextMesh textMesh;
-        
+        public Dialog dialogPrefab;
         public GameObject head;
-
-        private bool isNavigationEnabled = true;
-        public bool IsNavigationEnabled
-        {
-            get { return isNavigationEnabled; }
-            set { isNavigationEnabled = value; }
-        }
-
-        private void Start()
-        {
-            this.textMesh = this.textMeshObject.GetComponent<TextMesh>();
-        }
-
-        private Vector3 manipulationOriginalPosition = Vector3.zero;
-
-        void INavigationHandler.OnNavigationStarted(NavigationEventData eventData)
-        {
-            InputManager.Instance.PushModalInputHandler(gameObject);
-        }
-
-        void INavigationHandler.OnNavigationUpdated(NavigationEventData eventData)
-        {
-            if (isNavigationEnabled)
-            {
-                /* TODO: DEVELOPER CODING EXERCISE 2.c */
-
-                // 2.c: Calculate a float rotationFactor based on eventData's NormalizedOffset.x multiplied by RotationSensitivity.
-                // This will help control the amount of rotation.
-                float rotationFactor = eventData.NormalizedOffset.x * RotationSensitivity;
-
-                // 2.c: transform.Rotate around the Y axis using rotationFactor.
-                transform.Rotate(new Vector3(0, -1 * rotationFactor, 0));
-            }
-        }
-
-        void INavigationHandler.OnNavigationCompleted(NavigationEventData eventData)
-        {
-            InputManager.Instance.PopModalInputHandler();
-        }
-
-        void INavigationHandler.OnNavigationCanceled(NavigationEventData eventData)
-        {
-            InputManager.Instance.PopModalInputHandler();
-        }
 
         void IManipulationHandler.OnManipulationStarted(ManipulationEventData eventData)
         {
-            if (!isNavigationEnabled)
-            {
-                InputManager.Instance.PushModalInputHandler(gameObject);
-
-                manipulationOriginalPosition = transform.position;
-            }
+            InputManager.Instance.PushModalInputHandler(gameObject);
+            manipulationOriginalPosition = transform.position;
         }
 
         void IManipulationHandler.OnManipulationUpdated(ManipulationEventData eventData)
         {
-            if (!isNavigationEnabled)
-            {
-                /* TODO: DEVELOPER CODING EXERCISE 4.a */
-
-                // 4.a: Make this transform's position be the manipulationOriginalPosition + eventData.CumulativeDelta
-                transform.position = manipulationOriginalPosition + eventData.CumulativeDelta;
-                
-                var isX = IsApproxEqual(transform.position.x, head.transform.position.x);
-                var isY = IsApproxEqual(transform.position.y, head.transform.position.y);
-                var isZ = IsApproxEqual(transform.position.z, head.transform.position.z);
-
-                if (isX && isY && isZ)
-                {
-                    textMesh.text = "Success";
-                }
-                else
-                {
-                    textMesh.text = "";
-                }
-            }
-        }
-
-        private bool IsApproxEqual(double real, double needed, double acceptableError = 0.025)
-        {
-            return needed + acceptableError >= real && needed - acceptableError <= real;
+            transform.position = manipulationOriginalPosition + eventData.CumulativeDelta;
         }
 
         void IManipulationHandler.OnManipulationCompleted(ManipulationEventData eventData)
         {
             InputManager.Instance.PopModalInputHandler();
+
+            var isX = IsApproxEqual(transform.position.x, head.transform.position.x);
+            var isY = IsApproxEqual(transform.position.y, head.transform.position.y);
+            var isZ = IsApproxEqual(transform.position.z, head.transform.position.z);
+
+            _rightAnswer = isX && isY && isZ;
         }
 
         void IManipulationHandler.OnManipulationCanceled(ManipulationEventData eventData)
@@ -114,15 +43,16 @@ namespace Academy
             InputManager.Instance.PopModalInputHandler();
         }
 
+        private bool IsApproxEqual(double real, double needed, double acceptableError = 0.025)
+        {
+            return needed + acceptableError >= real && needed - acceptableError <= real;
+        }
+
         void ISpeechHandler.OnSpeechKeywordRecognized(SpeechEventData eventData)
         {
-            if (eventData.RecognizedText.ToLower().Equals("move astronaut"))
+            if (eventData.RecognizedText.ToLower().Equals("finish"))
             {
-                isNavigationEnabled = false;
-            }
-            else if (eventData.RecognizedText.ToLower().Equals("rotate astronaut"))
-            {
-                isNavigationEnabled = true;
+                MobileCommunicator.Instance.SendMessage(_rightAnswer.ToString());
             }
             else
             {
@@ -131,5 +61,8 @@ namespace Academy
 
             eventData.Use();
         }
+
+        private bool _rightAnswer;
+        private Vector3 manipulationOriginalPosition = Vector3.zero;
     }
 }
