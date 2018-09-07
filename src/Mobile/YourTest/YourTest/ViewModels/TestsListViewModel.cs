@@ -45,7 +45,7 @@ namespace YourTest.ViewModels
         {
             IsBusy = true;
             var testsData = await _testsRest.GetAllAsync();
-            Source.AddRange(testsData);
+            Source.ReplaceRange(testsData);
             IsBusy = false;
         }
 

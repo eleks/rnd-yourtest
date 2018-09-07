@@ -5,11 +5,60 @@
     x:Class="YourTest.App">
     <Application.Resources>
             
+            <x:Int32 x:Key="CornerRadius">15</x:Int32>
+            
+            <Thickness x:Key="PageMargin">15</Thickness>
+            <Thickness x:Key="BottomElementMargin">15,0,15,15</Thickness>
+            <Thickness x:Key="TopElementMargin">15,15,15,0</Thickness>
+            
             <Color x:Key="ColorPrimery">#448AFF</Color>
+            
+            <!-- Buttons -->
         
             <Style x:Key="ButtonPrimery" TargetType="Button">
                 <Style.Setters>
                     <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimery}" />
+                    <Setter Property="TextColor" Value="White" />
+                </Style.Setters>
+            </Style>
+            
+            <Style x:Key="ButtonRoundedPrimery" TargetType="Button" BasedOn="{StaticResource ButtonPrimery}">
+                <Style.Setters>
+                    <Setter Property="CornerRadius" Value="{StaticResource CornerRadius}" />
+                </Style.Setters>
+            </Style>
+            
+            <Style x:Key="FrameRounded" TargetType="Frame">
+                <Style.Setters>
+                    <Setter Property="CornerRadius" Value="{StaticResource CornerRadius}" />
+                </Style.Setters>
+            </Style>
+            
+            <!-- Frames -->
+            
+            <Style x:Key="CardFrame" TargetType="Frame" BasedOn="{StaticResource FrameRounded}">
+                <Style.Setters>
+                    <Setter Property="HasShadow" Value="False" />
+                </Style.Setters>
+            </Style>
+            
+            <Style x:Key="QuestionCardFrame" TargetType="Frame" BasedOn="{StaticResource CardFrame}">
+                <Style.Setters>
+                    <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimery}" />
+                </Style.Setters>
+            </Style>
+            
+            <!-- Labels -->
+            
+            <Style x:Key="LabelDefault" TargetType="Label">
+                <Style.Setters>
+                    <Setter Property="FontSize" Value="16" />
+                </Style.Setters>
+            </Style>
+            
+            <Style x:Key="QuerstionCardLabel" TargetType="Label" BasedOn="{StaticResource LabelDefault}">
+                <Style.Setters>
+                    <Setter Property="HorizontalTextAlignment" Value="Center" />
                     <Setter Property="TextColor" Value="White" />
                 </Style.Setters>
             </Style>

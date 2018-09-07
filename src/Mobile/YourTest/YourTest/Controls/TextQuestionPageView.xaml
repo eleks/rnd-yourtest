@@ -3,30 +3,34 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:YourTest.Controls; assembly=YourTest"
     x:Class="YourTest.Controls.TextQuestionPageView">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Card" TargetType="Frame" BasedOn="{StaticResource QuestionCardFrame}">
+                <Style.Setters>
+                    <Setter Property="Margin" Value="{StaticResource PageMargin}"/>
+                </Style.Setters>
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
     <Frame 
-        HasShadow="true"
-        CornerRadius="15"
-        Margin="15"
         VerticalOptions="Start"
-        BackgroundColor="{StaticResource ColorPrimery}">
+        Style="{StaticResource Card}">
         <StackLayout VerticalOptions="Start">
             <Label
                 VerticalOptions="Start"
                 Text="{Binding Description}"
-                TextColor="White"
-                FontSize="16"
-                BackgroundColor="{StaticResource ColorPrimery}"
-                HorizontalTextAlignment="Center"/>
+                Style="{StaticResource QuerstionCardLabel}"/>
             <controls:BindableStackLayout
                 BackgroundColor="{StaticResource ColorPrimery}"
                 VerticalOptions="Start"
+                Spacing="8"
                 HorizontalOptions="FillAndExpand"
                 ItemsSource="{Binding PossibleAnswers}">
                 <controls:BindableStackLayout.ItemTemplate>
                     <DataTemplate>
                             <Frame CornerRadius="5"
-                                   Margin="5"
-                                   HasShadow="false">
+                                   HasShadow="false"
+                                   Padding="10">
                                 <Label 
                                     Text="{Binding .}"/>
                              <Frame.GestureRecognizers>

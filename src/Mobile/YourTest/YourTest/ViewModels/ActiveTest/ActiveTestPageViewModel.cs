@@ -13,7 +13,7 @@ using Prism.Autofac;
 
 namespace YourTest.ViewModels.ActiveTest
 {
-    public class ActiveTestPageViewModel : ViewModelBase, INavigatedAware
+    public class ActiveTestPageViewModel : ViewModelBase, INavigatingAware
     {
         public TestViewModel Test
         {
@@ -36,14 +36,9 @@ namespace YourTest.ViewModels.ActiveTest
             SelectQuestionCommand = new DelegateCommand<String>(HandleAction);
         }
 
-        public void OnNavigatedFrom(NavigationParameters parameters)
+        public void OnNavigatingTo(NavigationParameters parameters)
         {
-        }
-
-        public void OnNavigatedTo(NavigationParameters parameters)
-        {
-            var test = parameters["test"] as Test;
-            if (test != null)
+            if (parameters["test"] is Test test)
             {
                 Test = test.ToViewModel(_container);
             }
@@ -53,6 +48,7 @@ namespace YourTest.ViewModels.ActiveTest
         {
             _answers.Add(new QuestionAnswer { Answer = answer });
         }
+
 
         private List<QuestionAnswer> _answers = new List<QuestionAnswer>();
         private TestViewModel _test;

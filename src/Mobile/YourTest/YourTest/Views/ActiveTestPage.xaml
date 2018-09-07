@@ -5,12 +5,21 @@
     xmlns:viewCell="clr-namespace:YourTest.Controls; assembly=YourTest"
     xmlns:dts="clr-namespace:YourTest.DataTemplateSelectors; assembly=YourTest"
     xmlns:controls="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
-    x:Class="YourTest.Views.ActiveTestPage">
+    x:Class="YourTest.Views.ActiveTestPage"
+    Title="{Binding Test.Name}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ConfirmButton" TargetType="Button" BasedOn="{StaticResource ButtonRoundedPrimery}">
+                <Style.Setters>
+                    <Setter Property="Margin" Value="{StaticResource PageMargin}"/>
+                </Style.Setters>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <StackLayout
         Spacing="0">
         <Label Text="{Binding Name}"
-               HorizontalTextAlignment="Center"
-               FontSize="16"/>
+               Style="{StaticResource LabelDefault}"/>
         <controls:CarouselViewControl
             x:Name="QuestionsList"
             Orientation="Horizontal"
@@ -40,11 +49,9 @@
         </controls:CarouselViewControl>
         <Button
             Text="Confirm test"
-            TextColor="White"
+            Style="{StaticResource ConfirmButton}"
             HeightRequest="40"
             HorizontalOptions="FillAndExpand"
-            Margin="20"
-            BackgroundColor="{StaticResource ColorPrimery}"
-            CornerRadius="15"/>
+            />
     </StackLayout>
 </ContentPage>

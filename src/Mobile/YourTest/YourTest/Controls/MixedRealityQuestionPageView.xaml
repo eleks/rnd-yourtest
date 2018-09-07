@@ -10,22 +10,25 @@
         <ResourceDictionary>
             <converters:HololensConnectionStatusToQrVisibilityConverter x:Key="HololensConnectionStatusToQrVisibilityConverter" />
             <converters:HololensConnectionStatusToTextConverter x:Key="HololensConnectionStatusToTextConverter" />
+            
+            <Style x:Key="Card" TargetType="Frame" BasedOn="{StaticResource QuestionCardFrame}">
+                <Style.Setters>
+                    <Setter Property="Margin" Value="{StaticResource TopElementMargin}"/>
+                </Style.Setters>
+            </Style>
         </ResourceDictionary>
     </ContentView.Resources>
      <Frame 
-        HasShadow="true"
-        CornerRadius="15"
-        Margin="15"
+        Style="{StaticResource Card}"
         VerticalOptions="FillAndExpand"
-        HorizontalOptions="FillAndExpand"
-        BackgroundColor="{StaticResource ColorPrimery}">
+        HorizontalOptions="FillAndExpand">
         <StackLayout VerticalOptions="FillAndExpand"
                      HorizontalOptions="FillAndExpand">
             <Label
                 HorizontalOptions="CenterAndExpand"
                 VerticalOptions="Start"
                 Margin="20,40,20,0"
-                HorizontalTextAlignment="Center"
+                Style="{StaticResource QuerstionCardLabel}"
                 Text="{Binding Status, Converter={StaticResource HololensConnectionStatusToTextConverter}}"/>
             
             <zx:ZXingBarcodeImageView
@@ -42,7 +45,7 @@
                 HorizontalOptions="CenterAndExpand"
                 VerticalOptions="End"
                 Margin="20,0,20,20"
-                HorizontalTextAlignment="Center"
+                Style="{StaticResource QuerstionCardLabel}"
                 IsVisible="{Binding Status, Converter={StaticResource HololensConnectionStatusToQrVisibilityConverter}}"
                 Text="{Binding LocalIPAddress}"/>
         </StackLayout>
