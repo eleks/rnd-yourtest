@@ -18,6 +18,8 @@ namespace Academy
 
         public Transform textMeshObject;
         TextMesh textMesh;
+        
+        public GameObject head;
 
         private bool isNavigationEnabled = true;
         public bool IsNavigationEnabled
@@ -81,8 +83,25 @@ namespace Academy
 
                 // 4.a: Make this transform's position be the manipulationOriginalPosition + eventData.CumulativeDelta
                 transform.position = manipulationOriginalPosition + eventData.CumulativeDelta;
-                textMesh.text = $"x: {transform.position.x}, y: {transform.position.y}, z: {transform.position.z}";
+                
+                var isX = IsApproxEqual(transform.position.x, head.transform.position.x);
+                var isY = IsApproxEqual(transform.position.y, head.transform.position.y);
+                var isZ = IsApproxEqual(transform.position.z, head.transform.position.z);
+
+                if (isX && isY && isZ)
+                {
+                    textMesh.text = "Success";
+                }
+                else
+                {
+                    textMesh.text = "";
+                }
             }
+        }
+
+        private bool IsApproxEqual(double real, double needed, double acceptableError = 0.025)
+        {
+            return needed + acceptableError >= real && needed - acceptableError <= real;
         }
 
         void IManipulationHandler.OnManipulationCompleted(ManipulationEventData eventData)
