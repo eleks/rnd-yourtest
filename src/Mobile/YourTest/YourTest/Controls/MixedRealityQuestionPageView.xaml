@@ -10,10 +10,16 @@
         <ResourceDictionary>
             <converters:HololensConnectionStatusToQrVisibilityConverter x:Key="HololensConnectionStatusToQrVisibilityConverter" />
             <converters:HololensConnectionStatusToTextConverter x:Key="HololensConnectionStatusToTextConverter" />
+            
+            <Style x:Key="Card" TargetType="Frame" BasedOn="{StaticResource QuestionCardFrame}">
+                <Style.Setters>
+                    <Setter Property="Margin" Value="{StaticResource TopElementMargin}"/>
+                </Style.Setters>
+            </Style>
         </ResourceDictionary>
     </ContentView.Resources>
      <Frame 
-        Style="{StaticResource QuestionCardFrame}"
+        Style="{StaticResource Card}"
         VerticalOptions="FillAndExpand"
         HorizontalOptions="FillAndExpand">
         <StackLayout VerticalOptions="FillAndExpand"

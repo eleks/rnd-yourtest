@@ -5,8 +5,11 @@
     x:Class="YourTest.App">
     <Application.Resources>
             
-            <x:Single x:Key="CornerRadiusFrame">15</x:Single>
-            <x:Double x:Key="CornerRadius">15</x:Double>
+            <x:Int32 x:Key="CornerRadius">15</x:Int32>
+            
+            <Thickness x:Key="PageMargin">15</Thickness>
+            <Thickness x:Key="BottomElementMargin">15,0,15,15</Thickness>
+            <Thickness x:Key="TopElementMargin">15,15,15,0</Thickness>
             
             <Color x:Key="ColorPrimery">#448AFF</Color>
             
@@ -27,7 +30,7 @@
             
             <Style x:Key="FrameRounded" TargetType="Frame">
                 <Style.Setters>
-                    <Setter Property="CornerRadius" Value="{StaticResource CornerRadiusFrame}" />
+                    <Setter Property="CornerRadius" Value="{StaticResource CornerRadius}" />
                 </Style.Setters>
             </Style>
             
