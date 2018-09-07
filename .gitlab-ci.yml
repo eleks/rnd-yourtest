@@ -18,4 +18,4 @@ build:mobile:ios:
   tags:
     - xamarin
   script:
-    - "msbuild YourTest.iOS/YourTest.iOS.csproj /p:Configuration=Release /t:Rebuild"
+    - "msbuild YourTest.iOS/YourTest.iOS.csproj /p:Configuration=Release /t:Rebuild" 
