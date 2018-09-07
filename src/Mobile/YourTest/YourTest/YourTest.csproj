@@ -32,6 +32,9 @@
     <Folder Include="DataTemplateSelectors\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="ViewModels\TestsListViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Views\ConnectHoloLensPage.xaml.cs">
       <DependentUpon>ConnectHoloLensPage.xaml</DependentUpon>
     </Compile>
