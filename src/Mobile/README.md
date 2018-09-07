@@ -1,6 +1,6 @@
 # YourTest.Mobile
 
-TODO small description ...
+Xamarin.Forms application. Used for testing user by set of questions retrieved from bak-end.
 
 ## Pre-Requirements
 
