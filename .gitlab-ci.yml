@@ -1,0 +1,27 @@
+stages:
+  - build
+
+before_script:
+    - export Secret_B2cClientId="$Secret_B2cClientId"
+    - export Secret_B2cRedirectUri="rorub2c://com.eleks.YourTest"
+    - export Secret_B2cAuthority="https://login.microsoftonline.com/tfp/rorub2c.onmicrosoft.com/B2C_1_Mail-Signup"
+    - export Secret_B2cScopes="https://rorub2c.onmicrosoft.com/yourtest/read"
+    
+    - export Secret_RestEndpoint="https://roru-yt.azurewebsites.net"
+
+    - cd src/Mobile/YourTest
+    - nuget restore
+
+build:mobile:droid:
+  stage: build
+  tags:
+    - xamarin
+  script:
+    - "msbuild YourTest.Android/YourTest.Android.csproj /p:Configuration=Release /t:Rebuild"
+
+build:mobile:ios:
+  stage: build
+  tags:
+    - xamarin
+  script:
+    - "msbuild YourTest.iOS/YourTest.iOS.csproj /p:Configuration=Release /t:Rebuild" 
