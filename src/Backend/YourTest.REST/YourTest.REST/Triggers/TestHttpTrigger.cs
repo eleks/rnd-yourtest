@@ -14,6 +14,10 @@ using System.Collections.Generic;
 using YourTest.REST.Models;
 using YourTest.REST.Data;
 using System.Net.Http;
+using System.Net;
+using System.Net.Http.Headers;
+using YourTest.REST.FileSystem;
+
 
 namespace YourTest.REST.Triggers
 {
@@ -42,7 +46,7 @@ namespace YourTest.REST.Triggers
         }
 
         [FunctionName(nameof(ProcessTest))]
-        public static async Task<IActionResult> ProcessTest(
+        public static async Task<TestSummery> ProcessTest(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "test/{id:int}")]
             HttpRequestMessage req
             , Int32 id
@@ -53,14 +57,60 @@ namespace YourTest.REST.Triggers
 
             var testSummery = TestManager.Verify(id, answers);
 
-            return new OkObjectResult(testSummery);
+            return testSummery;
         }
+
+        [FunctionName(nameof(SetDataFile))]
+        public static async Task<HttpResponseMessage> SetDataFile(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "test/datafile")]
+            HttpRequestMessage req
+            )
+        {
+            var bytes = await req.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
+
+            var filePath = $"{Constants.FileDir}\\{Constants.DataFile}";
+
+            using (var testdataFile = FunctionsFile.Open(filePath, FileMode.OpenOrCreate))
+            {
+                testdataFile.Write(bytes, 0, bytes.Length);
+
+                testdataFile.Flush();
+
+                testdataFile.Close();
+
+            }
+
+            // todo add more aligant way to seed test data with
+            TestManager = CreateTestManager();
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        [FunctionName(nameof(GetDataFile))]
+        public static HttpResponseMessage GetDataFile(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "test/datafile")]
+            HttpRequestMessage req
+            )
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+
+            var filePath = Path.Combine(Constants.FileDir, Constants.DataFile);
+            response.Content = new ByteArrayContent(FunctionsFile.ReadAllBytes(filePath));
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+
+            return response;
+        }
+
 
 
         private static ITestManager CreateTestManager()
         {
             IRepository<Test> repo = new InMemoryRepository<Test>();
-            IDataProvider<Test> dataProvider = new DemoDataProvider();
+            IDataProvider<Test> dataProvider = new ComposedDataProvider<Test>(
+                 new StubDataProvider()
+                 , new FileDataProvider(Constants.FileDir)
+                 );
             dataProvider.Seed(repo);
             return new TestManager(repo);
         }

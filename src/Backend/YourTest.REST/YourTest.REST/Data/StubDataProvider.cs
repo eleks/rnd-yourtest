@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace YourTest.REST.Data
 {
-    public class DemoDataProvider : IDataProvider<Test>
+    public class StubDataProvider : IDataProvider<Test>
     {
         public void Seed(IRepository<Test> repository)
         {
