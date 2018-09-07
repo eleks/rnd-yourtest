@@ -40,11 +40,9 @@
         </controls:CarouselViewControl>
         <Button
             Text="Confirm test"
-            TextColor="White"
+            Style="{StaticResource ButtonRoundedPrimery}"
             HeightRequest="40"
             HorizontalOptions="FillAndExpand"
-            Margin="20"
-            BackgroundColor="{StaticResource ColorPrimery}"
-            CornerRadius="15"/>
+            />
     </StackLayout>
 </ContentPage>

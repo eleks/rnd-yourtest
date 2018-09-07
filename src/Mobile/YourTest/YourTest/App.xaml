@@ -5,12 +5,41 @@
     x:Class="YourTest.App">
     <Application.Resources>
             
+            <x:Single x:Key="CornerRadiusFrame">15</x:Single>
+            <x:Double x:Key="CornerRadius">15</x:Double>
+            
             <Color x:Key="ColorPrimery">#448AFF</Color>
+            
+            
         
             <Style x:Key="ButtonPrimery" TargetType="Button">
                 <Style.Setters>
                     <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimery}" />
                     <Setter Property="TextColor" Value="White" />
+                </Style.Setters>
+            </Style>
+            
+            <Style x:Key="ButtonRoundedPrimery" TargetType="Button" BasedOn="{StaticResource ButtonPrimery}">
+                <Style.Setters>
+                    <Setter Property="CornerRadius" Value="{StaticResource CornerRadius}" />
+                </Style.Setters>
+            </Style>
+            
+            <Style x:Key="FrameRounded" TargetType="Frame">
+                <Style.Setters>
+                    <Setter Property="CornerRadius" Value="{StaticResource CornerRadiusFrame}" />
+                </Style.Setters>
+            </Style>
+            
+            <Style x:Key="CardFrame" TargetType="Frame" BasedOn="{StaticResource FrameRounded}">
+                <Style.Setters>
+                    <Setter Property="HasShadow" Value="False" />
+                </Style.Setters>
+            </Style>
+            
+            <Style x:Key="QuestionCardFrame" TargetType="Frame" BasedOn="{StaticResource CardFrame}">
+                <Style.Setters>
+                    <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimery}" />
                 </Style.Setters>
             </Style>
 

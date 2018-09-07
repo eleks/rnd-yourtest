@@ -13,12 +13,9 @@
         </ResourceDictionary>
     </ContentView.Resources>
      <Frame 
-        HasShadow="true"
-        CornerRadius="15"
-        Margin="15"
+        Style="{StaticResource QuestionCardFrame}"
         VerticalOptions="FillAndExpand"
-        HorizontalOptions="FillAndExpand"
-        BackgroundColor="{StaticResource ColorPrimery}">
+        HorizontalOptions="FillAndExpand">
         <StackLayout VerticalOptions="FillAndExpand"
                      HorizontalOptions="FillAndExpand">
             <Label

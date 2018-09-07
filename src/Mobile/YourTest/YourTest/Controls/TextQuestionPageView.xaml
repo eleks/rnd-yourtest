@@ -4,11 +4,8 @@
     xmlns:controls="clr-namespace:YourTest.Controls; assembly=YourTest"
     x:Class="YourTest.Controls.TextQuestionPageView">
     <Frame 
-        HasShadow="true"
-        CornerRadius="15"
-        Margin="15"
         VerticalOptions="Start"
-        BackgroundColor="{StaticResource ColorPrimery}">
+        Style="{StaticResource QuestionCardFrame}">
         <StackLayout VerticalOptions="Start">
             <Label
                 VerticalOptions="Start"
