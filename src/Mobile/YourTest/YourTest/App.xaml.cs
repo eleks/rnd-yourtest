@@ -127,6 +127,7 @@ namespace YourTest
             containerRegistry.RegisterForViewModelNavigation<TestsListPage, TestsListViewModel>();
             containerRegistry.RegisterForViewModelNavigation<ConnectHoloLensPage, ConnectHoloLensPageViewModel>();
             containerRegistry.RegisterForViewModelNavigation<ActiveTestPage, ActiveTestPageViewModel>();
+            containerRegistry.RegisterForViewModelNavigation<TestSummeryPage, TestSummeryViewModel>();
         }
     }
 }
