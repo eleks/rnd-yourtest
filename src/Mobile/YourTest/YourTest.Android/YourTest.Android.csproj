@@ -121,6 +121,11 @@
     <AndroidResource Include="Resources\drawable-xhdpi\test_check.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\test_check.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\test_check.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\test.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\test.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\test.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\test.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\test.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
