@@ -57,6 +57,7 @@
             Style="{StaticResource ConfirmButton}"
             HeightRequest="40"
             HorizontalOptions="FillAndExpand"
+            Command="{Binding CompliteTestCommand}"
             />
     </Grid>
 </ContentPage>

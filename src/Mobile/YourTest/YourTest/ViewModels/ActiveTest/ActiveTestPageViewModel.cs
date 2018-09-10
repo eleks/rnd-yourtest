@@ -10,6 +10,8 @@ using YourTest.Manager;
 using Autofac;
 using Prism.Ioc;
 using Prism.Autofac;
+using System.Threading.Tasks;
+using YourTest.Navigation;
 
 namespace YourTest.ViewModels.ActiveTest
 {
@@ -24,16 +26,20 @@ namespace YourTest.ViewModels.ActiveTest
         public String LocalIPAddress => _ipAddressManager.GetIPAddress();
 
         public ICommand SelectQuestionCommand { get; set; }
+        public ICommand CompliteTestCommand { get; set; }
 
         public ActiveTestPageViewModel(ITestsRest testsRest,
                                        IContainerRegistry containerRegistry,
-                                       IIPAddressManager addressManager)
+                                       IIPAddressManager addressManager,
+                                       INavigationService navigationService)
         {
             _container = containerRegistry.GetContainer();
             _testsRest = testsRest;
             _ipAddressManager = addressManager;
+            _navigationService = navigationService;
 
             SelectQuestionCommand = new DelegateCommand<String>(HandleAction);
+            CompliteTestCommand = new DelegateCommand(async () => await ComplteTestAsync());
         }
 
         public void OnNavigatingTo(NavigationParameters parameters)
@@ -44,10 +50,13 @@ namespace YourTest.ViewModels.ActiveTest
             }
         }
 
-        private void HandleAction(String answer)
+        private async Task ComplteTestAsync()
         {
-            _answers.Add(new QuestionAnswer { Answer = answer });
+            await _navigationService.NavigateAsync<TestSummeryViewModel>(closeCurrent: true);
         }
+
+
+        private void HandleAction(String answer) => _answers.Add(new QuestionAnswer { Answer = answer });
 
 
         private List<QuestionAnswer> _answers = new List<QuestionAnswer>();
@@ -55,5 +64,6 @@ namespace YourTest.ViewModels.ActiveTest
         private readonly IContainer _container;
         private readonly ITestsRest _testsRest;
         private readonly IIPAddressManager _ipAddressManager;
+        private readonly INavigationService _navigationService;
     }
 }
