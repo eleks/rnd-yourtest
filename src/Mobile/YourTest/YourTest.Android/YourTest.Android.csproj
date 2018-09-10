@@ -126,6 +126,16 @@
     <AndroidResource Include="Resources\drawable-xhdpi\test.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\test.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\test.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\happy_face.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\sad_face.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\happy_face.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\sad_face.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\happy_face.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\sad_face.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\happy_face.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\sad_face.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\happy_face.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\sad_face.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
