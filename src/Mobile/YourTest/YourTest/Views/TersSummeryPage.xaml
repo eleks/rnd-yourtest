@@ -2,6 +2,7 @@
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:conv="clr-namespace:YourTest.Converters;assembly=YourTest"
     x:Class="YourTest.Views.TestSummeryPage"
     Title="Test Summery"
     Padding="15,60,15,15">
@@ -21,11 +22,31 @@
                     
                 </Style.Setters>        
             </Style>
+            
+            <Style x:Key="ItemLabel" TargetType="Label" BasedOn="{StaticResource CardLabelLight}">
+                <Style.Setters>
+                    <Setter Property="FontSize" Value="Large" />
+                    <Setter Property="VerticalTextAlignment" Value="Center" />
+                </Style.Setters>
+            </Style>
+            
+            <conv:BooleanToValueConverter 
+                x:Key="testColorConverter"
+                x:TypeArguments="Color"
+                TrueValue="{StaticResource ColorPositive}"
+                FalseValue="{StaticResource ColorNegative}"
+                />
+             <conv:BooleanToValueConverter 
+                x:Key="testTextConverter"
+                x:TypeArguments="x:String"
+                TrueValue="Passed"
+                FalseValue="Failed"
+                />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout Spacing="10">
-            <Label 
+            <Label
                 Style="{StaticResource LabelTitle}"
                 Text="{Binding Name}"/>
             <Frame Style="{StaticResource ItemCard}">
@@ -35,10 +56,13 @@
                         <ColumnDefinition Width="4*" />
                     </Grid.ColumnDefinitions>
                     
-                    <Image />
+                    <Image 
+                        Source="test_check.png"
+                        HeightRequest="40"
+                        />
                     
                     <Label Grid.Column="1"
-                        Style="{StaticResource CardLabelLight}">
+                        Style="{StaticResource ItemLabel}">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="Correct answers: " />
@@ -56,10 +80,12 @@
                     </Grid.ColumnDefinitions>
                     
                 
-                    <Image />
+                    <Image 
+                        Source="test.png"
+                        HeightRequest="40"/>
                     
                     <Label Grid.Column="1"
-                        Style="{StaticResource CardLabelLight}">
+                        Style="{StaticResource ItemLabel}">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="Question Count: " />
@@ -69,5 +95,23 @@
                     </Label>
                 </Grid>
             </Frame>
+            
+            <Label 
+                Style="{StaticResource LabelTitle}"
+                FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Status: " />
+                        <Span Text="{Binding HasPassed, Converter={StaticResource testTextConverter}}"
+                            TextColor="{Binding HasPassed, Converter={StaticResource testColorConverter}}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Image
+                Aspect="AspectFit"
+                VerticalOptions="FillAndExpand"
+                Source="{Binding HasPassed}" />
+            
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
