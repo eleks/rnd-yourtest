@@ -5,10 +5,15 @@
     x:Class="YourTest.Controls.TextQuestionPageView">
     <ContentView.Resources>
         <ResourceDictionary>
-            <Style x:Key="Card" TargetType="Frame" BasedOn="{StaticResource QuestionCardFrame}">
+            <Style x:Key="Card" TargetType="Frame" BasedOn="{StaticResource CardPrimery}">
                 <Style.Setters>
                     <Setter Property="Margin" Value="{StaticResource PageMargin}"/>
                 </Style.Setters>
+            </Style>
+            <Style x:Key="LabelTitle" TargetType="Label" BasedOn="{StaticResource CardLabelLight}">
+                <Style.Setters>
+                        <Setter Property="HorizontalTextAlignment" Value="Center" />
+                </Style.Setters>        
             </Style>
         </ResourceDictionary>
     </ContentView.Resources>
@@ -19,7 +24,7 @@
             <Label
                 VerticalOptions="Start"
                 Text="{Binding Description}"
-                Style="{StaticResource QuerstionCardLabel}"/>
+                Style="{StaticResource LabelTitle}"/>
             <controls:BindableStackLayout
                 BackgroundColor="{StaticResource ColorPrimery}"
                 VerticalOptions="Start"

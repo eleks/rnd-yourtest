@@ -42,7 +42,7 @@
                 </Style.Setters>
             </Style>
             
-            <Style x:Key="QuestionCardFrame" TargetType="Frame" BasedOn="{StaticResource CardFrame}">
+            <Style x:Key="CardPrimery" TargetType="Frame" BasedOn="{StaticResource CardFrame}">
                 <Style.Setters>
                     <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimery}" />
                 </Style.Setters>
@@ -56,9 +56,8 @@
                 </Style.Setters>
             </Style>
             
-            <Style x:Key="QuerstionCardLabel" TargetType="Label" BasedOn="{StaticResource LabelDefault}">
+            <Style x:Key="CardLabelLight" TargetType="Label" BasedOn="{StaticResource LabelDefault}">
                 <Style.Setters>
-                    <Setter Property="HorizontalTextAlignment" Value="Center" />
                     <Setter Property="TextColor" Value="White" />
                 </Style.Setters>
             </Style>
