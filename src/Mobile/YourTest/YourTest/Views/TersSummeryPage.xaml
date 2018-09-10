@@ -42,10 +42,17 @@
                 TrueValue="Passed"
                 FalseValue="Failed"
                 />
+             <conv:BooleanToValueConverter 
+                x:Key="testFaceConverter"
+                x:TypeArguments="x:String"
+                TrueValue="happy_face.png"
+                FalseValue="sad_face.png"
+                />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout Spacing="10">
+        <StackLayout Spacing="10"
+            VerticalOptions="Center">
             <Label
                 Style="{StaticResource LabelTitle}"
                 Text="{Binding Name}"/>
@@ -110,7 +117,7 @@
             <Image
                 Aspect="AspectFit"
                 VerticalOptions="FillAndExpand"
-                Source="{Binding HasPassed}" />
+                Source="{Binding HasPassed, Converter={StaticResource testFaceConverter}}" />
             
         </StackLayout>
     </ContentPage.Content>
