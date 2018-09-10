@@ -12,6 +12,9 @@
             <Thickness x:Key="TopElementMargin">15,15,15,0</Thickness>
             
             <Color x:Key="ColorPrimery">#448AFF</Color>
+            <Color x:Key="ColorPositive">#00A632</Color>
+            <Color x:Key="ColorNegative">#FF390F</Color>
+            
             
             <!-- Buttons -->
         
