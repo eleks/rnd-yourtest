@@ -56,6 +56,21 @@
             <Label
                 Style="{StaticResource LabelTitle}"
                 Text="{Binding Name}"/>
+            
+            <Label 
+                Style="{StaticResource LabelTitle}"
+                FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Status: " />
+                        <Span 
+                            TextColor="{Binding HasPassed, Converter={StaticResource testColorConverter}}"
+                            Text="{Binding HasPassed, Converter={StaticResource testTextConverter}, Mode=OneWay}"
+                            />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            
             <Frame Style="{StaticResource ItemCard}">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -65,7 +80,7 @@
                     
                     <Image 
                         Source="test_check.png"
-                        HeightRequest="40"
+                        HeightRequest="70"
                         />
                     
                     <Label Grid.Column="1"
@@ -73,7 +88,7 @@
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="Correct answers: " />
-                                <Span Text="{Binding CorrectAnswers}" />
+                                <Span Text="{Binding CorrectAnswers, Mode=OneWay}" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
@@ -89,31 +104,20 @@
                 
                     <Image 
                         Source="test.png"
-                        HeightRequest="40"/>
+                        HeightRequest="60"/>
                     
                     <Label Grid.Column="1"
                         Style="{StaticResource ItemLabel}">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="Question Count: " />
-                                <Span Text="{Binding QuestionCount}" />
+                                <Span Text="{Binding QuestionCount, Mode=OneWay}" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
                 </Grid>
             </Frame>
             
-            <Label 
-                Style="{StaticResource LabelTitle}"
-                FontSize="Large">
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span Text="Status: " />
-                        <Span Text="{Binding HasPassed, Converter={StaticResource testTextConverter}}"
-                            TextColor="{Binding HasPassed, Converter={StaticResource testColorConverter}}"/>
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
             <Image
                 Aspect="AspectFit"
                 VerticalOptions="FillAndExpand"
