@@ -1,6 +1,5 @@
 ﻿using Prism.Navigation;
 using YourTest.Models;
-using YourTest.Extentions;
 using System.Windows.Input;
 using Prism.Commands;
 using YourTest.REST;
@@ -23,19 +22,15 @@ namespace YourTest.ViewModels.ActiveTest
             set => SetProperty(ref _test, value);
         }
 
-        public String LocalIPAddress => _ipAddressManager.GetIPAddress();
-
         public ICommand SelectQuestionCommand { get; set; }
         public ICommand CompliteTestCommand { get; set; }
 
         public ActiveTestPageViewModel(ITestsRest testsRest,
-                                       IContainerRegistry containerRegistry,
-                                       IIPAddressManager addressManager,
+                                       TestViewModelFactory testVMFactory,
                                        INavigationService navigationService)
         {
-            _container = containerRegistry.GetContainer();
+            _tesVMFactory = testVMFactory;
             _testsRest = testsRest;
-            _ipAddressManager = addressManager;
             _navigationService = navigationService;
 
             SelectQuestionCommand = new DelegateCommand<String>(HandleAction);
@@ -46,7 +41,7 @@ namespace YourTest.ViewModels.ActiveTest
         {
             if (parameters["test"] is Test test)
             {
-                Test = test.ToViewModel(_container);
+                Test = _tesVMFactory.CreatVM(test);
             }
         }
 
@@ -61,9 +56,8 @@ namespace YourTest.ViewModels.ActiveTest
 
         private List<QuestionAnswer> _answers = new List<QuestionAnswer>();
         private TestViewModel _test;
-        private readonly IContainer _container;
+        private readonly TestViewModelFactory _tesVMFactory;
         private readonly ITestsRest _testsRest;
-        private readonly IIPAddressManager _ipAddressManager;
         private readonly INavigationService _navigationService;
     }
 }
