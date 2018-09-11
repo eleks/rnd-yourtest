@@ -5,6 +5,7 @@ using YourTest.REST.Models;
 using YourTest.REST.Repository;
 using System.Linq;
 using System.Xml.Linq;
+using YourTest.REST.Extensions;
 
 namespace YourTest.REST.Service
 {
@@ -46,6 +47,14 @@ namespace YourTest.REST.Service
             }
 
             summery.CorrectAnswersCount = correctCount;
+
+            Double currentThreshold = ((Double)correctCount / (Double)summery.QuestionCount).ToPercentage();
+
+            var hasPassed = currentThreshold >= originTest.PersentPassageThreshold;
+
+            summery.State = hasPassed
+                ? TestState.Passed
+                : TestState.Failed;
 
             return summery;
         }

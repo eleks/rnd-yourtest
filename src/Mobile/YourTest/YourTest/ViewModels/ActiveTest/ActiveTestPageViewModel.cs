@@ -1,6 +1,5 @@
 ﻿using Prism.Navigation;
 using YourTest.Models;
-using YourTest.Extentions;
 using System.Windows.Input;
 using Prism.Commands;
 using YourTest.REST;
@@ -15,7 +14,7 @@ using YourTest.Navigation;
 
 namespace YourTest.ViewModels.ActiveTest
 {
-    public class ActiveTestPageViewModel : ViewModelBase, INavigatingAware
+    public class ActiveTestPageViewModel : ViewModelBase
     {
         public TestViewModel Test
         {
@@ -23,47 +22,79 @@ namespace YourTest.ViewModels.ActiveTest
             set => SetProperty(ref _test, value);
         }
 
-        public String LocalIPAddress => _ipAddressManager.GetIPAddress();
+        public Int32 ActiveQuestionIndex
+        {
+            get => _activeQuestionIndex;
+            set => SetProperty(ref _activeQuestionIndex, value);
+        }
 
         public ICommand SelectQuestionCommand { get; set; }
         public ICommand CompliteTestCommand { get; set; }
 
         public ActiveTestPageViewModel(ITestsRest testsRest,
-                                       IContainerRegistry containerRegistry,
-                                       IIPAddressManager addressManager,
+                                       TestViewModelFactory testVMFactory,
                                        INavigationService navigationService)
         {
-            _container = containerRegistry.GetContainer();
+            _tesVMFactory = testVMFactory;
             _testsRest = testsRest;
-            _ipAddressManager = addressManager;
             _navigationService = navigationService;
 
             SelectQuestionCommand = new DelegateCommand<String>(HandleAction);
             CompliteTestCommand = new DelegateCommand(async () => await ComplteTestAsync());
         }
 
-        public void OnNavigatingTo(NavigationParameters parameters)
+        protected override void OnNavigatingTo(NavigationParameters parameters)
         {
-            if (parameters["test"] is Test test)
+            base.OnNavigatingTo(parameters);
+
+            if (parameters[nameof(Test)] is Test test)
             {
-                Test = test.ToViewModel(_container);
+                Test = _tesVMFactory.CreatVM(test);
             }
         }
 
         private async Task ComplteTestAsync()
         {
-            await _navigationService.NavigateAsync<TestSummeryViewModel>(closeCurrent: true);
+            IsBusy = true;
+            try
+            {
+                var result = await _testsRest.ProcessTestAsync(Test.Id, _answers);
+                await _navigationService.NavigateAsync<TestSummeryViewModel>(
+                    closeCurrent: true,
+                    navParams: new NavigationParameters
+                    {
+                        { nameof(TestSummery), result }
+                    });
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
 
-        private void HandleAction(String answer) => _answers.Add(new QuestionAnswer { Answer = answer });
+        private void HandleAction(String answer)
+        {
+            var index = ActiveQuestionIndex;
+            var question = Test.Questions[index];
+            _answers.Add(new QuestionAnswer
+            {
+                Id = question.Id,
+                Answer = answer
+            });
 
+            ActiveQuestionIndex++;
+        }
 
         private List<QuestionAnswer> _answers = new List<QuestionAnswer>();
         private TestViewModel _test;
-        private readonly IContainer _container;
+        private int _activeQuestionIndex;
+        private readonly TestViewModelFactory _tesVMFactory;
         private readonly ITestsRest _testsRest;
-        private readonly IIPAddressManager _ipAddressManager;
         private readonly INavigationService _navigationService;
     }
 }

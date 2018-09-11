@@ -27,16 +27,17 @@
         <controls:CarouselViewControl
             x:Name="QuestionsList"
             Orientation="Horizontal"
-            Position="{Binding Position}"
+            Position="{Binding ActiveQuestionIndex, Mode=TwoWay}"
             ItemsSource="{Binding Test.Questions}" 
+            ShowIndicators="True"
+            IsSwipeEnabled="False"
             VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand">
             <controls:CarouselViewControl.Resources>
                 <ResourceDictionary>
                     <DataTemplate x:Key="MixedRealityQuestionTemplate">
                         <viewCell:MixedRealityQuestionPageView
-                            BarcodeValue="{Binding Source={x:Reference QuestionsList}, 
-                                                        Path=BindingContext.LocalIPAddress}"/>
+                            BarcodeValue="{Binding LocalIPAddress}"/>
                     </DataTemplate>
                     <DataTemplate x:Key="TextQuestionTemplate">
                         <viewCell:TextQuestionPageView

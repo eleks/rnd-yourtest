@@ -1,4 +1,7 @@
 using System;
+using Prism.Navigation;
+using YourTest.Models;
+
 namespace YourTest.ViewModels
 {
     public class TestSummeryViewModel : ViewModelBase
@@ -31,8 +34,22 @@ namespace YourTest.ViewModels
             private set => SetProperty(ref _hasPassed, value);
         }
 
-        public TestSummeryViewModel()
+        protected override void OnNavigatingTo(NavigationParameters parameters)
         {
+            base.OnNavigatingTo(parameters);
+            if (parameters[nameof(TestSummery)] is TestSummery summery)
+            {
+                Populate(summery);
+            }
+        }
+
+        private void Populate(TestSummery summery)
+        {
+
+            Name = summery.Name;
+            CorrectAnswers = summery.CorrectAnswersCount;
+            QuestionCount = summery.QuestionCount;
+            HasPassed = summery.State == TestState.Passed;
         }
     }
 }
