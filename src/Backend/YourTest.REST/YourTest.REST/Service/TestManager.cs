@@ -46,6 +46,14 @@ namespace YourTest.REST.Service
             }
 
             summery.CorrectAnswersCount = correctCount;
+            
+            var currentThreshold = (correctCount * 100)/summery.QuestionCount;
+
+            var hasPassed = currentThreshold >= originTest.PersentPassageThreshold;
+
+            summery.State = hasPassed
+                ? TestState.Passed
+                : TestState.Failed;
 
             return summery;
         }
