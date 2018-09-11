@@ -1,4 +1,4 @@
-using Prism.Navigation;
+﻿using Prism.Navigation;
 using YourTest.Models;
 using System.Windows.Input;
 using Prism.Commands;
@@ -20,6 +20,12 @@ namespace YourTest.ViewModels.ActiveTest
         {
             get => _test;
             set => SetProperty(ref _test, value);
+        }
+
+        public Int32 ActiveQuestionIndex
+        {
+            get => _activeQuestionIndex;
+            set => SetProperty(ref _activeQuestionIndex, value);
         }
 
         public ICommand SelectQuestionCommand { get; set; }
@@ -49,15 +55,44 @@ namespace YourTest.ViewModels.ActiveTest
 
         private async Task ComplteTestAsync()
         {
-            await _navigationService.NavigateAsync<TestSummeryViewModel>(closeCurrent: true);
+            IsBusy = true;
+            try
+            {
+                var result = await _testsRest.ProcessTestAsync(Test.Id, _answers);
+                await _navigationService.NavigateAsync<TestSummeryViewModel>(
+                    closeCurrent: true,
+                    navParams: new NavigationParameters
+                    {
+                        { nameof(TestSummery), result }
+                    });
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
 
-        private void HandleAction(String answer) => _answers.Add(new QuestionAnswer { Answer = answer });
+        private void HandleAction(String answer)
+        {
+            var index = ActiveQuestionIndex;
+            var question = Test.Questions[index];
+            _answers.Add(new QuestionAnswer
+            {
+                Id = question.Id,
+                Answer = answer
+            });
 
+            ActiveQuestionIndex++;
+        }
 
         private List<QuestionAnswer> _answers = new List<QuestionAnswer>();
         private TestViewModel _test;
+        private int _activeQuestionIndex;
         private readonly TestViewModelFactory _tesVMFactory;
         private readonly ITestsRest _testsRest;
         private readonly INavigationService _navigationService;
