@@ -12,6 +12,9 @@
             <Thickness x:Key="TopElementMargin">15,15,15,0</Thickness>
             
             <Color x:Key="ColorPrimery">#448AFF</Color>
+            <Color x:Key="ColorPositive">#00A632</Color>
+            <Color x:Key="ColorNegative">#FF390F</Color>
+            
             
             <!-- Buttons -->
         
@@ -42,7 +45,7 @@
                 </Style.Setters>
             </Style>
             
-            <Style x:Key="QuestionCardFrame" TargetType="Frame" BasedOn="{StaticResource CardFrame}">
+            <Style x:Key="CardPrimery" TargetType="Frame" BasedOn="{StaticResource CardFrame}">
                 <Style.Setters>
                     <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimery}" />
                 </Style.Setters>
@@ -56,9 +59,8 @@
                 </Style.Setters>
             </Style>
             
-            <Style x:Key="QuerstionCardLabel" TargetType="Label" BasedOn="{StaticResource LabelDefault}">
+            <Style x:Key="CardLabelLight" TargetType="Label" BasedOn="{StaticResource LabelDefault}">
                 <Style.Setters>
-                    <Setter Property="HorizontalTextAlignment" Value="Center" />
                     <Setter Property="TextColor" Value="White" />
                 </Style.Setters>
             </Style>

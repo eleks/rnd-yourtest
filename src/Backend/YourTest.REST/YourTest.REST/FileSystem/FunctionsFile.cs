@@ -14,7 +14,7 @@ namespace YourTest.REST.FileSystem
 
         private static string GetDeploymentPath() => IsAzureEnvironment
             ? Path.Combine(GetEnvironmentVariable("HOME"), "site", "wwwroot")
-            : GetEnvironmentVariable("HOME");
+            : "";
 
         private static string GetEnvironmentVariable(string name) => System.Environment.GetEnvironmentVariable(name, EnvironmentVariableTarget.Process);
 

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:conv="clr-namespace:YourTest.Converters;assembly=YourTest"
+    x:Class="YourTest.Views.TestSummeryPage"
+    Title="Test Summery"
+    Padding="15,60,15,15">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ItemCard" TargetType="Frame" BasedOn="{StaticResource CardFrame}">
+                <Style.Setters>
+                    <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimery}"/>
+                </Style.Setters>
+            </Style>
+            <Style x:Key="LabelTitle" TargetType="Label" BasedOn="{StaticResource LabelDefault}">
+                <Style.Setters>
+                
+                    <Setter Property="HorizontalTextAlignment" Value="Center" />
+                    <Setter Property="FontSize" Value="34" />
+                    
+                </Style.Setters>        
+            </Style>
+            
+            <Style x:Key="ItemLabel" TargetType="Label" BasedOn="{StaticResource CardLabelLight}">
+                <Style.Setters>
+                    <Setter Property="FontSize" Value="Large" />
+                    <Setter Property="VerticalTextAlignment" Value="Center" />
+                </Style.Setters>
+            </Style>
+            
+            <conv:BooleanToValueConverter 
+                x:Key="testColorConverter"
+                x:TypeArguments="Color"
+                TrueValue="{StaticResource ColorPositive}"
+                FalseValue="{StaticResource ColorNegative}"
+                />
+             <conv:BooleanToValueConverter 
+                x:Key="testTextConverter"
+                x:TypeArguments="x:String"
+                TrueValue="Passed"
+                FalseValue="Failed"
+                />
+             <conv:BooleanToValueConverter 
+                x:Key="testFaceConverter"
+                x:TypeArguments="x:String"
+                TrueValue="happy_face.png"
+                FalseValue="sad_face.png"
+                />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Spacing="10"
+            VerticalOptions="Center">
+            <Label
+                Style="{StaticResource LabelTitle}"
+                Text="{Binding Name}"/>
+            <Frame Style="{StaticResource ItemCard}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="4*" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <Image 
+                        Source="test_check.png"
+                        HeightRequest="40"
+                        />
+                    
+                    <Label Grid.Column="1"
+                        Style="{StaticResource ItemLabel}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Correct answers: " />
+                                <Span Text="{Binding CorrectAnswers}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </Grid>
+            </Frame>
+            <Frame Style="{StaticResource ItemCard}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="4*" />
+                    </Grid.ColumnDefinitions>
+                    
+                
+                    <Image 
+                        Source="test.png"
+                        HeightRequest="40"/>
+                    
+                    <Label Grid.Column="1"
+                        Style="{StaticResource ItemLabel}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Question Count: " />
+                                <Span Text="{Binding QuestionCount}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </Grid>
+            </Frame>
+            
+            <Label 
+                Style="{StaticResource LabelTitle}"
+                FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Status: " />
+                        <Span Text="{Binding HasPassed, Converter={StaticResource testTextConverter}}"
+                            TextColor="{Binding HasPassed, Converter={StaticResource testColorConverter}}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Image
+                Aspect="AspectFit"
+                VerticalOptions="FillAndExpand"
+                Source="{Binding HasPassed, Converter={StaticResource testFaceConverter}}" />
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -23,6 +23,7 @@ namespace YourTest.REST.Service
 
             var summery = new TestSummery()
             {
+                TestId = testId,
                 Name = originTest.Name,
                 QuestionCount = originTest.Questions.Count
             };
@@ -31,13 +32,12 @@ namespace YourTest.REST.Service
             var questionDic = originTest.Questions.ToDictionary(q => q.Id);
             foreach (var aq in answers)
             {
-                Question origenQuestion = null;
-                if (!questionDic.TryGetValue(aq.Id, out origenQuestion))
+                if (!questionDic.TryGetValue(aq.Id, out Question originQuestion))
                 {
                     continue;
                 }
 
-                var isAnswerCorrect = origenQuestion.Answer == aq.Answer;
+                var isAnswerCorrect = originQuestion.Answer == aq.Answer;
                 if (!isAnswerCorrect)
                 {
                     continue;
