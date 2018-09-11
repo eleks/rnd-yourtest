@@ -1,4 +1,4 @@
-﻿using Prism.Navigation;
+using Prism.Navigation;
 using YourTest.Models;
 using System.Windows.Input;
 using Prism.Commands;
@@ -14,7 +14,7 @@ using YourTest.Navigation;
 
 namespace YourTest.ViewModels.ActiveTest
 {
-    public class ActiveTestPageViewModel : ViewModelBase, INavigatingAware
+    public class ActiveTestPageViewModel : ViewModelBase
     {
         public TestViewModel Test
         {
@@ -37,9 +37,11 @@ namespace YourTest.ViewModels.ActiveTest
             CompliteTestCommand = new DelegateCommand(async () => await ComplteTestAsync());
         }
 
-        public void OnNavigatingTo(NavigationParameters parameters)
+        protected override void OnNavigatingTo(NavigationParameters parameters)
         {
-            if (parameters["test"] is Test test)
+            base.OnNavigatingTo(parameters);
+
+            if (parameters[nameof(Test)] is Test test)
             {
                 Test = _tesVMFactory.CreatVM(test);
             }
