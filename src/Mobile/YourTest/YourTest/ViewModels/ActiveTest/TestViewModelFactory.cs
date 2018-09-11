@@ -42,26 +42,16 @@ namespace YourTest.ViewModels.ActiveTest
             }
 
             var questionVM = _questionFactory[question.Type].Invoke(question);
-            return questionVM;
-        }
-
-        private BaseQuestionViewModel CreatTextQuestion(Question question)
-        {
-            return new TextQuestionViewModel()
-            {
-                Description = question.Description,
-                PossibleAnswers = question.PossibleAnswers
-            };
-        }
-
-        private BaseQuestionViewModel CreatMixedRealityQuestion(Question question)
-        {
-            var questionVM = _containerExtension.Resolve<MixedRealityQuestionViewModel>();
+            questionVM.Id = question.Id;
             questionVM.Description = question.Description;
             questionVM.PossibleAnswers = question.PossibleAnswers;
 
             return questionVM;
         }
+
+        private BaseQuestionViewModel CreatTextQuestion(Question question) => new TextQuestionViewModel();
+
+        private BaseQuestionViewModel CreatMixedRealityQuestion(Question question) => _containerExtension.Resolve<MixedRealityQuestionViewModel>();
 
         private readonly Dictionary<QuestionType, Func<Question, BaseQuestionViewModel>> _questionFactory;
 
