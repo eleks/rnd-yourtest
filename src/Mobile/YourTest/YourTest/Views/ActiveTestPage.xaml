@@ -35,8 +35,7 @@
                 <ResourceDictionary>
                     <DataTemplate x:Key="MixedRealityQuestionTemplate">
                         <viewCell:MixedRealityQuestionPageView
-                            BarcodeValue="{Binding Source={x:Reference QuestionsList}, 
-                                                        Path=BindingContext.LocalIPAddress}"/>
+                            BarcodeValue="{Binding LocalIPAddress}"/>
                     </DataTemplate>
                     <DataTemplate x:Key="TextQuestionTemplate">
                         <viewCell:TextQuestionPageView
