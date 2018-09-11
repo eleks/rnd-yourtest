@@ -1,39 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.1.0.697729" />
-    <PackageReference Include="Prism.Autofac.Forms" Version="7.0.0.396" />
-    <PackageReference Include="Mobile.BuildTools" Version="1.4.0.638" />
-    <PackageReference Include="Microsoft.Identity.Client" Version="1.1.4-preview0002" />
-    <PackageReference Include="Refit" Version="4.6.30" />
-    <PackageReference Include="Refractored.MvvmHelpers" Version="1.3.0" />
-    <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1" />
-    <PackageReference Include="CarouselView.FormsPlugin" Version="5.2.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\" />
-    <Folder Include="Azure\" />
-    <Folder Include="Http\" />
-    <Folder Include="ViewModels\" />
-    <Folder Include="Auth\" />
-    <Folder Include="Configuration\" />
-    <Folder Include="Navigation\" />
-    <Folder Include="REST\" />
-    <Folder Include="Models\" />
-    <Folder Include="Manager\" />
-    <Folder Include="Converters\" />
-    <Folder Include="ViewModels\ActiveTest\" />
-    <Folder Include="Controls\" />
-    <Folder Include="Extentions\" />
-    <Folder Include="DataTemplateSelectors\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Views\ConnectHoloLensPage.xaml.cs">
-      <DependentUpon>ConnectHoloLensPage.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Xamarin.Forms" Version="3.1.0.697729" />
+        <PackageReference Include="Prism.Autofac.Forms" Version="7.0.0.396" />
+        <PackageReference Include="Mobile.BuildTools" Version="1.4.0.638" />
+        <PackageReference Include="Microsoft.Identity.Client" Version="1.1.4-preview0002" />
+        <PackageReference Include="Refit" Version="4.6.30" />
+        <PackageReference Include="Refractored.MvvmHelpers" Version="1.3.0" />
+        <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1" />
+        <PackageReference Include="CarouselView.FormsPlugin" Version="5.2.0" />
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Views\" />
+        <Folder Include="Azure\" />
+        <Folder Include="Http\" />
+        <Folder Include="ViewModels\" />
+        <Folder Include="Auth\" />
+        <Folder Include="Configuration\" />
+        <Folder Include="Navigation\" />
+        <Folder Include="REST\" />
+        <Folder Include="Models\" />
+        <Folder Include="Manager\" />
+        <Folder Include="Converters\" />
+        <Folder Include="ViewModels\ActiveTest\" />
+        <Folder Include="Controls\" />
+        <Folder Include="Extentions\" />
+        <Folder Include="DataTemplateSelectors\" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Update="Views\ConnectHoloLensPage.xaml.cs">
+            <DependentUpon>ConnectHoloLensPage.xaml</DependentUpon>
+        </Compile>
+    </ItemGroup>
 </Project>
