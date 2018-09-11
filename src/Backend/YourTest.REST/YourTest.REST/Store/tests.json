@@ -2,11 +2,12 @@
     {
         "id": 2,
         "name": "File Test",
+        "persentPassageThreshold": 0.60,
         "questions": [
             {
                 "description": "What sky color is?",
                 "possibleAnswers": [
-                    "grean",
+                    "green",
                     "red",
                     "blue",
                     "pink"

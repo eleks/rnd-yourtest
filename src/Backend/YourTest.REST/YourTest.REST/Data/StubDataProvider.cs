@@ -24,6 +24,7 @@ namespace YourTest.REST.Data
             {
                 Id = 1,
                 Name = "Easy Test",
+                PersentPassageThreshold = 0.75, 
                 Questions = new List<Question>
                     {
                         new Question
@@ -34,7 +35,7 @@ namespace YourTest.REST.Data
                             Answer = "blue",
                             PossibleAnswers = new []
                             {
-                                "grean",
+                                "green",
                                 "red",
                                 "blue",
                                 "pink"
