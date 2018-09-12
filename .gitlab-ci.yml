@@ -38,7 +38,7 @@ build:mobile:droid:
     - "msbuild YourTest.Android/YourTest.Android.csproj /p:Configuration=Release /t:SignAndroidPackage"
   artifacts:
     paths:
-      - "YourTest.Android/bin/Release/com.eleks.YourTest-Signed.apk"
+      - "src/Mobile/YourTest/YourTest.Android/bin/Release/com.eleks.YourTest-Signed.apk"
 
 build:mobile:ios:
   <<: *mobile_before_script
@@ -56,6 +56,6 @@ publish:appcenter:droid:
   dependencies:
     - build:mobile:droid
   tags:
-    - appcenter
+    - appcenter-cli
   script:
     - "appcenter distribute release -f $file -g $ac_group -a $ac_app --token ac_token"
