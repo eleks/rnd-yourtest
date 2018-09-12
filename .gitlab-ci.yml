@@ -18,7 +18,8 @@ variables:
   ac_app: "$ac_owner/$ac_app_prefix-$ac_app_sufix"
   ac_token: $APPCENTER_TOKEN
 
-before_script:
+.mobile_before_script: &mobile_before_script
+  before_script:
     - export Secret_B2cClientId="$b2cClientId"
     - export Secret_B2cRedirectUri="$b2cResirectUrl"
     - export Secret_B2cAuthority="$b2cAuthority"
@@ -26,11 +27,7 @@ before_script:
     
     - export Secret_RestEndpoint="$restEndpoint"
 
-.mobile_before_script: &mobile_before_script
-  before_script:
     - cd src/Mobile/YourTest
-  script:
-    - ""
 
 restore:mobile:
   <<: *mobile_before_script
@@ -44,7 +41,7 @@ build:mobile:droid:
   <<: *mobile_before_script
   stage: build
   dependencies:
-    - build:mobile
+    - restore:mobile
   tags:
     - xamarin
   script:
@@ -58,7 +55,7 @@ build:mobile:ios:
   <<: *mobile_before_script
   stage: build
   dependencies:
-    - build:mobile
+    - restore:mobile
   tags:
     - xamarin
   script:
