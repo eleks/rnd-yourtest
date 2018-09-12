@@ -26,16 +26,20 @@ before_script:
     
     - export Secret_RestEndpoint="$restEndpoint"
 
+.mobile_before_script: &mobile_before_script
+  before_script:
+    - cd src/Mobile/YourTest
 
-build:mobile:
+restore:mobile:
+  <<: *mobile_before_script
   stage: prepare
   tags:
     - xamarin
   script:
-    - cd src/Mobile/YourTest
     - nuget restore
 
 build:mobile:droid:
+  <<: *mobile_before_script
   stage: build
   dependencies:
     - build:mobile
@@ -49,6 +53,7 @@ build:mobile:droid:
       - "com.eleks.YourTest-Signed.apk"
 
 build:mobile:ios:
+  <<: *mobile_before_script
   stage: build
   dependencies:
     - build:mobile
