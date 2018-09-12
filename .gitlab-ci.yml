@@ -58,5 +58,4 @@ publish:appcenter:droid:
   tags:
     - appcenter-cli
   script:
-    - ls -laR
-    - "appcenter distribute release -f $file -g $ac_group -a $ac_app --token ac_token"
+    - "appcenter distribute release -f $file -g $ac_group -a $ac_app --token ac_token --debug"
