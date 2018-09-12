@@ -36,10 +36,9 @@ build:mobile:droid:
     - xamarin
   script:
     - "msbuild YourTest.Android/YourTest.Android.csproj /p:Configuration=Release /t:SignAndroidPackage"
-    - yes | cp YourTest.Android/bin/Release/com.eleks.YourTest-Signed.apk com.eleks.YourTest-Signed.apk
   artifacts:
     paths:
-      - "com.eleks.YourTest-Signed.apk"
+      - "YourTest.Android/bin/Release/com.eleks.YourTest-Signed.apk"
 
 build:mobile:ios:
   <<: *mobile_before_script
@@ -52,10 +51,11 @@ build:mobile:ios:
 publish:appcenter:droid:
   variables:
     ac_app_sufix: "Droid"
+    file: "src/Mobile/YourTest/YourTest.Android/bin/Release/com.eleks.YourTest-Signed.apk"
   stage: publish
   dependencies:
     - build:mobile:droid
   tags:
     - appcenter
   script:
-    - "appcenter distribute release -f com.eleks.YourTest-Signed.apk -g $ac_group -a $ac_app --token ac_token"
+    - "appcenter distribute release -f $file -g $ac_group -a $ac_app --token ac_token"
