@@ -29,6 +29,8 @@ before_script:
 .mobile_before_script: &mobile_before_script
   before_script:
     - cd src/Mobile/YourTest
+  script:
+    - ""
 
 restore:mobile:
   <<: *mobile_before_script
