@@ -8,5 +8,6 @@ namespace YourTest.ViewModels.ActiveTest
         public Int32 Id { get; set; }
         public String Description { get; set; }
         public IList<String> PossibleAnswers { get; set; }
+        public String Answer { get; set; }
     }
 }
