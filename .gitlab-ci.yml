@@ -15,7 +15,7 @@ variables:
   # ac_app_prefix: "YourTest"
   ac_app_prefix: "ci-test"
   ac_app: "$ac_owner/$ac_app_prefix-$ac_app_sufix"
-  ac_token: $APPCENTER_TOKEN
+  ac_token: "$APPCENTER_TOKEN"
 
 .mobile_before_script: &mobile_before_script
   before_script:
