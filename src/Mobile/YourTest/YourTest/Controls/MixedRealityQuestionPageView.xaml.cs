@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using YourTest.ViewModels.ActiveTest;
 
 namespace YourTest.Controls
 {
@@ -11,12 +12,13 @@ namespace YourTest.Controls
         public MixedRealityQuestionPageView()
         {
             InitializeComponent();
-        }
-
-        void Handle_ItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
-        {
-            var answer = (String)e.SelectedItem;
-            AnswerSelectedCommand?.Execute(answer);
+            this.SetBinding(
+                AnswerSelectedCommandProperty,
+                new Binding(
+                    nameof(MixedRealityQuestionViewModel.AnswerSelectedCommand),
+                    BindingMode.OneWayToSource
+                )
+            );
         }
 
         public static readonly BindableProperty AnswerSelectedCommandProperty =
