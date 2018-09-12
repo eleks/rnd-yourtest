@@ -1,4 +1,5 @@
 stages:
+  - prepare
   - build
   - publish
 
@@ -27,7 +28,7 @@ before_script:
 
 
 build:mobile:
-  stage: build
+  stage: prepare
   tags:
     - xamarin
   script:
