@@ -1,5 +1,4 @@
 stages:
-  - prepare
   - build
   - publish
 
@@ -28,20 +27,11 @@ variables:
     - export Secret_RestEndpoint="$restEndpoint"
 
     - cd src/Mobile/YourTest
-
-restore:mobile:
-  <<: *mobile_before_script
-  stage: prepare
-  tags:
-    - xamarin
-  script:
     - nuget restore
 
 build:mobile:droid:
   <<: *mobile_before_script
   stage: build
-  dependencies:
-    - restore:mobile
   tags:
     - xamarin
   script:
@@ -54,8 +44,6 @@ build:mobile:droid:
 build:mobile:ios:
   <<: *mobile_before_script
   stage: build
-  dependencies:
-    - restore:mobile
   tags:
     - xamarin
   script:
