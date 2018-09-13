@@ -20,12 +20,20 @@
                 FalseValue="False"
                 />
                 
+                
             <converters:EtalonValueToBoleanValueConverter 
                 x:Key="holoWaitingForPairingToBoolean"
                 x:TypeArguments="models:HololensConnectionStatus,x:Boolean"
                 EtalonValue="{x:Static models:HololensConnectionStatus.WaitingForPairing}"
                 TrueValue="True"
                 FalseValue="False"
+                />
+            
+            <converters:BooleanToValueConverter 
+                x:Key="hasAnswerToImage"
+                x:TypeArguments="x:String"
+                TrueValue="received.png"
+                FalseValue="holo_connected.png"
                 />
             
             <Style x:Key="Card" TargetType="Frame" BasedOn="{StaticResource CardPrimery}">
@@ -70,7 +78,7 @@
                 HeightRequest="200"
                 WidthRequest="200"
                 Aspect="AspectFit"
-                Source="holo_connected.png"
+                Source="{Binding HasAnswer, Converter={StaticResource hasAnswerToImage}}"
                 />
             
             <Label

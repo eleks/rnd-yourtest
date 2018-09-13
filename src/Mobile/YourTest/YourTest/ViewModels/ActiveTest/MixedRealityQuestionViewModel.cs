@@ -35,6 +35,12 @@ namespace YourTest.ViewModels.ActiveTest
             set => SetProperty(ref _status, value);
         }
 
+        public Boolean HasAnswer
+        {
+            get => _hasAnswer;
+            private set => SetProperty(ref _hasAnswer, value);
+        }
+
         public String LocalIPAddress => _ipAddressManager.GetIPAddress();
 
         public ICommand ResetCommand { get; set; }
@@ -43,6 +49,7 @@ namespace YourTest.ViewModels.ActiveTest
         private void OnReset()
         {
             Status = HololensConnectionStatus.WaitingForPairing;
+            HasAnswer = false;
 
             _hololensCommunicationManager.StopListening();
             _hololensCommunicationManager.StartListening(LocalIPAddress, 8888);
@@ -54,6 +61,7 @@ namespace YourTest.ViewModels.ActiveTest
             // todo for this case create decorator with call dialog on main thread
             // Device.BeginInvokeOnMainThread(() => _pageDialogService.DisplayAlertAsync("From HoloLens", message, "OK"));
             Answer = answer;
+            HasAnswer = true;
             AnswerSelectedCommand?.Execute(answer);
         }
 
@@ -63,5 +71,6 @@ namespace YourTest.ViewModels.ActiveTest
         private IIPAddressManager _ipAddressManager;
         private IPageDialogService _pageDialogService;
         private IHololensCommunicationManager _hololensCommunicationManager;
+        private bool _hasAnswer;
     }
 }
