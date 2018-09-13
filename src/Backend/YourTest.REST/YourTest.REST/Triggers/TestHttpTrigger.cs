@@ -60,49 +60,6 @@ namespace YourTest.REST.Triggers
             return testSummery;
         }
 
-        [FunctionName(nameof(SetDataFile))]
-        public static async Task<HttpResponseMessage> SetDataFile(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "test/datafile")]
-            HttpRequestMessage req
-            )
-        {
-            var bytes = await req.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
-
-            var filePath = $"{Constants.FileDir}\\{Constants.DataFile}";
-
-            using (var testdataFile = FunctionsFile.Open(filePath, FileMode.OpenOrCreate))
-            {
-                testdataFile.Write(bytes, 0, bytes.Length);
-
-                testdataFile.Flush();
-
-                testdataFile.Close();
-
-            }
-
-            // todo add more aligant way to seed test data with
-            TestManager = CreateTestManager();
-
-            return new HttpResponseMessage(HttpStatusCode.OK);
-        }
-
-        [FunctionName(nameof(GetDataFile))]
-        public static HttpResponseMessage GetDataFile(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "test/datafile")]
-            HttpRequestMessage req
-            )
-        {
-            var response = new HttpResponseMessage(HttpStatusCode.OK);
-
-            var filePath = Path.Combine(Constants.FileDir, Constants.DataFile);
-            response.Content = new ByteArrayContent(FunctionsFile.ReadAllBytes(filePath));
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-
-            return response;
-        }
-
-
 
         private static ITestManager CreateTestManager()
         {
