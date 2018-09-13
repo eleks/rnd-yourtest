@@ -141,6 +141,11 @@
     <AndroidResource Include="Resources\drawable-xhdpi\holo_connected.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\holo_connected.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\holo_connected.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\received.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\received.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\received.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\received.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\received.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

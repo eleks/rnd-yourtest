@@ -169,6 +169,9 @@
         <BundleResource Include="Resources\holo_connected.png" />
         <BundleResource Include="Resources\holo_connected%402x.png" />
         <BundleResource Include="Resources\holo_connected%403x.png" />
+        <BundleResource Include="Resources\received.png" />
+        <BundleResource Include="Resources\received%402x.png" />
+        <BundleResource Include="Resources\received%403x.png" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Manager\" />
