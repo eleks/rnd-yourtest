@@ -3,9 +3,11 @@ stages:
   - publish
 
 variables:
+  azureTenant: "rorub2c"
+  b2cPolicy: "B2C_1_Mail-Signup"
   b2cClientId: "$Secret_B2cClientId"
   b2cResirectUrl: "rorub2c://com.eleks.YourTest"
-  b2cAuthority: "https://login.microsoftonline.com/tfp/rorub2c.onmicrosoft.com/B2C_1_Mail-Signup"
+  b2cAuthority: "https://login.microsoftonline.com/tfp/$azureTenant.onmicrosoft.com/$b2cPolicy"
   b2cScopes: "https://rorub2c.onmicrosoft.com/yourtest/read"
   
   restEndpoint: "https://roru-yt.azurewebsites.net"
