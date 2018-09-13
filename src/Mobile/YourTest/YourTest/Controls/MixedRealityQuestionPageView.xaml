@@ -4,12 +4,29 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="YourTest.Controls.MixedRealityQuestionPageView"
     xmlns:converters="clr-namespace:YourTest.Converters;assembly=YourTest"
+    xmlns:models="clr-namespace:YourTest.Models;assembly=YourTest"
     xmlns:zx="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
     xmlns:zxcm="clr-namespace:ZXing.Common;assembly=zxing.portable">
     <ContentView.Resources>
         <ResourceDictionary>
             <converters:HololensConnectionStatusToQrVisibilityConverter x:Key="HololensConnectionStatusToQrVisibilityConverter" />
             <converters:HololensConnectionStatusToTextConverter x:Key="HololensConnectionStatusToTextConverter" />
+            
+            <converters:EtalonValueToBoleanValueConverter 
+                x:Key="holoConnectedToBoolean"
+                x:TypeArguments="models:HololensConnectionStatus,x:Boolean"
+                EtalonValue="{x:Static models:HololensConnectionStatus.Paired}"
+                TrueValue="True"
+                FalseValue="False"
+                />
+                
+            <converters:EtalonValueToBoleanValueConverter 
+                x:Key="holoWaitingForPairingToBoolean"
+                x:TypeArguments="models:HololensConnectionStatus,x:Boolean"
+                EtalonValue="{x:Static models:HololensConnectionStatus.WaitingForPairing}"
+                TrueValue="True"
+                FalseValue="False"
+                />
             
             <Style x:Key="Card" TargetType="Frame" BasedOn="{StaticResource CardPrimery}">
                 <Style.Setters>
@@ -38,12 +55,23 @@
             <zx:ZXingBarcodeImageView
                 x:Name="barcodeImageView"
                 BarcodeFormat="QR_CODE"
+                IsVisible="{Binding Status, Converter={StaticResource holoWaitingForPairingToBoolean}}"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand">
                     <zx:ZXingBarcodeImageView.BarcodeOptions>
                         <zxcm:EncodingOptions Width="300" Height="300" />
                     </zx:ZXingBarcodeImageView.BarcodeOptions>
             </zx:ZXingBarcodeImageView>
+            
+            <Image
+                IsVisible="{Binding Status, Converter={StaticResource holoConnectedToBoolean}}"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                HeightRequest="200"
+                WidthRequest="200"
+                Aspect="AspectFit"
+                Source="holo_connected.png"
+                />
             
             <Label
                 HorizontalOptions="CenterAndExpand"
