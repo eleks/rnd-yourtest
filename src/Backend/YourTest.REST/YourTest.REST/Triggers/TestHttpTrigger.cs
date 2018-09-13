@@ -108,8 +108,7 @@ namespace YourTest.REST.Triggers
         {
             IRepository<Test> repo = new InMemoryRepository<Test>();
             IDataProvider<Test> dataProvider = new ComposedDataProvider<Test>(
-                 new StubDataProvider()
-                 , new FileDataProvider(Constants.FileDir)
+                 new FileDataProvider(Constants.FileDir)
                  );
             dataProvider.Seed(repo);
             return new TestManager(repo);
