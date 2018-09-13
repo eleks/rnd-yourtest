@@ -12,13 +12,6 @@ namespace YourTest.Controls
         public MixedRealityQuestionPageView()
         {
             InitializeComponent();
-            this.SetBinding(
-                AnswerSelectedCommandProperty,
-                new Binding(
-                    nameof(MixedRealityQuestionViewModel.AnswerSelectedCommand),
-                    BindingMode.OneWayToSource
-                )
-            );
         }
 
         public static readonly BindableProperty AnswerSelectedCommandProperty =
@@ -26,7 +19,8 @@ namespace YourTest.Controls
                 nameof(AnswerSelectedCommand),
                 typeof(ICommand),
                 typeof(MixedRealityQuestionPageView),
-                default(ICommand));
+                default(ICommand),
+                propertyChanged: AnswerSelectedCommandChanged);
 
         public static readonly BindableProperty BarcodeValueProperty =
             BindableProperty.Create(
@@ -47,9 +41,32 @@ namespace YourTest.Controls
             set => SetValue(BarcodeValueProperty, value);
         }
 
+        protected override void OnBindingContextChanged()
+        {
+            base.OnBindingContextChanged();
+            var vm = (MixedRealityQuestionViewModel)BindingContext;
+            if (vm == null)
+            {
+                return;
+            }
+            vm.AnswerSelectedCommand = AnswerSelectedCommand;
+        }
+
         private static void HandleBindingPropertyChangedDelegate(BindableObject bindable, object oldValue, object newValue)
         {
             ((MixedRealityQuestionPageView)bindable).barcodeImageView.BarcodeValue = (String)newValue;
         }
+
+
+        private static void AnswerSelectedCommandChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var vm = (MixedRealityQuestionViewModel)((MixedRealityQuestionPageView)bindable).BindingContext;
+            if (vm == null)
+            {
+                return;
+            }
+            vm.AnswerSelectedCommand = (ICommand)newValue;
+        }
+
     }
 }
