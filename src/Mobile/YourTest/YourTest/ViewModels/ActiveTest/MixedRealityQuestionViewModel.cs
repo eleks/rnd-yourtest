@@ -50,10 +50,11 @@ namespace YourTest.ViewModels.ActiveTest
 
         private void OnHololensMessageReceived(Object sender, String message)
         {
+            var answer = message.TrimEnd('\n', '\t');
             // todo for this case create decorator with call dialog on main thread
-            Device.BeginInvokeOnMainThread(() => _pageDialogService.DisplayAlertAsync("From HoloLens", message, "OK"));
-            Answer = message;
-            AnswerSelectedCommand?.Execute(message);
+            // Device.BeginInvokeOnMainThread(() => _pageDialogService.DisplayAlertAsync("From HoloLens", message, "OK"));
+            Answer = answer;
+            AnswerSelectedCommand?.Execute(answer);
         }
 
         private void OnHololensClientConnected(object sender, EventArgs e) => Status = HololensConnectionStatus.Paired;
