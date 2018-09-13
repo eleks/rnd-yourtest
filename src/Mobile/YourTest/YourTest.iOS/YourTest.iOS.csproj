@@ -166,6 +166,9 @@
         <BundleResource Include="Resources\sad_face.png" />
         <BundleResource Include="Resources\sad_face%402x.png" />
         <BundleResource Include="Resources\sad_face%403x.png" />
+        <BundleResource Include="Resources\holo_connected.png" />
+        <BundleResource Include="Resources\holo_connected%402x.png" />
+        <BundleResource Include="Resources\holo_connected%403x.png" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Manager\" />
