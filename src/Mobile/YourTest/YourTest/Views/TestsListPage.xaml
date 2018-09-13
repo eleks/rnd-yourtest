@@ -17,13 +17,17 @@
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell >
-                    <StackLayout>
+                    <Grid
+                        Padding="15,0,0,0">
                         <Label
-                            Text="{Binding Name}"/>
+                            Text="{Binding Name}"
+                            FontSize="Medium"
+                            VerticalTextAlignment="Center"
+                            VerticalOptions="FillAndExpand"/>
                         <StackLayout.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding Source={x:Reference TestListView}, Path=BindingContext.SelectTestCommand}" CommandParameter="{Binding}" />
                         </StackLayout.GestureRecognizers>
-                    </StackLayout>
+                    </Grid>
                 </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>
