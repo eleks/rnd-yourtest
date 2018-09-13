@@ -16,7 +16,7 @@ variables:
   ac_app: "$ac_owner/$ac_app_prefix-$ac_app_sufix"
   ac_token: "$APPCENTER_TOKEN"
 
-.mobile_before_script: &mobile_before_script
+.mobile:build:template: &mobile_build_template
   before_script:
     - export Secret_B2cClientId="$b2cClientId"
     - export Secret_B2cRedirectUri="$b2cResirectUrl"
@@ -27,9 +27,11 @@ variables:
 
     - cd src/Mobile/YourTest
     - nuget restore
+  script: 
+    - ""
 
 build:mobile:droid:
-  <<: *mobile_before_script
+  <<: *mobile_build_template
   stage: build
   tags:
     - xamarin
@@ -40,21 +42,33 @@ build:mobile:droid:
       - "src/Mobile/YourTest/YourTest.Android/bin/Release/com.eleks.YourTest-Signed.apk"
 
 build:mobile:ios:
-  <<: *mobile_before_script
+  <<: *mobile_build_template
   stage: build
   tags:
     - xamarin
   script:
     - "msbuild YourTest.iOS/YourTest.iOS.csproj /p:Configuration=Release /t:Rebuild" 
 
-publish:appcenter:droid:
-  variables:
-    ac_app_sufix: "Droid"
-    file: "src/Mobile/YourTest/YourTest.Android/bin/Release/com.eleks.YourTest-Signed.apk"
-  stage: publish
-  dependencies:
-    - build:mobile:droid
+.publish:appcenter:template: &publish_appcenter_template
   tags:
     - appcenter-cli
   script:
     - "appcenter distribute release -f $file -g $ac_group -a $ac_app --token $ac_token"
+  stage: publish
+
+
+publish:appcenter:droid:
+  <<: *publish_appcenter_template
+  variables:
+    ac_app_sufix: "Droid"
+    file: "src/Mobile/YourTest/YourTest.Android/bin/Release/com.eleks.YourTest-Signed.apk"
+  dependencies:
+    - build:mobile:droid
+
+publish:appcenter:ios:
+  <<: *publish_appcenter_template
+  variables:
+    ac_app_sufix: "iOS"
+    file: "src/Mobile/YourTest/YourTest.iOS/bin/Release/com.eleks.YourTest.ipa"
+  dependencies:
+    - build:mobile:ios
