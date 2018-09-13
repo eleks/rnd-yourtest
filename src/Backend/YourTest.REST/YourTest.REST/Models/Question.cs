@@ -10,7 +10,8 @@ namespace YourTest.REST.Models
         public IList<String> PossibleAnswers { get; set; }
         public QuestionType Type { get; set; }
 
-        [JsonIgnore]
+        // todo add dynamic binder on test response
+        // [JsonIgnore]
         public String Answer { get; set; }
 
         public Question()
