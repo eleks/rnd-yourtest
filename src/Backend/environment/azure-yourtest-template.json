@@ -6,21 +6,33 @@
       "defaultValue": null,
       "type": "String"
     },
-    "server_plan_name": {
+    "site_config_name": {
+      "defaultValue": "[concat(parameters('site_name'),'_web_config')]",
+      "type": "String"
+    },
+    "serverfarms_plan_name": {
+      "defaultValue": "[concat(parameters('site_name'),'_servicePlan')]",
+      "type": "String"
+    },
+    "storageAccount_name": {
+      "defaultValue": "[concat('storage', uniqueString(resourceGroup().id))]",
+      "type": "String"
+    },
+    "hostNameBindings_name": {
+      "defaultValue": "[concat(parameters('site_name'),'.azurewebsites.net')]",
+      "type": "String"
+    },
+    "ad_clientId": {
       "defaultValue": null,
       "type": "String"
     },
-    "storageAccounts_name": {
-      "defaultValue": null,
-      "type": "String"
-    },
-    "hostNameBinding_host_name": {
+    "ad_issuer": {
       "defaultValue": null,
       "type": "String"
     }
   },
   "variables": {
-    "hostNameBinding_host_name": "[concat(parameters('site_name'),'.azurewebsites.net')]"
+    
   },
   "resources": [
     {
@@ -30,7 +42,7 @@
         "tier": "Standard"
       },
       "kind": "Storage",
-      "name": "[parameters('storageAccounts_name')]",
+      "name": "[parameters('storageAccount_name')]",
       "apiVersion": "2018-03-01-preview",
       "location": "[resourceGroup().location]",
       "tags": {},
@@ -67,12 +79,12 @@
         "capacity": 0
       },
       "kind": "functionapp",
-      "name": "[parameters('server_plan_name')]",
+      "name": "[parameters('serverfarms_plan_name')]",
       "apiVersion": "2016-09-01",
       "location": "[resourceGroup().location]",
       "scale": null,
       "properties": {
-        "name": "[parameters('server_plan_name')]",
+        "name": "[parameters('serverfarms_plan_name')]",
         "workerTierName": null,
         "adminSiteName": null,
         "hostingEnvironmentProfile": null,
@@ -110,9 +122,118 @@
             "hostType": "Repository"
           }
         ],
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('server_plan_name'))]",
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_plan_name'))]",
         "reserved": false,
-        "siteConfig": null,
+        "siteConfig": {
+          "numberOfWorkers": 1,
+          "defaultDocuments": [
+            "Default.htm",
+            "Default.html",
+            "Default.asp",
+            "index.htm",
+            "index.html",
+            "iisstart.htm",
+            "default.aspx",
+            "index.php"
+          ],
+          "netFrameworkVersion": "v4.0",
+          "phpVersion": "5.6",
+          "pythonVersion": "",
+          "nodeVersion": "",
+          "linuxFxVersion": "",
+          "windowsFxVersion": null,
+          "requestTracingEnabled": false,
+          "remoteDebuggingEnabled": false,
+          "remoteDebuggingVersion": null,
+          "httpLoggingEnabled": false,
+          "logsDirectorySizeLimit": 35,
+          "detailedErrorLoggingEnabled": false,
+          "publishingUsername": "[concat('$', parameters('site_name'))]",
+          "publishingPassword": null,
+          "appSettings": null,
+          "azureStorageAccounts": {},
+          "metadata": null,
+          "connectionStrings": null,
+          "machineKey": null,
+          "handlerMappings": null,
+          "documentRoot": null,
+          "scmType": "None",
+          "use32BitWorkerProcess": true,
+          "webSocketsEnabled": false,
+          "alwaysOn": false,
+          "javaVersion": null,
+          "javaContainer": null,
+          "javaContainerVersion": null,
+          "appCommandLine": "",
+          "managedPipelineMode": "Integrated",
+          "virtualApplications": [
+            {
+              "virtualPath": "/",
+              "physicalPath": "site\\wwwroot",
+              "preloadEnabled": false,
+              "virtualDirectories": null
+            }
+          ],
+          "winAuthAdminState": 0,
+          "winAuthTenantState": 0,
+          "customAppPoolIdentityAdminState": false,
+          "customAppPoolIdentityTenantState": false,
+          "runtimeADUser": null,
+          "runtimeADUserPassword": null,
+          "loadBalancing": "LeastRequests",
+          "routingRules": [],
+          "experiments": {
+            "rampUpRules": []
+          },
+          "limits": null,
+          "autoHealEnabled": false,
+          "autoHealRules": null,
+          "tracingOptions": null,
+          "vnetName": "",
+          "siteAuthEnabled": true,
+          "siteAuthSettings": {
+            "enabled": null,
+            "unauthenticatedClientAction": null,
+            "tokenStoreEnabled": null,
+            "allowedExternalRedirectUrls": null,
+            "defaultProvider": null,
+            "clientId": "[parameters('ad_clientId')]",
+            "clientSecret": null,
+            "issuer": "[parameters('ad_issuer')]",
+            "allowedAudiences": null,
+            "additionalLoginParams": null,
+            "isAadAutoProvisioned": false,
+            "googleClientId": null,
+            "googleClientSecret": null,
+            "googleOAuthScopes": null,
+            "facebookAppId": null,
+            "facebookAppSecret": null,
+            "facebookOAuthScopes": null,
+            "twitterConsumerKey": null,
+            "twitterConsumerSecret": null,
+            "microsoftAccountClientId": null,
+            "microsoftAccountClientSecret": null,
+            "microsoftAccountOAuthScopes": null
+          },
+          "cors": {
+            "allowedOrigins": [
+              "https://functions.azure.com",
+              "https://functions-staging.azure.com",
+              "https://functions-next.azure.com"
+            ]
+          },
+          "push": null,
+          "apiDefinition": null,
+          "autoSwapSlotName": null,
+          "localMySqlEnabled": false,
+          "managedServiceIdentityId": null,
+          "xManagedServiceIdentityId": null,
+          "ipSecurityRestrictions": null,
+          "http20Enabled": false,
+          "minTlsVersion": "1.2",
+          "ftpsState": "AllAllowed",
+          "reservedInstanceCount": 0
+        },
         "scmSiteAlsoStopped": false,
         "hostingEnvironmentProfile": null,
         "clientAffinityEnabled": false,
@@ -123,12 +244,12 @@
         "cloningInfo": null
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Web/serverfarms', parameters('server_plan_name'))]"
+        "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_plan_name'))]"
       ]
     },
     {
       "type": "Microsoft.Web/sites/hostNameBindings",
-      "name": "[concat(parameters('site_name'), '/', parameters('hostNameBinding_host_name'))]",
+      "name": "[concat(parameters('site_name'),'/',parameters('hostNameBindings_name'))]",
       "apiVersion": "2016-08-01",
       "location": "[resourceGroup().location]",
       "scale": null,
