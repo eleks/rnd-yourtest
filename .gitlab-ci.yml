@@ -49,7 +49,7 @@ build:mobile:ios:
   tags:
     - xamarin
   script:
-    - "msbuild YourTest.iOS/YourTest.iOS.csproj /p:Configuration=Release /t:Rebuild" 
+    - "msbuild YourTest.iOS/YourTest.iOS.csproj /p:Configuration=Release /t:Rebuild /p:Platform=iPhone /p:BuildIpa=true" 
 
 .publish:appcenter:template: &publish_appcenter_template
   tags:
