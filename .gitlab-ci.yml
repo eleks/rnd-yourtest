@@ -57,6 +57,8 @@ build:mobile:ios:
   script:
     - "appcenter distribute release -f $file -g $ac_group -a $ac_app --token $ac_token"
   stage: publish
+  only: 
+    - master
 
 
 publish:appcenter:droid:
