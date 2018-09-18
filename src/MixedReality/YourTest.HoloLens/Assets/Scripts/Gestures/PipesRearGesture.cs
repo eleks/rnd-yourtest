@@ -10,7 +10,7 @@ public class PipesRearGesture : JetGesture
         set { Helper.IsPipesRearRight = value; }
     }
 
-    protected override double NeededX => MainFrame.transform.position.x + 5.016274E-39;
-    protected override double NeededY => MainFrame.transform.position.y + 0.4584139;
-    protected override double NeededZ => MainFrame.transform.position.z + 0.6178892;
+    protected override double NeededX => MainFrame.transform.position.x + 0.2621482;
+    protected override double NeededY => MainFrame.transform.position.y - 0.2750483;
+    protected override double NeededZ => MainFrame.transform.position.z + 0.2621484;
 }

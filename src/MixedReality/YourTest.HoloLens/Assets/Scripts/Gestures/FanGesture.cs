@@ -10,7 +10,7 @@ public class FanGesture : JetGesture
         set { Helper.IsFanRight = value; }
     }
 
-    protected override double NeededX => MainFrame.transform.position.x;
-    protected override double NeededY => MainFrame.transform.position.y - 3.973339E-18;
-    protected override double NeededZ => MainFrame.transform.position.z - 1.513121;
+    protected override double NeededX => MainFrame.transform.position.x - 0.6419629 ;
+    protected override double NeededY => MainFrame.transform.position.y + 2.384003E-18;
+    protected override double NeededZ => MainFrame.transform.position.z - 0.641963;
 }

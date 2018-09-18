@@ -589,7 +589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a2bf3c324a71a43a1f2c759c6dca0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainFrame: {fileID: 1557620596}
+  MainFrame: {fileID: 175031680}
 --- !u!1001 &2047899995
 Prefab:
   m_ObjectHideFlags: 0

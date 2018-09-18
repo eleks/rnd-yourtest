@@ -10,7 +10,7 @@ public class FuelHoseGesture : JetGesture
         set { Helper.IsFuelHoseRight = value; }
     }
 
-    protected override double NeededX => MainFrame.transform.position.x;
-    protected override double NeededY => MainFrame.transform.position.y - 0.02710906;
-    protected override double NeededZ => MainFrame.transform.position.z + 0.032952;
+    protected override double NeededX => MainFrame.transform.position.x + 0.01398035;
+    protected override double NeededY => MainFrame.transform.position.y + 0.01626544;
+    protected override double NeededZ => MainFrame.transform.position.z + 0.01398039;
 }

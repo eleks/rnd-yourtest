@@ -1,6 +1,4 @@
 ﻿using HoloToolkit.Unity.InputModule;
-using System;
-using System.Diagnostics;
 using UnityEngine;
 
 public abstract class JetGesture : MonoBehaviour, IManipulationHandler
@@ -15,7 +13,7 @@ public abstract class JetGesture : MonoBehaviour, IManipulationHandler
 
     protected abstract double NeededZ { get; }
 
-    private bool IsApproxEqual(double real, double needed, double acceptableError = 0.3)
+    private bool IsApproxEqual(double real, double needed, double acceptableError = 0.25)
     {
         return real <= needed + acceptableError &&  real >= needed - acceptableError;
     }
@@ -63,7 +61,6 @@ public abstract class JetGesture : MonoBehaviour, IManipulationHandler
     {
         InputManager.Instance.PopModalInputHandler();
         _started = false;
-        
     }
 
     void IManipulationHandler.OnManipulationCanceled(ManipulationEventData eventData)
