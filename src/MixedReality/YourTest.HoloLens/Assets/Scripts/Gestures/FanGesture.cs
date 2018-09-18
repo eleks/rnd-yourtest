@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class FanGesture : JetGesture
 {
+    public GameObject Engine;
+
     protected override bool IsRight
     {
         get { return Helper.IsFanRight; }
-        set { Helper.IsFanRight = value; }
+        set
+        {
+            Helper.IsFanRight = value;
+            var animator = Engine.GetComponent<Animator>();
+            animator.enabled = value;
+        }
     }
 
     protected override double NeededX => MainFrame.transform.position.x - 0.6419629 ;

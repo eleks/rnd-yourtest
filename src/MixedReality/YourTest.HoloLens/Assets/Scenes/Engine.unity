@@ -276,6 +276,10 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9565188, guid: 93612bd90225c4937b574096cb9f346d, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93612bd90225c4937b574096cb9f346d, type: 2}
   m_IsPrefabAsset: 0
@@ -309,6 +313,11 @@ CapsuleCollider:
   m_Height: 0.9598743
   m_Direction: 1
   m_Center: {x: 0.000000015560346, y: 0.05202308, z: 0.26105934}
+--- !u!1 &435870513 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 136520, guid: 93612bd90225c4937b574096cb9f346d,
+    type: 2}
+  m_PrefabInternal: {fileID: 435870509}
 --- !u!1 &608014617 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 193464, guid: 93612bd90225c4937b574096cb9f346d,
@@ -326,6 +335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainFrame: {fileID: 175031680}
+  Engine: {fileID: 435870513}
 --- !u!136 &608014619
 CapsuleCollider:
   m_ObjectHideFlags: 0
