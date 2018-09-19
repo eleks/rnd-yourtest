@@ -7,7 +7,14 @@ public class PipesRearGesture : JetGesture
     protected override bool IsRight
     {
         get { return Helper.IsPipesRearRight; }
-        set { Helper.IsPipesRearRight = value; }
+        set
+        {
+            Helper.IsPipesRearRight = value;
+            if (value)
+            {
+                TextToSpeechHelper.Instance.PlayText(AudioManager, "Put Fule Hose in the right place!");
+            }
+        }
     }
 
     protected override double NeededX => MainFrame.transform.position.x + 0.2621482;

@@ -7,7 +7,14 @@ public class FuelHoseGesture : JetGesture
     protected override bool IsRight
     {
         get { return Helper.IsFuelHoseRight; }
-        set { Helper.IsFuelHoseRight = value; }
+        set
+        {
+            Helper.IsFuelHoseRight = value;
+            if (value)
+            {
+                TextToSpeechHelper.Instance.PlayText(AudioManager, "Put Fan in the right place!");
+            }
+        }
     }
 
     protected override double NeededX => MainFrame.transform.position.x + 0.01398035;

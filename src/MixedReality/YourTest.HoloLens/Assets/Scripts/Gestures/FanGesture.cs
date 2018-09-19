@@ -12,6 +12,12 @@ public class FanGesture : JetGesture
         set
         {
             Helper.IsFanRight = value;
+
+            if (value)
+            {
+                TextToSpeechHelper.Instance.PlayText(AudioManager, "Great job!");
+            }
+
             var animator = Engine.GetComponent<Animator>();
             animator.enabled = value;
         }

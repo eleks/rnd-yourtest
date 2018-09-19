@@ -15,7 +15,7 @@ public abstract class JetGesture : MonoBehaviour, IManipulationHandler
 
     private bool IsApproxEqual(double real, double needed, double acceptableError = 0.25)
     {
-        return real <= needed + acceptableError &&  real >= needed - acceptableError;
+        return real <= needed + acceptableError && real >= needed - acceptableError;
     }
 
     private void OnDragging(double x, double y, double z)
@@ -24,8 +24,8 @@ public abstract class JetGesture : MonoBehaviour, IManipulationHandler
         var rightY = IsApproxEqual(transform.position.y, NeededY);
         var rightZ = IsApproxEqual(transform.position.z, NeededZ);
 
-        IsRight = rightX && rightY && rightZ;
-        if (IsRight)
+        isRight = rightX && rightY && rightZ;
+        if (isRight)
         {
             transform.position = new Vector3((float)NeededX, (float)NeededY, (float)NeededZ);
         }
@@ -61,6 +61,8 @@ public abstract class JetGesture : MonoBehaviour, IManipulationHandler
     {
         InputManager.Instance.PopModalInputHandler();
         _started = false;
+        IsRight = isRight;
+        MobileCommunicator.Instance.SendMessage($"{name}:{isRight}");
     }
 
     void IManipulationHandler.OnManipulationCanceled(ManipulationEventData eventData)
@@ -68,7 +70,11 @@ public abstract class JetGesture : MonoBehaviour, IManipulationHandler
         InputManager.Instance.PopModalInputHandler();
         _started = false;
     }
-    
+
+    protected GameObject AudioManager => _audioManager ?? (_audioManager = GameObject.Find("Audio Manager"));
+    private GameObject _audioManager;
+
+    private bool isRight;
     private bool _started;
     private Vector3 manipulationOriginalPosition = Vector3.zero;
 }
