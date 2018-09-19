@@ -21,11 +21,11 @@
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="70" />
         </Grid.RowDefinitions>
-        
         <controls:CarouselViewControl
             x:Name="QuestionsList"
+            Grid.Row="0"
             Orientation="Horizontal"
             Position="{Binding ActiveQuestionIndex, Mode=TwoWay}"
             ItemsSource="{Binding Test.Questions}" 
@@ -38,7 +38,7 @@
                     <DataTemplate x:Key="MixedRealityQuestionTemplate">
                         <viewCell:MixedRealityQuestionPageView
                             BarcodeValue="{Binding LocalIPAddress}"
-							AnswerSelectedCommand="{Binding Source={x:Reference QuestionsList}, 
+                            AnswerSelectedCommand="{Binding Source={x:Reference QuestionsList}, 
                                                     Path=BindingContext.SelectQuestionCommand}"/>
                     </DataTemplate>
                     <DataTemplate x:Key="TextQuestionTemplate">
@@ -61,6 +61,6 @@
             HeightRequest="40"
             HorizontalOptions="FillAndExpand"
             Command="{Binding CompliteTestCommand}"
-            />
+            IsVisible="{Binding IsConfirmationEnable}"/>
     </Grid>
 </ContentPage>

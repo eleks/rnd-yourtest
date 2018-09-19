@@ -11,6 +11,7 @@ using Prism.Ioc;
 using Prism.Autofac;
 using System.Threading.Tasks;
 using YourTest.Navigation;
+using System.Linq;
 
 namespace YourTest.ViewModels.ActiveTest
 {
@@ -26,6 +27,12 @@ namespace YourTest.ViewModels.ActiveTest
         {
             get => _activeQuestionIndex;
             set => SetProperty(ref _activeQuestionIndex, value);
+        }
+
+        public Boolean IsConfirmationEnable
+        {
+            get => _isConfirmationEnable;
+            set => SetProperty(ref _isConfirmationEnable, value);
         }
 
         public ICommand SelectQuestionCommand { get; set; }
@@ -88,11 +95,17 @@ namespace YourTest.ViewModels.ActiveTest
             });
 
             ActiveQuestionIndex++;
+
+            if (ActiveQuestionIndex == Test.Questions.Count - 1)
+            {
+                IsConfirmationEnable = true;
+            }
         }
 
         private List<QuestionAnswer> _answers = new List<QuestionAnswer>();
         private TestViewModel _test;
         private int _activeQuestionIndex;
+        private Boolean _isConfirmationEnable;
         private readonly TestViewModelFactory _tesVMFactory;
         private readonly ITestsRest _testsRest;
         private readonly INavigationService _navigationService;
