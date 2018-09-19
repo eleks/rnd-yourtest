@@ -13,6 +13,8 @@ public class Placeholder : MonoBehaviour
 
     private void Start()
     {
+        var audioManager = GameObject.Find("Audio Manager");
+        TextToSpeechHelper.Instance.PlayText(audioManager, "Welcome to your test!");
         this.textMesh = this.textMeshObject.GetComponent<TextMesh>();
         this.OnReset();
     }
@@ -42,6 +44,8 @@ public class Placeholder : MonoBehaviour
 
     public void OnReset()
     {
+        var audioManager = GameObject.Find("Audio Manager");
+        TextToSpeechHelper.Instance.PlayText(audioManager, "Say scan to start !");
         this.textMesh.text = "say scan to start";
     }
 
