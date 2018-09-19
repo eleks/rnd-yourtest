@@ -50,6 +50,9 @@ build:mobile:ios:
     - xamarin
   script:
     - "msbuild YourTest.iOS/YourTest.iOS.csproj /p:Configuration=Release /t:Rebuild /p:Platform=iPhone /p:BuildIpa=true" 
+  artifacts:
+    paths:
+      - "src/Mobile/YourTest/YourTest.iOS/bin/iPhone/Release/com.eleks.YourTest.ipa"
 
 .publish:appcenter:template: &publish_appcenter_template
   tags:
@@ -73,6 +76,6 @@ publish:appcenter:ios:
   <<: *publish_appcenter_template
   variables:
     ac_app_sufix: "iOS"
-    file: "src/Mobile/YourTest/YourTest.iOS/bin/Release/com.eleks.YourTest.ipa"
+    file: "src/Mobile/YourTest/YourTest.iOS/bin/iPhone/Release/com.eleks.YourTest.ipa"
   dependencies:
     - build:mobile:ios
