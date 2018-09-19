@@ -71,15 +71,22 @@
                     </zx:ZXingBarcodeImageView.BarcodeOptions>
             </zx:ZXingBarcodeImageView>
             
-            <Image
+            <StackLayout
                 IsVisible="{Binding Status, Converter={StaticResource holoConnectedToBoolean}}"
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="FillAndExpand"
-                HeightRequest="200"
-                WidthRequest="200"
-                Aspect="AspectFit"
-                Source="{Binding HasAnswer, Converter={StaticResource hasAnswerToImage}}"
-                />
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand">
+                
+                <Label Text="{Binding Dynamos, StringFormat='Dynamos is {0}'}"/>
+                
+                <Label Text="{Binding MainPipes, StringFormat='MainPipes is {0}'}"/>
+                
+                <Label Text="{Binding RearPipes, StringFormat='RearPipes is {0}'}"/>
+                
+                <Label Text="{Binding FuelHose, StringFormat='FuelHose is {0}'}"/>
+                
+                <Label Text="{Binding Fan, StringFormat='Fan is {0}'}"/>
+                
+            </StackLayout>
             
             <Label
                 HorizontalOptions="CenterAndExpand"
