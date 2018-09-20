@@ -146,6 +146,16 @@
     <AndroidResource Include="Resources\drawable-xhdpi\received.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\received.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\received.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\false.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\true.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\false.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\true.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\false.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\true.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\false.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\true.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\false.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\true.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
