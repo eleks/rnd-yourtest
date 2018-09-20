@@ -25,7 +25,7 @@ variables:
     - export Secret_B2cAuthority="$b2cAuthority"
     - export Secret_B2cScopes="$b2cScopes"
 
-    - export Secret_B2cScopes="$b2cScopes"
+    - export Secret_RestEndpoint="$restEndpoint"
     
     - export MATCH_PASSWORD="$MATCH_PASS"
 
@@ -53,7 +53,7 @@ build:mobile:ios:
   script:
     # - eval $(ssh-agent -s)
     # - ssh-add ~/.ssh/id_rsa
-    - "fastlane match development --verbose --readonly"
+    - "bundle exec fastlane match development --verbose --readonly"
     - "msbuild YourTest.iOS/YourTest.iOS.csproj /p:Configuration=Release /t:Rebuild /p:Platform=iPhone /p:BuildIpa=true" 
   artifacts:
     paths:
