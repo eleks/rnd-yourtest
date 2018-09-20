@@ -51,8 +51,7 @@ build:mobile:ios:
   tags:
     - xamarin
   script:
-    # - eval $(ssh-agent -s)
-    # - ssh-add ~/.ssh/id_rsa
+    - "bundle install --path=\"./gems\""
     - "bundle exec fastlane match development --verbose --readonly"
     - "msbuild YourTest.iOS/YourTest.iOS.csproj /p:Configuration=Release /t:Rebuild /p:Platform=iPhone /p:BuildIpa=true" 
   artifacts:
