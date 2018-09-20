@@ -29,12 +29,6 @@ namespace YourTest.ViewModels.ActiveTest
             set => SetProperty(ref _activeQuestionIndex, value);
         }
 
-        public Boolean IsConfirmationEnable
-        {
-            get => _isConfirmationEnable;
-            set => SetProperty(ref _isConfirmationEnable, value);
-        }
-
         public ICommand SelectQuestionCommand { get; set; }
         public ICommand CompliteTestCommand { get; set; }
 
@@ -47,7 +41,6 @@ namespace YourTest.ViewModels.ActiveTest
             _navigationService = navigationService;
 
             SelectQuestionCommand = new DelegateCommand<String>(HandleAction);
-            CompliteTestCommand = new DelegateCommand(async () => await ComplteTestAsync());
         }
 
         protected override void OnNavigatingTo(NavigationParameters parameters)
@@ -95,17 +88,11 @@ namespace YourTest.ViewModels.ActiveTest
             });
 
             ActiveQuestionIndex++;
-
-            if (ActiveQuestionIndex == Test.Questions.Count - 1)
-            {
-                IsConfirmationEnable = true;
-            }
         }
 
         private List<QuestionAnswer> _answers = new List<QuestionAnswer>();
         private TestViewModel _test;
         private int _activeQuestionIndex;
-        private Boolean _isConfirmationEnable;
         private readonly TestViewModelFactory _tesVMFactory;
         private readonly ITestsRest _testsRest;
         private readonly INavigationService _navigationService;
