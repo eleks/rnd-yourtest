@@ -18,7 +18,7 @@ variables:
   ac_app: "$ac_owner/$ac_app_prefix-$ac_app_sufix"
   ac_token: "$APPCENTER_TOKEN"
 
-  match_pass: "$MATCH_PASS"
+  match_pass: "$CERT_KEY"
 
 .mobile:build:template: &mobile_build_template
   before_script:
