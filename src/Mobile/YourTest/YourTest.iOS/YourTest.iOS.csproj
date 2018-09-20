@@ -172,6 +172,17 @@
         <BundleResource Include="Resources\received.png" />
         <BundleResource Include="Resources\received%402x.png" />
         <BundleResource Include="Resources\received%403x.png" />
+        <BundleResource Include="Resources\Default-568h%402x.png" />
+        <BundleResource Include="Resources\Default-Portrait.png" />
+        <BundleResource Include="Resources\Default-Portrait%402x.png" />
+        <BundleResource Include="Resources\Default.png" />
+        <BundleResource Include="Resources\Default%402x.png" />
+        <BundleResource Include="Resources\false.png" />
+        <BundleResource Include="Resources\false%402x.png" />
+        <BundleResource Include="Resources\false%403x.png" />
+        <BundleResource Include="Resources\true.png" />
+        <BundleResource Include="Resources\true%402x.png" />
+        <BundleResource Include="Resources\true%403x.png" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Manager\" />

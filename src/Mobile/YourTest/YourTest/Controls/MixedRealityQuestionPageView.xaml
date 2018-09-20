@@ -20,7 +20,6 @@
                 FalseValue="False"
                 />
                 
-                
             <converters:EtalonValueToBoleanValueConverter 
                 x:Key="holoWaitingForPairingToBoolean"
                 x:TypeArguments="models:HololensConnectionStatus,x:Boolean"
@@ -35,15 +34,38 @@
                 TrueValue="received.png"
                 FalseValue="holo_connected.png"
                 />
+
+            <converters:MaxidRealityAnswerBooleanToImageSourceConverter x:Key="MaxidRealityAnswerBooleanToImageSourceConverter"/>
             
             <Style x:Key="Card" TargetType="Frame" BasedOn="{StaticResource CardPrimery}">
                 <Style.Setters>
                     <Setter Property="Margin" Value="{StaticResource TopElementMargin}"/>
                 </Style.Setters>
             </Style>
-            <Style TargetType="Label" BasedOn="{StaticResource CardLabelLight}">
+            <Style x:Key="AnswerFrameStyle" TargetType="Frame">
                 <Style.Setters>
-                        <Setter Property="HorizontalTextAlignment" Value="Center" />
+                        <Setter Property="CornerRadius" Value="5" />
+                        <Setter Property="HasShadow" Value="false" />
+                        <Setter Property="Padding" Value="10" />
+                </Style.Setters>        
+            </Style>
+            <Style x:Key="AnswerStackLayoutStyle" TargetType="StackLayout">
+                <Style.Setters>
+                        <Setter Property="Spacing" Value="10" />
+                        <Setter Property="Orientation" Value="Horizontal" />
+                </Style.Setters>        
+            </Style>
+            <Style x:Key="AnswerImageStyle" TargetType="Image">
+                <Style.Setters>
+                        <Setter Property="HeightRequest" Value="24" />
+                        <Setter Property="WidthRequest" Value="24" />
+                </Style.Setters>        
+            </Style>
+            <Style x:Key="AnswerLabelStyle" TargetType="Label">
+                <Style.Setters>
+                        <Setter Property="TextColor" Value="Black" />
+                        <Setter Property="VerticalTextAlignment" Value="Center" />
+                        <Setter Property="FontSize" Value="16" />
                 </Style.Setters>        
             </Style>
         </ResourceDictionary>
@@ -55,10 +77,11 @@
         <StackLayout VerticalOptions="FillAndExpand"
                      HorizontalOptions="FillAndExpand">
             <Label
+                Style="{StaticResource CardLabelLight}"
                 HorizontalOptions="CenterAndExpand"
                 VerticalOptions="Start"
                 Margin="20,40,20,0"
-                Text="{Binding Status, Converter={StaticResource HololensConnectionStatusToTextConverter}}"/>
+                Text="Put jet engine part in right places."/>
             
             <zx:ZXingBarcodeImageView
                 x:Name="barcodeImageView"
@@ -73,19 +96,71 @@
             
             <StackLayout
                 IsVisible="{Binding Status, Converter={StaticResource holoConnectedToBoolean}}"
-                HorizontalOptions="CenterAndExpand"
-                VerticalOptions="CenterAndExpand">
-                
-                <Label Text="{Binding Dynamos, StringFormat='Dynamos is {0}'}"/>
-                
-                <Label Text="{Binding MainPipes, StringFormat='MainPipes is {0}'}"/>
-                
-                <Label Text="{Binding RearPipes, StringFormat='RearPipes is {0}'}"/>
-                
-                <Label Text="{Binding FuelHose, StringFormat='FuelHose is {0}'}"/>
-                
-                <Label Text="{Binding Fan, StringFormat='Fan is {0}'}"/>
-                
+                Spacing="10">
+                <Frame 
+                    Style="{StaticResource AnswerFrameStyle}">
+                    <StackLayout
+                        Style="{StaticResource AnswerStackLayoutStyle}">
+                        <Image
+                            Source="{Binding Dynamos, Converter={StaticResource MaxidRealityAnswerBooleanToImageSourceConverter}}"
+                            Style="{StaticResource AnswerImageStyle}"/>
+                        <Label 
+                            Text="Dynamos"
+                            Style="{StaticResource AnswerLabelStyle}"/>
+                    </StackLayout>
+                </Frame>
+
+                <Frame 
+                    Style="{StaticResource AnswerFrameStyle}">
+                    <StackLayout
+                        Style="{StaticResource AnswerStackLayoutStyle}">
+                        <Image
+                            Source="{Binding MainPipes, Converter={StaticResource MaxidRealityAnswerBooleanToImageSourceConverter}}"
+                            Style="{StaticResource AnswerImageStyle}"/>
+                        <Label 
+                            Text="MainPipes"
+                            Style="{StaticResource AnswerLabelStyle}"/>
+                    </StackLayout>
+                </Frame>
+
+                <Frame 
+                    Style="{StaticResource AnswerFrameStyle}">
+                    <StackLayout
+                        Style="{StaticResource AnswerStackLayoutStyle}">
+                        <Image
+                            Source="{Binding RearPipes, Converter={StaticResource MaxidRealityAnswerBooleanToImageSourceConverter}}"
+                            Style="{StaticResource AnswerImageStyle}"/>
+                        <Label 
+                            Text="RearPipes"
+                            Style="{StaticResource AnswerLabelStyle}"/>
+                    </StackLayout>
+                </Frame>
+
+                <Frame 
+                    Style="{StaticResource AnswerFrameStyle}">
+                    <StackLayout
+                        Style="{StaticResource AnswerStackLayoutStyle}">
+                        <Image
+                            Source="{Binding FuelHose, Converter={StaticResource MaxidRealityAnswerBooleanToImageSourceConverter}}"
+                            Style="{StaticResource AnswerImageStyle}"/>
+                        <Label 
+                            Text="FuelHose"
+                            Style="{StaticResource AnswerLabelStyle}"/>
+                    </StackLayout>
+                </Frame>
+
+                <Frame 
+                    Style="{StaticResource AnswerFrameStyle}">
+                    <StackLayout
+                        Style="{StaticResource AnswerStackLayoutStyle}">
+                        <Image
+                            Source="{Binding Fan, Converter={StaticResource MaxidRealityAnswerBooleanToImageSourceConverter}}"
+                            Style="{StaticResource AnswerImageStyle}"/>
+                        <Label 
+                            Text="Fan"
+                            Style="{StaticResource AnswerLabelStyle}"/>
+                    </StackLayout>
+                </Frame>
             </StackLayout>
             
             <Label
