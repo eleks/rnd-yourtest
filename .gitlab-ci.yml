@@ -18,6 +18,8 @@ variables:
   ac_app: "$ac_owner/$ac_app_prefix-$ac_app_sufix"
   ac_token: "$APPCENTER_TOKEN"
 
+  match_pass: "$MATCH_PASS"
+
 .mobile:build:template: &mobile_build_template
   before_script:
     - export Secret_B2cClientId="$b2cClientId"
@@ -27,7 +29,7 @@ variables:
 
     - export Secret_RestEndpoint="$restEndpoint"
     
-    - export MATCH_PASSWORD="$MATCH_PASS"
+    - export MATCH_PASSWORD="$match_pass"
 
     - cd src/Mobile/YourTest
     - nuget restore
@@ -56,7 +58,11 @@ build:mobile:ios:
     - "msbuild YourTest.iOS/YourTest.iOS.csproj /p:Configuration=Release /t:Rebuild /p:Platform=iPhone /p:BuildIpa=true" 
   artifacts:
     paths:
-      - "src/Mobile/YourTest/YourTest.iOS/bin/iPhone/Release/com.eleks.YourTest.ipa"
+      - "src/Mobile/YourTest/YourTest.iOS/bin/iPhone/Release/YourTest.iOS.ipa"
+  cache:
+    key: "${CI_JOB_NAME}-gems"
+    paths:
+      - "src/Mobile/YourTest/gems"
 
 .publish:appcenter:template: &publish_appcenter_template
   tags:
@@ -80,6 +86,6 @@ publish:appcenter:ios:
   <<: *publish_appcenter_template
   variables:
     ac_app_sufix: "iOS"
-    file: "src/Mobile/YourTest/YourTest.iOS/bin/iPhone/Release/com.eleks.YourTest.ipa"
+    file: "src/Mobile/YourTest/YourTest.iOS/bin/iPhone/Release/YourTest.iOS.ipa"
   dependencies:
     - build:mobile:ios
