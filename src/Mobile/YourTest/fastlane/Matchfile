@@ -1,4 +1,4 @@
-git_url("git@gitlab2.eleks-software.local:RomaRudyak/roru-ios-certificates.git")
+git_url("https://gitlab2.eleks-software.local/rnd-platform/xamarin_demo.git")
 
 type("development") # The default type, can be: appstore, adhoc, enterprise or development
 

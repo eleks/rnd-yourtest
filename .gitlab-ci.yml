@@ -49,7 +49,7 @@ build:mobile:ios:
   tags:
     - xamarin
   script:
-    - "faslane match developer --verbose"
+    - "fastlane match development --verbose"
     - "msbuild YourTest.iOS/YourTest.iOS.csproj /p:Configuration=Release /t:Rebuild /p:Platform=iPhone /p:BuildIpa=true" 
   artifacts:
     paths:
