@@ -11,6 +11,7 @@ using Prism.Ioc;
 using Prism.Autofac;
 using System.Threading.Tasks;
 using YourTest.Navigation;
+using System.Linq;
 
 namespace YourTest.ViewModels.ActiveTest
 {
@@ -40,7 +41,6 @@ namespace YourTest.ViewModels.ActiveTest
             _navigationService = navigationService;
 
             SelectQuestionCommand = new DelegateCommand<String>(HandleAction);
-            CompliteTestCommand = new DelegateCommand(async () => await ComplteTestAsync());
         }
 
         protected override void OnNavigatingTo(NavigationParameters parameters)
