@@ -42,7 +42,7 @@ build:mobile:droid:
   tags:
     - xamarin
   script:
-    - "msbuild YourTest.Android/YourTest.Android.csproj /p:Configuration=Release /t:SignAndroidPackage"
+    - "msbuild YourTest.Android/YourTest.Android.csproj /p:Configuration=Release /t:SignAndroidPackage /p:AutomaticVersionBehavior=Timestamp"
   artifacts:
     paths:
       - "src/Mobile/YourTest/YourTest.Android/bin/Release/com.eleks.YourTest-Signed.apk"
@@ -55,7 +55,7 @@ build:mobile:ios:
   script:
     - "bundle install --path=\"./gems\""
     - "bundle exec fastlane match development --verbose --readonly"
-    - "msbuild YourTest.iOS/YourTest.iOS.csproj /p:Configuration=Release /t:Rebuild /p:Platform=iPhone /p:BuildIpa=true" 
+    - "msbuild YourTest.iOS/YourTest.iOS.csproj /p:Configuration=Release /t:Rebuild /p:Platform=iPhone /p:BuildIpa=true /p:AutomaticVersionBehavior=Timestamp" 
   artifacts:
     paths:
       - "src/Mobile/YourTest/YourTest.iOS/bin/iPhone/Release/YourTest.iOS.ipa"
