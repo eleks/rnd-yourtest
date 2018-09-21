@@ -2,7 +2,6 @@
 using System.Globalization;
 using Xamarin.Forms;
 using CarouselView.FormsPlugin.Abstractions;
-using YourTest.ViewModels.ActiveTest;
 namespace YourTest.Converters
 {
     public class ConfirmationButtonEnableConverter : IValueConverter
@@ -11,9 +10,8 @@ namespace YourTest.Converters
         {
             var idex = (Int32)value;
             var control = (CarouselViewControl)parameter;
-            var vm = (ActiveTestPageViewModel)control.BindingContext;
 
-            if (idex == vm.Test?.Questions?.Count - 1)
+            if (idex == control.ItemsSource?.GetCount() - 1)
             {
                 return true;
             }
