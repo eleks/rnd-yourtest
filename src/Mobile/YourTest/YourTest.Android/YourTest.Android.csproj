@@ -146,16 +146,16 @@
     <AndroidResource Include="Resources\drawable-xhdpi\received.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\received.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\received.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\false.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\true.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\false.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\true.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\false.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\true.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\false.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\true.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\false.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\true.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\incorrect.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\correct.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\incorrect.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\correct.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\incorrect.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\correct.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\incorrect.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\correct.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\incorrect.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\correct.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

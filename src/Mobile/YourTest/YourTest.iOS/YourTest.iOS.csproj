@@ -177,12 +177,12 @@
         <BundleResource Include="Resources\Default-Portrait%402x.png" />
         <BundleResource Include="Resources\Default.png" />
         <BundleResource Include="Resources\Default%402x.png" />
-        <BundleResource Include="Resources\false.png" />
-        <BundleResource Include="Resources\false%402x.png" />
-        <BundleResource Include="Resources\false%403x.png" />
-        <BundleResource Include="Resources\true.png" />
-        <BundleResource Include="Resources\true%402x.png" />
-        <BundleResource Include="Resources\true%403x.png" />
+        <BundleResource Include="Resources\incorrect.png" />
+        <BundleResource Include="Resources\incorrect%402x.png" />
+        <BundleResource Include="Resources\incorrect%403x.png" />
+        <BundleResource Include="Resources\correct.png" />
+        <BundleResource Include="Resources\correct%402x.png" />
+        <BundleResource Include="Resources\correct%403x.png" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Manager\" />

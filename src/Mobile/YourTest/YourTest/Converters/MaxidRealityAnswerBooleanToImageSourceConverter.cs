@@ -8,7 +8,7 @@ namespace YourTest.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (Boolean)value ? ImageSource.FromFile("true") : ImageSource.FromFile("false");
+            return (Boolean)value ? ImageSource.FromFile("correct") : ImageSource.FromFile("incorrect");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
