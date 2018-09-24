@@ -16,6 +16,8 @@ using Refit;
 using YourTest.REST;
 using YourTest.Manager;
 using YourTest.ViewModels.ActiveTest;
+using Plugin.DeviceInfo.Abstractions;
+using Prism.Navigation;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace YourTest
@@ -34,9 +36,9 @@ namespace YourTest
             InitializeComponent();
 
 
-            MainPage = new NavigationPage
+            MainPage = new NavigationPage(new ContentPage())
             {
-                BarTextColor = Color.White
+                BarTextColor = Color.White,
             };
             await NavigationService.NavigateAsync<LoginViewModel>();
 
@@ -59,8 +61,23 @@ namespace YourTest
             RegisterHttpHandlerStack(builder);
             RegisterRestServices(builder);
             RegisterManagers(builder);
+            ConfigureViewModels(builder);
+        }
 
-            builder.Register(c => containerRegistry);
+        private void ConfigureViewModels(ContainerBuilder builder)
+        {
+            builder.Register(c =>
+            {
+                var vm = new LoginViewModel(
+                    c.Resolve<AuthSession>(),
+                    c.ResolveNamed<INavigationService>(NavigationServiceName)
+                )
+                {
+                    AppVersion = Plugin.DeviceInfo.CrossDeviceInfo.Current.AppVersion
+                };
+                return vm;
+            })
+            .AsSelf();
         }
 
         private static void RegisterRestServices(ContainerBuilder builder)
