@@ -62,7 +62,12 @@ public abstract class JetGesture : MonoBehaviour, IManipulationHandler
         InputManager.Instance.PopModalInputHandler();
         _started = false;
         IsRight = isRight;
-        MobileCommunicator.Instance.SendMessage($"{name}:{isRight}");
+        var answer = $"{name}:{isRight}";
+        if(answer != _lastAnswer)
+        {
+            MobileCommunicator.Instance.SendMessage(answer);
+            _lastAnswer = answer;
+        }
     }
 
     void IManipulationHandler.OnManipulationCanceled(ManipulationEventData eventData)
@@ -76,5 +81,6 @@ public abstract class JetGesture : MonoBehaviour, IManipulationHandler
 
     private bool isRight;
     private bool _started;
+    private string _lastAnswer;
     private Vector3 manipulationOriginalPosition = Vector3.zero;
 }
