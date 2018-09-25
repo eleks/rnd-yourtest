@@ -29,9 +29,15 @@
                 "id": 2
             },
             {
-                "description": "Show the engine component that drives the spinning of the propeller?",
-                "possibleAnswers": [],
-                "answer": "turbine",
+                "description": "Put jet engine part in right places.",
+                "possibleAnswers": [
+                    "FAN",
+                    "main_pipes",
+                    "rear_pipes",
+                    "fuel_hose",
+                    "dynamos"
+                ],
+                "answer": "FAN:True;main_pipes:True;rear_pipes:True;fuel_hose:True;dynamos:True",
                 "type": 1,
                 "id": 3
             }
@@ -65,13 +71,6 @@
                 "answer": "4",
                 "type": 0,
                 "id": 2
-            },
-            {
-                "description": "Find Red Box.",
-                "possibleAnswers": [],
-                "answer": "Box-Top-Right",
-                "type": 1,
-                "id": 3
             }
         ]
     }

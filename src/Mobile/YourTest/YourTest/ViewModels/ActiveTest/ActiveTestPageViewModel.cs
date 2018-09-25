@@ -41,6 +41,7 @@ namespace YourTest.ViewModels.ActiveTest
             _navigationService = navigationService;
 
             SelectQuestionCommand = new DelegateCommand<String>(HandleAction);
+            CompliteTestCommand = new DelegateCommand(async () => await ComplteTestAsync());
         }
 
         protected override void OnNavigatingTo(NavigationParameters parameters)
