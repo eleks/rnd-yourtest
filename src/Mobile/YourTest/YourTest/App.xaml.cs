@@ -36,7 +36,7 @@ namespace YourTest
             InitializeComponent();
 
 
-            MainPage = new NavigationPage(new ContentPage())
+            MainPage = new NavigationPage
             {
                 BarTextColor = Color.White,
             };
