@@ -66,11 +66,11 @@ namespace YourTest
 
         private void ConfigureViewModels(ContainerBuilder builder)
         {
-            builder.Register(c =>
+            builder.Register((c, p) =>
             {
                 var vm = new LoginViewModel(
-                    c.Resolve<AuthSession>(),
-                    c.ResolveNamed<INavigationService>(NavigationServiceName)
+                    c.Resolve<AuthSession>(p),
+                    p.Named<INavigationService>(NavigationServiceParameterName)
                 )
                 {
                     AppVersion = Plugin.DeviceInfo.CrossDeviceInfo.Current.AppVersion
