@@ -6,11 +6,16 @@ using Xamarin.Forms;
 using YourTest.Manager;
 using YourTest.Models;
 using System.Linq;
+using System.Collections.Generic;
+using MvvmHelpers;
+using Xamarin.Forms.Internals;
+using System.Diagnostics;
 
 namespace YourTest.ViewModels.ActiveTest
 {
     public class MixedRealityQuestionViewModel : BaseQuestionViewModel
     {
+        private const int Port = 8888;
 
         public MixedRealityQuestionViewModel(IIPAddressManager ipAddressManager,
                                              IPageDialogService pageDialogService,
@@ -27,7 +32,7 @@ namespace YourTest.ViewModels.ActiveTest
             _hololensCommunicationManager.MessageReceived += OnHololensMessageReceived;
             _hololensCommunicationManager.ClientConnected += OnHololensClientConnected;
 
-            _hololensCommunicationManager.StartListening(LocalIPAddress, 8888);
+            _hololensCommunicationManager.StartListening(LocalIPAddress, Port);
         }
 
         public HololensConnectionStatus Status
@@ -36,20 +41,22 @@ namespace YourTest.ViewModels.ActiveTest
             set => SetProperty(ref _status, value);
         }
 
-        public Boolean Fan { get => _fan; set => SetProperty(ref _fan, value); }
-        private bool _fan;
+        public ObservableRangeCollection<SelectableItemViewModel> TestSteps { get; } = new ObservableRangeCollection<SelectableItemViewModel>();
 
-        public Boolean FuelHose { get => _fuelHose; set => SetProperty(ref _fuelHose, value); }
-        private bool _fuelHose;
+        public String LocalIPAddress => _ipAddressManager.GetIPAddress();
 
-        public Boolean MainPipes { get => _mainPipes; set => SetProperty(ref _mainPipes, value); }
-        private bool _mainPipes;
+        public ICommand ResetCommand { get; set; }
+        public ICommand AnswerSelectedCommand { get; set; }
 
-        public Boolean RearPipes { get => _rearPipes; set => SetProperty(ref _rearPipes, value); }
-        private bool _rearPipes;
-
-        public Boolean Dynamos { get => _dynamos; set => SetProperty(ref _dynamos, value); }
-        private bool _dynamos;
+        public override IList<string> PossibleAnswers
+        {
+            get => base.PossibleAnswers;
+            set
+            {
+                base.PossibleAnswers = value;
+                CreateItemViewModels();
+            }
+        }
 
         public Boolean HasAnswer
         {
@@ -57,52 +64,49 @@ namespace YourTest.ViewModels.ActiveTest
             private set => SetProperty(ref _hasAnswer, value);
         }
 
-        public String LocalIPAddress => _ipAddressManager.GetIPAddress();
-
-        public ICommand ResetCommand { get; set; }
-        public ICommand AnswerSelectedCommand { get; set; }
+        private void CreateItemViewModels()
+        {
+            TestSteps.ReplaceRange(PossibleAnswers.Select(x => new SelectableItemViewModel { Text = x }));
+        }
 
         private void OnReset()
         {
             Status = HololensConnectionStatus.WaitingForPairing;
-            HasAnswer = false;
 
             _hololensCommunicationManager.StopListening();
-            _hololensCommunicationManager.StartListening(LocalIPAddress, 8888);
+            _hololensCommunicationManager.StartListening(LocalIPAddress, Port);
         }
 
         private void OnHololensMessageReceived(Object sender, String message)
         {
-            var answer = message.TrimEnd('\n', '\t');
-            // todo for this case create decorator with call dialog on main thread
-            //Device.BeginInvokeOnMainThread(() => _pageDialogService.DisplayAlertAsync("From HoloLens", message, "OK"));
-            //Answer = answer;
-            //HasAnswer = true;
-            //AnswerSelectedCommand?.Execute(answer);
+            message = message.TrimEnd('\n', '\r');
 
-            var element = answer.Split(':').FirstOrDefault();
-            var position = Boolean.Parse(answer.Split(':').LastOrDefault());
 
-            switch (element)
+            var testFinished = String.Empty;
+
+            if (message == testFinished)
             {
-                case "FAN":
-                    Fan = position;
-                    break;
-                case "main_pipes":
-                    MainPipes = position;
-                    break;
-                case "Pipes_rear":
-                    RearPipes = position;
-                    break;
-                case "fuel_hose":
-                    FuelHose = position;
-                    break;
-                case "dynamos":
-                    Dynamos = position;
-                    break;
-                default:
-                    break;
+                Answer = String.Join(";", TestSteps.Select(st => new MixedStatus(st.Text, st.IsSelected).ToString()));
+                HasAnswer = true;
+                AnswerSelectedCommand?.Execute(Answer);
+                _hololensCommunicationManager.StopListening();
+
+                return;
             }
+
+            try
+            {
+                var update = MixedStatus.Parse(message);
+
+                TestSteps
+                    .First(x => x.Text == update.Element)
+                    .IsSelected = update.InPlace;
+            }
+            catch
+            {
+                Debug.WriteLine($"Failed to parse MixedStatus: {message}");
+            }
+
         }
 
         private void OnHololensClientConnected(object sender, EventArgs e) => Status = HololensConnectionStatus.Paired;
@@ -112,5 +116,34 @@ namespace YourTest.ViewModels.ActiveTest
         private IPageDialogService _pageDialogService;
         private IHololensCommunicationManager _hololensCommunicationManager;
         private bool _hasAnswer;
+
+
+        private struct MixedStatus
+        {
+            private const char Separator = ':';
+
+            public String Element { get; private set; }
+            public Boolean InPlace { get; private set; }
+
+            public static MixedStatus Parse(String val)
+            {
+                var parts = val.Split(Separator);
+                var element = parts[0];
+                var inPlace = Boolean.Parse(parts[1]);
+
+                return new MixedStatus(element, inPlace);
+            }
+
+            public MixedStatus(String element, Boolean inPlace)
+            {
+                Element = element;
+                InPlace = inPlace;
+            }
+
+            public override string ToString()
+            {
+                return $"{Element}{Separator}{InPlace.ToString()}";
+            }
+        }
     }
 }

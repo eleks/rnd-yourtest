@@ -3,6 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="YourTest.Controls.MixedRealityQuestionPageView"
+    xmlns:controls="clr-namespace:YourTest.Controls; assembly=YourTest"
     xmlns:converters="clr-namespace:YourTest.Converters;assembly=YourTest"
     xmlns:models="clr-namespace:YourTest.Models;assembly=YourTest"
     xmlns:zx="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
@@ -34,8 +35,13 @@
                 TrueValue="received.png"
                 FalseValue="holo_connected.png"
                 />
-
-            <converters:MaxidRealityAnswerBooleanToImageSourceConverter x:Key="MaxidRealityAnswerBooleanToImageSourceConverter"/>
+             
+             <converters:BooleanToValueConverter 
+                x:Key="MaxidRealityAnswerBooleanToImageSourceConverter"
+                x:TypeArguments="x:String"
+                TrueValue="correct.png"
+                FalseValue="incorrect.png"
+                />
             
             <Style x:Key="Card" TargetType="Frame" BasedOn="{StaticResource CardPrimery}">
                 <Style.Setters>
@@ -70,7 +76,7 @@
             </Style>
         </ResourceDictionary>
     </ContentView.Resources>
-     <Frame 
+    <Frame 
         Style="{StaticResource Card}"
         VerticalOptions="FillAndExpand"
         HorizontalOptions="FillAndExpand">
@@ -81,7 +87,7 @@
                 HorizontalOptions="CenterAndExpand"
                 VerticalOptions="Start"
                 Margin="20,40,20,0"
-                Text="Put jet engine part in right places."/>
+                Text="{Binding Description}"/>
             
             <zx:ZXingBarcodeImageView
                 x:Name="barcodeImageView"
@@ -94,74 +100,30 @@
                     </zx:ZXingBarcodeImageView.BarcodeOptions>
             </zx:ZXingBarcodeImageView>
             
-            <StackLayout
+            <controls:BindableStackLayout
+                x:Name="_aswersList"
+                VerticalOptions="Start"
+                Spacing="10"
+                HorizontalOptions="FillAndExpand"
                 IsVisible="{Binding Status, Converter={StaticResource holoConnectedToBoolean}}"
-                Spacing="10">
-                <Frame 
-                    Style="{StaticResource AnswerFrameStyle}">
-                    <StackLayout
-                        Style="{StaticResource AnswerStackLayoutStyle}">
-                        <Image
-                            Source="{Binding Dynamos, Converter={StaticResource MaxidRealityAnswerBooleanToImageSourceConverter}}"
-                            Style="{StaticResource AnswerImageStyle}"/>
-                        <Label 
-                            Text="Dynamos"
-                            Style="{StaticResource AnswerLabelStyle}"/>
-                    </StackLayout>
-                </Frame>
-
-                <Frame 
-                    Style="{StaticResource AnswerFrameStyle}">
-                    <StackLayout
-                        Style="{StaticResource AnswerStackLayoutStyle}">
-                        <Image
-                            Source="{Binding MainPipes, Converter={StaticResource MaxidRealityAnswerBooleanToImageSourceConverter}}"
-                            Style="{StaticResource AnswerImageStyle}"/>
-                        <Label 
-                            Text="MainPipes"
-                            Style="{StaticResource AnswerLabelStyle}"/>
-                    </StackLayout>
-                </Frame>
-
-                <Frame 
-                    Style="{StaticResource AnswerFrameStyle}">
-                    <StackLayout
-                        Style="{StaticResource AnswerStackLayoutStyle}">
-                        <Image
-                            Source="{Binding RearPipes, Converter={StaticResource MaxidRealityAnswerBooleanToImageSourceConverter}}"
-                            Style="{StaticResource AnswerImageStyle}"/>
-                        <Label 
-                            Text="RearPipes"
-                            Style="{StaticResource AnswerLabelStyle}"/>
-                    </StackLayout>
-                </Frame>
-
-                <Frame 
-                    Style="{StaticResource AnswerFrameStyle}">
-                    <StackLayout
-                        Style="{StaticResource AnswerStackLayoutStyle}">
-                        <Image
-                            Source="{Binding FuelHose, Converter={StaticResource MaxidRealityAnswerBooleanToImageSourceConverter}}"
-                            Style="{StaticResource AnswerImageStyle}"/>
-                        <Label 
-                            Text="FuelHose"
-                            Style="{StaticResource AnswerLabelStyle}"/>
-                    </StackLayout>
-                </Frame>
-
-                <Frame 
-                    Style="{StaticResource AnswerFrameStyle}">
-                    <StackLayout
-                        Style="{StaticResource AnswerStackLayoutStyle}">
-                        <Image
-                            Source="{Binding Fan, Converter={StaticResource MaxidRealityAnswerBooleanToImageSourceConverter}}"
-                            Style="{StaticResource AnswerImageStyle}"/>
-                        <Label 
-                            Text="Fan"
-                            Style="{StaticResource AnswerLabelStyle}"/>
-                    </StackLayout>
-                </Frame>
-            </StackLayout>
+                ItemsSource="{Binding TestSteps}">
+                <controls:BindableStackLayout.ItemTemplate>
+                    <DataTemplate>
+                           <Frame 
+                                Style="{StaticResource AnswerFrameStyle}">
+                                <StackLayout
+                                    Style="{StaticResource AnswerStackLayoutStyle}">
+                                    <Image
+                                        Source="{Binding IsSelected, Converter={StaticResource MaxidRealityAnswerBooleanToImageSourceConverter}}"
+                                        Style="{StaticResource AnswerImageStyle}"/>
+                                    <Label 
+                                        Text="{Binding Text}"
+                                        Style="{StaticResource AnswerLabelStyle}"/>
+                                </StackLayout>
+                            </Frame>
+                    </DataTemplate>
+                </controls:BindableStackLayout.ItemTemplate>
+            </controls:BindableStackLayout>
             
             <Label
                 Style="{StaticResource CardLabelLight}"
