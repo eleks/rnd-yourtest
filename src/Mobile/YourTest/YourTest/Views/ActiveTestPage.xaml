@@ -6,11 +6,13 @@
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:dts="clr-namespace:YourTest.DataTemplateSelectors; assembly=YourTest"
     xmlns:controls="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
+    xmlns:converters="clr-namespace:YourTest.Converters;assembly=YourTest"
     x:Class="YourTest.Views.ActiveTestPage"
     ios:Page.UseSafeArea="true"
     Title="{Binding Test.Name}">
     <ContentPage.Resources>
         <ResourceDictionary>
+            <converters:ConfirmationButtonEnableConverter x:Key="ConfirmationButtonEnableConverter" />
             <Style x:Key="ConfirmButton" TargetType="Button" BasedOn="{StaticResource ButtonRoundedPrimery}">
                 <Style.Setters>
                     <Setter Property="Margin" Value="{StaticResource PageMargin}"/>
@@ -21,22 +23,25 @@
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="70" />
         </Grid.RowDefinitions>
-        
         <controls:CarouselViewControl
             x:Name="QuestionsList"
+            Grid.Row="0"
             Orientation="Horizontal"
-            Position="{Binding Position}"
+            Position="{Binding ActiveQuestionIndex, Mode=TwoWay}"
             ItemsSource="{Binding Test.Questions}" 
+            ShowIndicators="True"
+            IsSwipeEnabled="False"
             VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand">
             <controls:CarouselViewControl.Resources>
                 <ResourceDictionary>
                     <DataTemplate x:Key="MixedRealityQuestionTemplate">
                         <viewCell:MixedRealityQuestionPageView
-                            BarcodeValue="{Binding Source={x:Reference QuestionsList}, 
-                                                        Path=BindingContext.LocalIPAddress}"/>
+                            BarcodeValue="{Binding LocalIPAddress}"
+                            AnswerSelectedCommand="{Binding Source={x:Reference QuestionsList}, 
+                                                    Path=BindingContext.SelectQuestionCommand}"/>
                     </DataTemplate>
                     <DataTemplate x:Key="TextQuestionTemplate">
                         <viewCell:TextQuestionPageView
@@ -58,6 +63,8 @@
             HeightRequest="40"
             HorizontalOptions="FillAndExpand"
             Command="{Binding CompliteTestCommand}"
-            />
+            IsVisible="{Binding ActiveQuestionIndex, 
+                        Converter={StaticResource ConfirmationButtonEnableConverter}, 
+                        ConverterParameter={x:Reference QuestionsList}}"/>
     </Grid>
 </ContentPage>

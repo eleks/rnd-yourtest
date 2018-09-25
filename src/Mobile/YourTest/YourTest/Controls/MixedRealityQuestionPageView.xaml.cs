@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using YourTest.ViewModels.ActiveTest;
 
 namespace YourTest.Controls
 {
@@ -13,18 +14,13 @@ namespace YourTest.Controls
             InitializeComponent();
         }
 
-        void Handle_ItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
-        {
-            var answer = (String)e.SelectedItem;
-            AnswerSelectedCommand?.Execute(answer);
-        }
-
         public static readonly BindableProperty AnswerSelectedCommandProperty =
             BindableProperty.Create(
                 nameof(AnswerSelectedCommand),
                 typeof(ICommand),
                 typeof(MixedRealityQuestionPageView),
-                default(ICommand));
+                default(ICommand),
+                propertyChanged: AnswerSelectedCommandChanged);
 
         public static readonly BindableProperty BarcodeValueProperty =
             BindableProperty.Create(
@@ -45,9 +41,32 @@ namespace YourTest.Controls
             set => SetValue(BarcodeValueProperty, value);
         }
 
+        protected override void OnBindingContextChanged()
+        {
+            base.OnBindingContextChanged();
+            var vm = (MixedRealityQuestionViewModel)BindingContext;
+            if (vm == null)
+            {
+                return;
+            }
+            vm.AnswerSelectedCommand = AnswerSelectedCommand;
+        }
+
         private static void HandleBindingPropertyChangedDelegate(BindableObject bindable, object oldValue, object newValue)
         {
             ((MixedRealityQuestionPageView)bindable).barcodeImageView.BarcodeValue = (String)newValue;
         }
+
+
+        private static void AnswerSelectedCommandChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var vm = (MixedRealityQuestionViewModel)((MixedRealityQuestionPageView)bindable).BindingContext;
+            if (vm == null)
+            {
+                return;
+            }
+            vm.AnswerSelectedCommand = (ICommand)newValue;
+        }
+
     }
 }

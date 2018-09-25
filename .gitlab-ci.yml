@@ -1,27 +1,92 @@
 stages:
   - build
+  - publish
 
-before_script:
-    - export Secret_B2cClientId="$Secret_B2cClientId"
-    - export Secret_B2cRedirectUri="rorub2c://com.eleks.YourTest"
-    - export Secret_B2cAuthority="https://login.microsoftonline.com/tfp/rorub2c.onmicrosoft.com/B2C_1_Mail-Signup"
-    - export Secret_B2cScopes="https://rorub2c.onmicrosoft.com/yourtest/read"
+variables:
+  azureTenant: "rorub2c"
+  b2cPolicy: "B2C_1_Mail-Signup"
+  b2cClientId: "$Secret_B2cClientId"
+  b2cResirectUrl: "rorub2c://com.eleks.YourTest"
+  b2cAuthority: "https://login.microsoftonline.com/tfp/$azureTenant.onmicrosoft.com/$b2cPolicy"
+  b2cScopes: "https://rorub2c.onmicrosoft.com/yourtest/read"
+  
+  restEndpoint: "https://roru-yt.azurewebsites.net"
+
+  ac_group: "Public"
+  ac_owner: "ELEKS-R-D"
+  ac_app_prefix: "YourTest"
+  ac_app: "$ac_owner/$ac_app_prefix-$ac_app_sufix"
+  ac_token: "$APPCENTER_TOKEN"
+
+  match_pass: "$MATCH_PASS"
+
+.mobile:build:template: &mobile_build_template
+  before_script:
+    - export Secret_B2cClientId="$b2cClientId"
+    - export Secret_B2cRedirectUri="$b2cResirectUrl"
+    - export Secret_B2cAuthority="$b2cAuthority"
+    - export Secret_B2cScopes="$b2cScopes"
+
+    - export Secret_RestEndpoint="$restEndpoint"
     
-    - export Secret_RestEndpoint="https://roru-yt.azurewebsites.net"
+    - export MATCH_PASSWORD="$match_pass"
 
     - cd src/Mobile/YourTest
     - nuget restore
+  script: 
+    - ""
 
 build:mobile:droid:
+  <<: *mobile_build_template
   stage: build
   tags:
     - xamarin
   script:
-    - "msbuild YourTest.Android/YourTest.Android.csproj /p:Configuration=Release /t:Rebuild"
+    - "msbuild YourTest.Android/YourTest.Android.csproj /p:Configuration=Release /t:SignAndroidPackage /p:AutomaticVersionBehavior=Timestamp"
+  artifacts:
+    paths:
+      - "src/Mobile/YourTest/YourTest.Android/bin/Release/com.eleks.YourTest-Signed.apk"
 
 build:mobile:ios:
+  <<: *mobile_build_template
   stage: build
   tags:
     - xamarin
   script:
-    - "msbuild YourTest.iOS/YourTest.iOS.csproj /p:Configuration=Release /t:Rebuild" 
+    - "bundle install --path=\"./gems\""
+    - "bundle exec fastlane match development --verbose --readonly"
+    - "msbuild YourTest.iOS/YourTest.iOS.csproj /p:Configuration=Release /t:Rebuild /p:Platform=iPhone /p:BuildIpa=true /p:AutomaticVersionBehavior=Timestamp" 
+  artifacts:
+    paths:
+      - "src/Mobile/YourTest/YourTest.iOS/bin/iPhone/Release/YourTest.iOS.ipa"
+  cache:
+    key: "${CI_JOB_NAME}-bundle"
+    paths:
+      - "src/Mobile/YourTest/.bundle"
+      - "src/Mobile/YourTest/gems"
+
+.publish:appcenter:template: &publish_appcenter_template
+  tags:
+    - appcenter-cli
+  script:
+    - "appcenter distribute release -f $file -g $ac_group -a $ac_app --token $ac_token"
+  stage: publish
+  only: 
+    - master
+
+
+publish:appcenter:droid:
+  <<: *publish_appcenter_template
+  variables:
+    ac_app_sufix: "Droid"
+    file: "src/Mobile/YourTest/YourTest.Android/bin/Release/com.eleks.YourTest-Signed.apk"
+  dependencies:
+    - build:mobile:droid
+
+publish:appcenter:ios:
+  <<: *publish_appcenter_template
+  variables:
+    ac_app_sufix: "iOS"
+    file: "src/Mobile/YourTest/YourTest.iOS/bin/iPhone/Release/YourTest.iOS.ipa"
+  dependencies:
+    - build:mobile:ios

@@ -30,5 +30,6 @@
     <Folder Include="Data\" />
     <Folder Include="Store\" />
     <Folder Include="FileSystem\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
 </Project>

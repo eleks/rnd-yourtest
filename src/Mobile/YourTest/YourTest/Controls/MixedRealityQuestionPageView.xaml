@@ -3,7 +3,9 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="YourTest.Controls.MixedRealityQuestionPageView"
+    xmlns:controls="clr-namespace:YourTest.Controls; assembly=YourTest"
     xmlns:converters="clr-namespace:YourTest.Converters;assembly=YourTest"
+    xmlns:models="clr-namespace:YourTest.Models;assembly=YourTest"
     xmlns:zx="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
     xmlns:zxcm="clr-namespace:ZXing.Common;assembly=zxing.portable">
     <ContentView.Resources>
@@ -11,33 +13,86 @@
             <converters:HololensConnectionStatusToQrVisibilityConverter x:Key="HololensConnectionStatusToQrVisibilityConverter" />
             <converters:HololensConnectionStatusToTextConverter x:Key="HololensConnectionStatusToTextConverter" />
             
+            <converters:EtalonValueToBoleanValueConverter 
+                x:Key="holoConnectedToBoolean"
+                x:TypeArguments="models:HololensConnectionStatus,x:Boolean"
+                EtalonValue="{x:Static models:HololensConnectionStatus.Paired}"
+                TrueValue="True"
+                FalseValue="False"
+                />
+                
+            <converters:EtalonValueToBoleanValueConverter 
+                x:Key="holoWaitingForPairingToBoolean"
+                x:TypeArguments="models:HololensConnectionStatus,x:Boolean"
+                EtalonValue="{x:Static models:HololensConnectionStatus.WaitingForPairing}"
+                TrueValue="True"
+                FalseValue="False"
+                />
+            
+            <converters:BooleanToValueConverter 
+                x:Key="hasAnswerToImage"
+                x:TypeArguments="x:String"
+                TrueValue="received.png"
+                FalseValue="holo_connected.png"
+                />
+             
+             <converters:BooleanToValueConverter 
+                x:Key="MaxidRealityAnswerBooleanToImageSourceConverter"
+                x:TypeArguments="x:String"
+                TrueValue="correct.png"
+                FalseValue="incorrect.png"
+                />
+            
             <Style x:Key="Card" TargetType="Frame" BasedOn="{StaticResource CardPrimery}">
                 <Style.Setters>
                     <Setter Property="Margin" Value="{StaticResource TopElementMargin}"/>
                 </Style.Setters>
             </Style>
-            <Style TargetType="Label" BasedOn="{StaticResource CardLabelLight}">
+            <Style x:Key="AnswerFrameStyle" TargetType="Frame">
                 <Style.Setters>
-                        <Setter Property="HorizontalTextAlignment" Value="Center" />
+                        <Setter Property="CornerRadius" Value="5" />
+                        <Setter Property="HasShadow" Value="false" />
+                        <Setter Property="Padding" Value="10" />
+                </Style.Setters>        
+            </Style>
+            <Style x:Key="AnswerStackLayoutStyle" TargetType="StackLayout">
+                <Style.Setters>
+                        <Setter Property="Spacing" Value="10" />
+                        <Setter Property="Orientation" Value="Horizontal" />
+                </Style.Setters>        
+            </Style>
+            <Style x:Key="AnswerImageStyle" TargetType="Image">
+                <Style.Setters>
+                        <Setter Property="HeightRequest" Value="24" />
+                        <Setter Property="WidthRequest" Value="24" />
+                </Style.Setters>        
+            </Style>
+            <Style x:Key="AnswerLabelStyle" TargetType="Label">
+                <Style.Setters>
+                        <Setter Property="TextColor" Value="Black" />
+                        <Setter Property="VerticalTextAlignment" Value="Center" />
+                        <Setter Property="FontSize" Value="16" />
                 </Style.Setters>        
             </Style>
         </ResourceDictionary>
     </ContentView.Resources>
-     <Frame 
+    <Frame 
         Style="{StaticResource Card}"
         VerticalOptions="FillAndExpand"
         HorizontalOptions="FillAndExpand">
         <StackLayout VerticalOptions="FillAndExpand"
                      HorizontalOptions="FillAndExpand">
             <Label
+                Style="{StaticResource CardLabelLight}"
                 HorizontalOptions="CenterAndExpand"
                 VerticalOptions="Start"
                 Margin="20,40,20,0"
-                Text="{Binding Status, Converter={StaticResource HololensConnectionStatusToTextConverter}}"/>
+                Text="{Binding Description}"/>
             
             <zx:ZXingBarcodeImageView
                 x:Name="barcodeImageView"
                 BarcodeFormat="QR_CODE"
+                IsVisible="{Binding Status, Converter={StaticResource holoWaitingForPairingToBoolean}}"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand">
                     <zx:ZXingBarcodeImageView.BarcodeOptions>
@@ -45,7 +100,33 @@
                     </zx:ZXingBarcodeImageView.BarcodeOptions>
             </zx:ZXingBarcodeImageView>
             
+            <controls:BindableStackLayout
+                x:Name="_aswersList"
+                VerticalOptions="Start"
+                Spacing="10"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding Status, Converter={StaticResource holoConnectedToBoolean}}"
+                ItemsSource="{Binding TestSteps}">
+                <controls:BindableStackLayout.ItemTemplate>
+                    <DataTemplate>
+                           <Frame 
+                                Style="{StaticResource AnswerFrameStyle}">
+                                <StackLayout
+                                    Style="{StaticResource AnswerStackLayoutStyle}">
+                                    <Image
+                                        Source="{Binding IsSelected, Converter={StaticResource MaxidRealityAnswerBooleanToImageSourceConverter}}"
+                                        Style="{StaticResource AnswerImageStyle}"/>
+                                    <Label 
+                                        Text="{Binding Text}"
+                                        Style="{StaticResource AnswerLabelStyle}"/>
+                                </StackLayout>
+                            </Frame>
+                    </DataTemplate>
+                </controls:BindableStackLayout.ItemTemplate>
+            </controls:BindableStackLayout>
+            
             <Label
+                Style="{StaticResource CardLabelLight}"
                 HorizontalOptions="CenterAndExpand"
                 VerticalOptions="End"
                 Margin="20,0,20,20"

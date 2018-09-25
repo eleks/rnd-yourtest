@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using YourTest.ViewModels.ActiveTest;
 
 namespace YourTest.Controls
 {
@@ -30,8 +31,14 @@ namespace YourTest.Controls
         void Handle_Tapped(object sender, System.EventArgs e)
         {
             var frame = (Frame)sender;
-            var vm = frame.BindingContext as String;
-            AnswerSelectedCommand.Execute(vm);
+            var answer = frame.BindingContext as String;
+            var vm = (BaseQuestionViewModel)BindingContext;
+            if (vm == null)
+            {
+                return;
+            }
+            vm.Answer = answer;
+            AnswerSelectedCommand.Execute(answer);
         }
 
     }

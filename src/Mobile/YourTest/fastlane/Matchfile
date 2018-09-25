@@ -1,0 +1,10 @@
+git_url("git@gitlab2.eleks-software.local:RomaRudyak/roru-ios-certificates.git")
+
+type("development") # The default type, can be: appstore, adhoc, enterprise or development
+
+app_identifier(["com.eleks.Messenger"])
+username("vitalii.smal@eleks.com") # Your Apple Developer Portal username
+team_id("FWT29QK9EV")
+
+# For all available options run `fastlane match --help`
+# Remove the # in the beginning of the line to enable the other options

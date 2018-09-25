@@ -14,6 +14,7 @@ namespace YourTest.ViewModels
     public class LoginViewModel : ViewModelBase
     {
         public ICommand LoginCommand { get; }
+        public String AppVersion { get; internal set; }
 
         public LoginViewModel(
             AuthSession authSession,

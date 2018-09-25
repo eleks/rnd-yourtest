@@ -17,7 +17,6 @@ using Autofac;
 using YourTest.Auth;
 using Xamarin.Android.Net;
 using System.Net.Http;
-using Microsoft.Identity.Client;
 using Prism.Autofac;
 using CarouselView.FormsPlugin.Android;
 
