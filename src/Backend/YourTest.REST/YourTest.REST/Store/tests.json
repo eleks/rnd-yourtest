@@ -33,11 +33,11 @@
                 "possibleAnswers": [
                     "FAN",
                     "main_pipes",
-                    "rear_pipes",
+                    "Pipes_rear",
                     "fuel_hose",
                     "dynamos"
                 ],
-                "answer": "FAN:True;main_pipes:True;rear_pipes:True;fuel_hose:True;dynamos:True",
+                "answer": "FAN:True;main_pipes:True;Pipes_rear:True;fuel_hose:True;dynamos:True",
                 "type": 1,
                 "id": 3
             }
