@@ -74,7 +74,22 @@ File scheme:
                 // Unique id in test scope
                 "id": 1
             },
-            
+            // Mixed Reality test format sample
+            {
+                "description": "Put jet engine part in right places.",
+                // Steps what user must process
+                "possibleAnswers": [
+                    "FAN",
+                    "main_pipes",
+                    "Pipes_rear",
+                    "fuel_hose",
+                    "dynamos"
+                ],
+                // answer format: 'possibleAnswer:(True or False)[;]'
+                "answer": "FAN:True;main_pipes:True;Pipes_rear:True;fuel_hose:True;dynamos:True",
+                "type": 1,
+                "id": 3
+            }
             /* ... */
         ]
     },
