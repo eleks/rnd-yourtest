@@ -32,7 +32,7 @@ public class Placeholder : MonoBehaviour
             await MobileCommunicator.Instance.ConnectAsync(result, "8888");
           UnityEngine.WSA.Application.InvokeOnAppThread(() =>
           {
-              SceneManager.LoadScene("ModelExplorer");
+              SceneManager.LoadScene("Engine");
           }, 
           false);
         },
@@ -42,6 +42,8 @@ public class Placeholder : MonoBehaviour
 
     public void OnReset()
     {
+        var audioManager = GameObject.Find("Audio Manager");
+        TextToSpeechHelper.Instance.PlayText(audioManager, "Welcome to your test! Say scan to start !");
         this.textMesh.text = "say scan to start";
     }
 
