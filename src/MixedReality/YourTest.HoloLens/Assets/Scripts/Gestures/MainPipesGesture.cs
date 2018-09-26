@@ -10,7 +10,12 @@ public class MainPipesGesture : JetGesture
             Helper.IsMainPipesRight = value;
             if (value)
             {
-                TextToSpeechHelper.Instance.PlayText(AudioManager, "Put Rear Pipes in the right place!");
+                if (!IsDone)
+                {
+                    TextToSpeechHelper.Instance.PlayText(AudioManager, "Put Pipes rear in the right place!");
+                    MobileCommunicator.Instance.SendMessage($"{name}:{value}");
+                }
+                IsDone = true;
             }
         }
     }

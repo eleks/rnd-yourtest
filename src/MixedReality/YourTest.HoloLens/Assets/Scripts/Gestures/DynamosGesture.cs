@@ -11,7 +11,12 @@ public class DynamosGesture : JetGesture
 
             if (value)
             {
-                TextToSpeechHelper.Instance.PlayText(AudioManager, "Put Main Pipes in the right place!");
+                if (!IsDone)
+                {
+                    TextToSpeechHelper.Instance.PlayText(AudioManager, "Great job!");
+                    MobileCommunicator.Instance.SendMessage($"{name}:{value}");
+                }
+                IsDone = true;
             }
         }
     }

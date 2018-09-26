@@ -12,7 +12,12 @@ public class FuelHoseGesture : JetGesture
             Helper.IsFuelHoseRight = value;
             if (value)
             {
-                TextToSpeechHelper.Instance.PlayText(AudioManager, "Put Fan in the right place!");
+                if (!IsDone)
+                {
+                    TextToSpeechHelper.Instance.PlayText(AudioManager, "Put Dynamos in the right place!");
+                    MobileCommunicator.Instance.SendMessage($"{name}:{value}");
+                }
+                IsDone = true;
             }
         }
     }

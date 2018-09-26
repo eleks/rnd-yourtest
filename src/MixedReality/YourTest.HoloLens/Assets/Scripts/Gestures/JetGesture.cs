@@ -40,7 +40,7 @@ public abstract class JetGesture : MonoBehaviour, IManipulationHandler
 
     void IManipulationHandler.OnManipulationUpdated(ManipulationEventData eventData)
     {
-        if (!_started)
+        if (!_started || IsDone)
         {
             return;
         }
@@ -62,12 +62,6 @@ public abstract class JetGesture : MonoBehaviour, IManipulationHandler
         InputManager.Instance.PopModalInputHandler();
         _started = false;
         IsRight = isRight;
-        var answer = $"{name}:{isRight}";
-        if(answer != _lastAnswer)
-        {
-            MobileCommunicator.Instance.SendMessage(answer);
-            _lastAnswer = answer;
-        }
     }
 
     void IManipulationHandler.OnManipulationCanceled(ManipulationEventData eventData)
@@ -77,10 +71,10 @@ public abstract class JetGesture : MonoBehaviour, IManipulationHandler
     }
 
     protected GameObject AudioManager => _audioManager ?? (_audioManager = GameObject.Find("Audio Manager"));
+    protected bool IsDone { get; set; }
     private GameObject _audioManager;
 
     private bool isRight;
     private bool _started;
-    private string _lastAnswer;
     private Vector3 manipulationOriginalPosition = Vector3.zero;
 }
