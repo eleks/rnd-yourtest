@@ -82,7 +82,7 @@ namespace YourTest.ViewModels.ActiveTest
             message = message.TrimEnd('\n', '\r');
 
 
-            var testFinished = String.Empty;
+            var testFinished = "test-done";
 
             if (message == testFinished)
             {
