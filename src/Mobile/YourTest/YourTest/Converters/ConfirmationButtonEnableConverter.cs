@@ -11,7 +11,7 @@ namespace YourTest.Converters
             var idex = (Int32)value;
             var control = (CarouselViewControl)parameter;
 
-            if (idex == (control.ItemsSource?.GetCount() ?? -1))
+            if (idex == (control.ItemsSource?.GetCount() - 1))
             {
                 return true;
             }
