@@ -28,6 +28,14 @@
                 TrueValue="True"
                 FalseValue="False"
                 />
+
+            <converters:EtalonValueToBoleanValueConverter 
+                x:Key="holoPairedToBoolean"
+                x:TypeArguments="models:HololensConnectionStatus,x:Boolean"
+                EtalonValue="{x:Static models:HololensConnectionStatus.Paired}"
+                TrueValue="True"
+                FalseValue="False"
+                />
             
             <converters:BooleanToValueConverter 
                 x:Key="hasAnswerToImage"
@@ -87,7 +95,18 @@
                 HorizontalOptions="CenterAndExpand"
                 VerticalOptions="Start"
                 Margin="20,40,20,0"
-                Text="{Binding Description}"/>
+                Text="{Binding Description}"
+                IsVisible="{Binding Status, Converter={StaticResource holoPairedToBoolean}}"/>
+
+            <Label
+                Style="{StaticResource CardLabelLight}"
+                BackgroundColor="{StaticResource ColorPrimery}"
+                HorizontalOptions="FillAndExpand"
+                HorizontalTextAlignment="Center"
+                VerticalOptions="Start"
+                Margin="20,40,20,0"
+                IsVisible="{Binding Status, Converter={StaticResource holoWaitingForPairingToBoolean}}}"
+                Text="Open HoloLens YourTest app and scan this QR code in order to be connected."/>
             
             <zx:ZXingBarcodeImageView
                 x:Name="barcodeImageView"
