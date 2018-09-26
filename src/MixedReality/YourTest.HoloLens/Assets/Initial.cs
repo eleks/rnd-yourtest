@@ -8,7 +8,7 @@ public class Initial : MonoBehaviour {
 	void Start ()
     {
         var audioManager = GameObject.Find("Audio Manager");
-        TextToSpeechHelper.Instance.PlayText(audioManager, "Put Fan in the right place ");
+        TextToSpeechHelper.Instance.PlayText(audioManager, "Put Dynamos in the right place ");
     }
 
     // Update is called once per frame

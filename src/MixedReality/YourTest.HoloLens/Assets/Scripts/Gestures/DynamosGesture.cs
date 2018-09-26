@@ -13,7 +13,7 @@ public class DynamosGesture : JetGesture
             {
                 if (!IsDone)
                 {
-                    TextToSpeechHelper.Instance.PlayText(AudioManager, "Great job!");
+                    TextToSpeechHelper.Instance.PlayText(AudioManager, "Put Fuell House in the right place ");
                     MobileCommunicator.Instance.SendMessage($"{name}:{value}");
                 }
                 IsDone = true;

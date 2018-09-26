@@ -17,8 +17,9 @@ public class FanGesture : JetGesture
             {
                 if (!IsDone)
                 {
-                    TextToSpeechHelper.Instance.PlayText(AudioManager, "Put Main pipes in the right place!");
+                    TextToSpeechHelper.Instance.PlayText(AudioManager, "Great job!");
                     MobileCommunicator.Instance.SendMessage($"{name}:{value}");
+                    MobileCommunicator.Instance.SendMessage("test-done");
                 }
                 IsDone = true;
             }

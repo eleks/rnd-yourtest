@@ -14,7 +14,7 @@ public class PipesRearGesture : JetGesture
             {
                 if (!IsDone)
                 {
-                    TextToSpeechHelper.Instance.PlayText(AudioManager, "Put Fule Hose in the right place!");
+                    TextToSpeechHelper.Instance.PlayText(AudioManager, "Put Main Pipes in the right place!");
                     MobileCommunicator.Instance.SendMessage($"{name}:{value}");
                 }
                 IsDone = true;

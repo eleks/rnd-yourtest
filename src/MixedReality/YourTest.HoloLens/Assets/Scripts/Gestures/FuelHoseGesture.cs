@@ -14,7 +14,7 @@ public class FuelHoseGesture : JetGesture
             {
                 if (!IsDone)
                 {
-                    TextToSpeechHelper.Instance.PlayText(AudioManager, "Put Dynamos in the right place!");
+                    TextToSpeechHelper.Instance.PlayText(AudioManager, "Put Pipes Rear in the right place!");
                     MobileCommunicator.Instance.SendMessage($"{name}:{value}");
                 }
                 IsDone = true;
