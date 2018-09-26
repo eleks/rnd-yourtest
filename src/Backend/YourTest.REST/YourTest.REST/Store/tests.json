@@ -31,13 +31,13 @@
             {
                 "description": "Put jet engine part in right places.",
                 "possibleAnswers": [
-                    "FAN",
-                    "main_pipes",
-                    "Pipes_rear",
+                    "dynamos",
                     "fuel_hose",
-                    "dynamos"
+                    "Pipes_rear",
+                    "main_pipes",
+                    "FAN"
                 ],
-                "answer": "FAN:True;main_pipes:True;Pipes_rear:True;fuel_hose:True;dynamos:True",
+                "answer": "dynamos:True;fuel_hose:True;Pipes_rear:True;main_pipes:True;FAN:True",
                 "type": 1,
                 "id": 3
             }
