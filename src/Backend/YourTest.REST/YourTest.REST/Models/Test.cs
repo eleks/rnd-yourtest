@@ -7,7 +7,7 @@ namespace YourTest.REST.Models
     {
         public String Name { get; set; }
 
-        public Double PersentPassageThreshold { get; set; }
+        public Double PerСentPassageThreshold { get; set; }
 
         public IList<Question> Questions { get; set; }
 

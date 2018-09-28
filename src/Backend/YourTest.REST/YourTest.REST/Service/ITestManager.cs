@@ -8,6 +8,6 @@ namespace YourTest.REST.Service
     {
         Task<IEnumerable<Test>> GetAllAsync();
         Task<Test> GetByIdAync(Int32 id);
-        TestSummery Verify(int testId, IEnumerable<QuestionAnswer> answers);
+        TestSummary Verify(int testId, IEnumerable<QuestionAnswer> answers);
     }
 }

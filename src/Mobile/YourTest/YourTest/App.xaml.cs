@@ -103,7 +103,7 @@ namespace YourTest
                 handler = new LoggerHttpMessgeHandler(handler);
 #endif
                 // Provides request with valid token
-                handler = new TokenAwareMeassageHandler(handler, c.Resolve<ITokenStore>());
+                handler = new TokenAwareMessageHandler(handler, c.Resolve<ITokenStore>());
 
                 return handler;
             })
@@ -142,9 +142,8 @@ namespace YourTest
         {
             containerRegistry.RegisterForViewModelNavigation<LoginPage, LoginViewModel>();
             containerRegistry.RegisterForViewModelNavigation<TestsListPage, TestsListViewModel>();
-            containerRegistry.RegisterForViewModelNavigation<ConnectHoloLensPage, ConnectHoloLensPageViewModel>();
             containerRegistry.RegisterForViewModelNavigation<ActiveTestPage, ActiveTestPageViewModel>();
-            containerRegistry.RegisterForViewModelNavigation<TestSummeryPage, TestSummeryViewModel>();
+            containerRegistry.RegisterForViewModelNavigation<TestSummaryPage, TestSummaryViewModel>();
         }
     }
 }

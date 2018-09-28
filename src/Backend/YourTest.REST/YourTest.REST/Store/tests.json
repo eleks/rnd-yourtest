@@ -2,7 +2,7 @@
     {
         "id": 3,
         "name": "Jet engine test",
-        "persentPassageThreshold": 0.60,
+        "perСentPassageThreshold": 0.60,
         "questions": [
             {
                 "description": "Jet engines are a type of reaction engine, meaning they rely heavily on which of Newton’s laws of motion?",
@@ -46,7 +46,7 @@
     {
         "id": 2,
         "name": "File Test (30:)",
-        "persentPassageThreshold": 0.30,
+        "perСentPassageThreshold": 0.30,
         "questions": [
             {
                 "description": "What sky color is?",

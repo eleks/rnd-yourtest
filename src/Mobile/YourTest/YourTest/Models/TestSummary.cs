@@ -1,7 +1,7 @@
 ﻿using System;
 namespace YourTest.Models
 {
-    public class TestSummery
+    public class TestSummary
     {
         public Int32 TestId { get; set; }
         public String Name { get; set; }

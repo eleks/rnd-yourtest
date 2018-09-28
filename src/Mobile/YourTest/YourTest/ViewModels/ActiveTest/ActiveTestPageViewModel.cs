@@ -5,13 +5,8 @@ using Prism.Commands;
 using YourTest.REST;
 using System;
 using System.Collections.Generic;
-using YourTest.Manager;
-using Autofac;
-using Prism.Ioc;
-using Prism.Autofac;
 using System.Threading.Tasks;
 using YourTest.Navigation;
-using System.Linq;
 
 namespace YourTest.ViewModels.ActiveTest
 {
@@ -60,11 +55,11 @@ namespace YourTest.ViewModels.ActiveTest
             try
             {
                 var result = await _testsRest.ProcessTestAsync(Test.Id, _answers);
-                await _navigationService.NavigateAsync<TestSummeryViewModel>(
+                await _navigationService.NavigateAsync<TestSummaryViewModel>(
                     closeCurrent: true,
                     navParams: new NavigationParameters
                     {
-                        { nameof(TestSummery), result }
+                        { nameof(TestSummary), result }
                     });
             }
             catch (Exception ex)

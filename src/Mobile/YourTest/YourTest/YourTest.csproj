@@ -32,8 +32,6 @@
         <Folder Include="DataTemplateSelectors\" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Update="Views\ConnectHoloLensPage.xaml.cs">
-            <DependentUpon>ConnectHoloLensPage.xaml</DependentUpon>
-        </Compile>
+      <Compile Remove="Converters\HololensConnectionStatusToTextConverter.cs" />
     </ItemGroup>
 </Project>
