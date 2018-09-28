@@ -81,19 +81,6 @@ namespace YourTest.ViewModels.ActiveTest
         {
             message = message.TrimEnd('\n', '\r');
 
-
-            var testFinished = "test-done";
-
-            if (message == testFinished)
-            {
-                Answer = String.Join(";", TestSteps.Select(st => new MixedStatus(st.Text, st.IsSelected).ToString()));
-                HasAnswer = true;
-                AnswerSelectedCommand?.Execute(Answer);
-                _hololensCommunicationManager.StopListening();
-
-                return;
-            }
-
             try
             {
                 var update = MixedStatus.Parse(message);
@@ -107,6 +94,16 @@ namespace YourTest.ViewModels.ActiveTest
                 Debug.WriteLine($"Failed to parse MixedStatus: {message}");
             }
 
+            var testFinished = "FAN:True";
+            if (message == testFinished)
+            {
+                Answer = String.Join(";", TestSteps.Select(st => new MixedStatus(st.Text, st.IsSelected).ToString()));
+                HasAnswer = true;
+                AnswerSelectedCommand?.Execute(Answer);
+                _hololensCommunicationManager.StopListening();
+
+                return;
+            }
         }
 
         private void OnHololensClientConnected(object sender, EventArgs e) => Status = HololensConnectionStatus.Paired;
