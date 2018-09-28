@@ -19,7 +19,6 @@ public class FanGesture : JetGesture
                 {
                     TextToSpeechHelper.Instance.PlayText(AudioManager, "Great job!");
                     MobileCommunicator.Instance.SendMessage($"{name}:{value}");
-                    MobileCommunicator.Instance.SendMessage("test-done");
                 }
                 IsDone = true;
             }
