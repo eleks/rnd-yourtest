@@ -4,10 +4,10 @@ public class DynamosGesture : JetGesture
 {
     protected override bool IsRight
     {
-        get { return Helper.IsDynamosRight; }
+        get { return EngineStateStorage.IsDynamosRight; }
         set
         {
-            Helper.IsDynamosRight = value;
+            EngineStateStorage.IsDynamosRight = value;
 
             if (value)
             {

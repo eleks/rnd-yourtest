@@ -8,10 +8,10 @@ public class FanGesture : JetGesture
 
     protected override bool IsRight
     {
-        get { return Helper.IsFanRight; }
+        get { return EngineStateStorage.IsFanRight; }
         set
         {
-            Helper.IsFanRight = value;
+            EngineStateStorage.IsFanRight = value;
 
             if (value)
             {
