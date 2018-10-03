@@ -24,7 +24,7 @@ namespace YourTest.REST.Data
             {
                 Id = 1,
                 Name = "Easy Test",
-                PersentPassageThreshold = 0.75, 
+                PerСentPassageThreshold = 0.75, 
                 Questions = new List<Question>
                     {
                         new Question

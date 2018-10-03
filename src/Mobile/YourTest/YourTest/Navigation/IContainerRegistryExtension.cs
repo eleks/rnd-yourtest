@@ -3,7 +3,7 @@ using Prism.Ioc;
 using Xamarin.Forms;
 namespace YourTest.Navigation
 {
-    public static class IContainerRegestryExtension
+    public static class IContainerRegistryExtension
     {
         public static void RegisterForViewModelNavigation<TView, TViewModel>(this IContainerRegistry containerRegistry)
             where TView : Page

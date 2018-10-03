@@ -17,12 +17,12 @@ namespace YourTest.REST.Service
 
         public async Task<Test> GetByIdAync(int id) => await Task.Run(() => _repo.Query().FirstOrDefault(t => t.Id == id));
 
-        public TestSummery Verify(int testId, IEnumerable<QuestionAnswer> answers)
+        public TestSummary Verify(int testId, IEnumerable<QuestionAnswer> answers)
         {
             var originTest = _repo.Query().FirstOrDefault(t => t.Id == testId)
                 ?? throw new InvalidOperationException($"No test found for Id: {testId}");
 
-            var summery = new TestSummery()
+            var summary = new TestSummary()
             {
                 TestId = testId,
                 Name = originTest.Name,
@@ -46,17 +46,17 @@ namespace YourTest.REST.Service
                 correctCount++;
             }
 
-            summery.CorrectAnswersCount = correctCount;
+            summary.CorrectAnswersCount = correctCount;
 
-            Double currentThreshold = ((Double)correctCount / (Double)summery.QuestionCount).ToPercentage();
+            Double currentThreshold = ((Double)correctCount / (Double)summary.QuestionCount).ToPercentage();
 
-            var hasPassed = currentThreshold >= originTest.PersentPassageThreshold;
+            var hasPassed = currentThreshold >= originTest.PerСentPassageThreshold;
 
-            summery.State = hasPassed
+            summary.State = hasPassed
                 ? TestState.Passed
                 : TestState.Failed;
 
-            return summery;
+            return summary;
         }
 
         private readonly IRepository<Test> _repo;

@@ -4,10 +4,10 @@ public class MainPipesGesture : JetGesture
 {
     protected override bool IsRight
     {
-        get { return Helper.IsMainPipesRight; }
+        get { return EngineStateStorage.IsMainPipesRight; }
         set
         {
-            Helper.IsMainPipesRight = value;
+            EngineStateStorage.IsMainPipesRight = value;
             if (value)
             {
                 if (!IsDone)

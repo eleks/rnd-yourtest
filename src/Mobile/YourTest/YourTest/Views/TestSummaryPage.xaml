@@ -3,8 +3,8 @@
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     xmlns:conv="clr-namespace:YourTest.Converters;assembly=YourTest"
-    x:Class="YourTest.Views.TestSummeryPage"
-    Title="Test Summery"
+    x:Class="YourTest.Views.TestSummaryPage"
+    Title="Test Summary"
     Padding="15,60,15,15">
     
     <ContentPage.Resources>

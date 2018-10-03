@@ -6,10 +6,10 @@ public class FuelHoseGesture : JetGesture
 {
     protected override bool IsRight
     {
-        get { return Helper.IsFuelHoseRight; }
+        get { return EngineStateStorage.IsFuelHoseRight; }
         set
         {
-            Helper.IsFuelHoseRight = value;
+            EngineStateStorage.IsFuelHoseRight = value;
             if (value)
             {
                 if (!IsDone)

@@ -48,6 +48,7 @@ namespace YourTest.Droid
 
             base.OnCreate(bundle);
 
+            global::Xamarin.Forms.Forms.SetFlags("FastRenderers_Experimental");
             global::Xamarin.Forms.Forms.Init(this, bundle);
             global::ZXing.Net.Mobile.Forms.Android.Platform.Init();
             CarouselViewRenderer.Init();

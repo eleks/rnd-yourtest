@@ -11,7 +11,6 @@
     <ContentView.Resources>
         <ResourceDictionary>
             <converters:HololensConnectionStatusToQrVisibilityConverter x:Key="HololensConnectionStatusToQrVisibilityConverter" />
-            <converters:HololensConnectionStatusToTextConverter x:Key="HololensConnectionStatusToTextConverter" />
             
             <converters:EtalonValueToBoleanValueConverter 
                 x:Key="holoConnectedToBoolean"

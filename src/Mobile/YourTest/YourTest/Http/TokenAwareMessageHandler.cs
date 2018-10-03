@@ -8,11 +8,11 @@ using Header = System.Net.Http.Headers.AuthenticationHeaderValue;
 
 namespace YourTest.Http
 {
-    public class TokenAwareMeassageHandler : DelegatingHandler
+    public class TokenAwareMessageHandler : DelegatingHandler
     {
         private readonly ITokenStore _tokenStore;
 
-        public TokenAwareMeassageHandler(
+        public TokenAwareMessageHandler(
             HttpMessageHandler innerHandler,
             ITokenStore tokenStore)
             : base(innerHandler)

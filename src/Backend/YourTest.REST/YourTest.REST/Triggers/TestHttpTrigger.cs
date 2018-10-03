@@ -46,7 +46,7 @@ namespace YourTest.REST.Triggers
         }
 
         [FunctionName(nameof(ProcessTest))]
-        public static async Task<TestSummery> ProcessTest(
+        public static async Task<TestSummary> ProcessTest(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "test/{id:int}")]
             HttpRequestMessage req
             , Int32 id
@@ -55,9 +55,9 @@ namespace YourTest.REST.Triggers
 
             var answers = await req.Content.ReadAsAsync<QuestionAnswer[]>().ConfigureAwait(false);
 
-            var testSummery = TestManager.Verify(id, answers);
+            var testSummary = TestManager.Verify(id, answers);
 
-            return testSummery;
+            return testSummary;
         }
 
 

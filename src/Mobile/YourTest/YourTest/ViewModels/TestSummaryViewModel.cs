@@ -4,7 +4,7 @@ using YourTest.Models;
 
 namespace YourTest.ViewModels
 {
-    public class TestSummeryViewModel : ViewModelBase
+    public class TestSummaryViewModel : ViewModelBase
     {
         private String _name;
         public String Name
@@ -37,19 +37,19 @@ namespace YourTest.ViewModels
         protected override void OnNavigatingTo(NavigationParameters parameters)
         {
             base.OnNavigatingTo(parameters);
-            if (parameters[nameof(TestSummery)] is TestSummery summery)
+            if (parameters[nameof(TestSummary)] is TestSummary summary)
             {
-                Populate(summery);
+                Populate(summary);
             }
         }
 
-        private void Populate(TestSummery summery)
+        private void Populate(TestSummary summary)
         {
 
-            Name = summery.Name;
-            CorrectAnswers = summery.CorrectAnswersCount;
-            QuestionCount = summery.QuestionCount;
-            HasPassed = summery.State == TestState.Passed;
+            Name = summary.Name;
+            CorrectAnswers = summary.CorrectAnswersCount;
+            QuestionCount = summary.QuestionCount;
+            HasPassed = summary.State == TestState.Passed;
         }
     }
 }

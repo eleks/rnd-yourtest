@@ -2,13 +2,11 @@
 using System.Windows.Input;
 using Prism.Commands;
 using Prism.Services;
-using Xamarin.Forms;
 using YourTest.Manager;
 using YourTest.Models;
 using System.Linq;
 using System.Collections.Generic;
 using MvvmHelpers;
-using Xamarin.Forms.Internals;
 using System.Diagnostics;
 
 namespace YourTest.ViewModels.ActiveTest
