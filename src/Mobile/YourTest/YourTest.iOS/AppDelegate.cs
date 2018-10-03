@@ -51,6 +51,7 @@ namespace YourTest.iOS
         {
             SetTheam();
 
+            global::Xamarin.Forms.Forms.SetFlags("FastRenderers_Experimental");
             global::Xamarin.Forms.Forms.Init();
             global::ZXing.Net.Mobile.Forms.iOS.Platform.Init();
             CarouselViewRenderer.Init();
