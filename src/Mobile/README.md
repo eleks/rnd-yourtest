@@ -36,6 +36,7 @@ echo "{
 ### Build Server Configuration
 
 Add next Environment Variables:
+
 |Env Name|Value|
 |---|---|
 |Secret_B2cClientId|[Azure Application ID]|
